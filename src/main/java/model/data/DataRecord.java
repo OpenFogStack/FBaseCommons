@@ -1,85 +1,58 @@
-package model;
-
-import java.io.IOException;
+package model.data;
 
 import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+
+import model.Entity;
 
 /**
  * A DataRecord represents a single data item that is stored by FBase.
+ * TODO David: DataRecord should store a map, not just a string
+ * 
  * @author jonathanhasenburg
  *
  */
-public class DataRecord {
+public class DataRecord extends Entity {
 
+	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(DataRecord.class.getName());
-	
+
 	private DataIdentifier dataIdentifier = null;
 	private Long createTime = null;
 	private Long updateTime = null;
 	private String value = "";
-	
+
 	public DataRecord() {
 		
 	}
-	
+
 	/**
-	 * Creates a data record, but the {@link DataIdentifier#getDataId()} is null.
-	 * @param keygroup - the keygroup this data record is assigned to
-	 * @param value - the value of the data record
+	 * Creates a data record; {@link DataIdentifier#getDataId()} will return null.
+	 * 
+	 * @param keygroupID
+	 *            - the keygroup this data record is assigned to
+	 * @param value
+	 *            - the value of the data record
 	 */
-	public DataRecord(Keygroup keygroup, String value) {
-		this.dataIdentifier = new DataIdentifier(keygroup, null);
+	public DataRecord(KeygroupID keygroupID, String value) {
+		this.dataIdentifier = new DataIdentifier(keygroupID, null);
 		this.value = value;
 	}
-	
+
 	public DataRecord(DataIdentifier dataIdentifier, String value) {
 		this.dataIdentifier = dataIdentifier;
 		this.value = value;
 	}
-	
-	public static DataRecord createFromJSON(String json) 
-			throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			return mapper.readValue(json, DataRecord.class);
-		} catch (Exception e) {
-			logger.error("Could not translate json to DataRecord.");
-			return null;
-		}
-	}
 
-	public String toJSON() {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		String json = null;
-		try {
-			json = mapper.writeValueAsString(this);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return json;
-	}
-	
-	@Override
-	public String toString() {
-		return toJSON();
-	}
-	
 	@JsonIgnore
-	public Keygroup getKeygroup() {
+	public KeygroupID getKeygroup() {
 		if (dataIdentifier == null) {
 			return null;
 		}
 		return dataIdentifier.getKeygroup();
 	}
-	
+
 	@JsonIgnore
 	public String getDataId() {
 		if (dataIdentifier == null) {
@@ -87,16 +60,21 @@ public class DataRecord {
 		}
 		return dataIdentifier.getDataId();
 	}
-	
+
 	@JsonIgnore
 	public void setDataId(String dataId) {
-		dataIdentifier.setDataId(dataId);;
+		dataIdentifier.setDataId(dataId);
 	}
 	
+	@Override
+	public String toString() {
+		return super.toJSON();
+	}
+
 	// ************************************************************
 	// Generated Code
 	// ************************************************************
-	
+
 	public DataIdentifier getDataIdentifier() {
 		return dataIdentifier;
 	}
@@ -124,7 +102,7 @@ public class DataRecord {
 	public String getValue() {
 		return value;
 	}
-	
+
 	public void setValue(String value) {
 		this.value = value;
 	}

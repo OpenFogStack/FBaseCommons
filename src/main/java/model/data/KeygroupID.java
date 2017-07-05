@@ -1,24 +1,19 @@
-package model;
-
-import java.io.IOException;
+package model.data;
 
 import org.apache.log4j.Logger;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import model.Entity;
 
 /**
- * Keygroups are used to describe a {@link DataRecord}.
+ * Helper class to manage keygroup IDs, which act as a logical grouping unit for {@link DataRecord}.
  * 
  * @author jonathanhasenburg
  *
  */
-public class Keygroup {
+public class KeygroupID extends Entity {
 
-	private static Logger logger = Logger.getLogger(Keygroup.class.getName());
+	private static Logger logger = Logger.getLogger(KeygroupID.class.getName());
+	public static final String internalSeperator = "/";
 	
 	/**
 	 * An identifier for the belonging application.
@@ -35,53 +30,31 @@ public class Keygroup {
 	 */
 	public String descriptor;
 	
-	public Keygroup() {
+	public KeygroupID() {
 		
 	}
 	
-	public Keygroup(String app, String originator, String descriptor) {
+	public KeygroupID(String app, String originator, String descriptor) {
 		this.app = app;
 		this.originator = originator;
 		this.descriptor = descriptor;
 	}
-
-	public static Keygroup createFromJSON(String json) 
-			throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			return mapper.readValue(json, Keygroup.class);
-		} catch (Exception e) {
-			logger.error("Could not translate json to GetRequest.");
-			return null;
-		}
-	}
-
-	public String toJSON() {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		String json = null;
-		try {
-			json = mapper.writeValueAsString(this);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return json;
-	}
 	
-	public static Keygroup createFromString(String string) {
+	public static KeygroupID createFromString(String string) {
 		if (string == null) {
 			return null;
 		}
-		String[] split = string.split("\\.");
+		String[] split = string.split(internalSeperator);
 		if (split.length == 3) {
-			return new Keygroup(split[0], split[1], split[2]);
+			return new KeygroupID(split[0], split[1], split[2]);
 		}
+		logger.error(string + " is not a valid keygroup");
 		return null;
 	}
 	
 	@Override
 	public String toString() {
-		return app + "." + originator + "." + descriptor;
+		return app + internalSeperator + originator + internalSeperator + descriptor;
 	}
 		
 	// ************************************************************
@@ -130,7 +103,7 @@ public class Keygroup {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Keygroup other = (Keygroup) obj;
+		KeygroupID other = (KeygroupID) obj;
 		if (app == null) {
 			if (other.app != null)
 				return false;

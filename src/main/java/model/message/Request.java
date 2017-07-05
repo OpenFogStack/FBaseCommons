@@ -1,4 +1,4 @@
-package model;
+package model.message;
 
 import java.io.IOException;
 
@@ -10,7 +10,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import model.data.DataIdentifier;
+
 /**
+ * TODO Rename, e.g. to "Message", class should be the base class for all types of requests -> NodeConfig.messagePort
  * Message Request class.
  * 
  * @author jonathanhasenburg

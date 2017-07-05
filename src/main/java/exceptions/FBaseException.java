@@ -4,8 +4,9 @@
 package exceptions;
 
 /**
- * super class of all checked exceptions thrown by FBase components
+ * Super class of all checked exceptions thrown by FBase components.
  * 
+ * @author jonathanhasenburg
  * @author Dave
  *
  */
@@ -20,8 +21,7 @@ public class FBaseException extends Exception{
 	 * 
 	 */
 	public FBaseException() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 	/**
@@ -33,7 +33,6 @@ public class FBaseException extends Exception{
 	public FBaseException(String message, Throwable cause,
 			boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -42,7 +41,6 @@ public class FBaseException extends Exception{
 	 */
 	public FBaseException(String message, Throwable cause) {
 		super(message, cause);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -50,7 +48,6 @@ public class FBaseException extends Exception{
 	 */
 	public FBaseException(String message) {
 		super(message);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -58,7 +55,6 @@ public class FBaseException extends Exception{
 	 */
 	public FBaseException(Throwable cause) {
 		super(cause);
-		// TODO Auto-generated constructor stub
 	}
 
 }
