@@ -36,22 +36,6 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
-		<!-- Rest -->
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-server</artifactId>
-			<version>9.4.6.v20170531</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-security</artifactId>
-			<version>9.4.6.v20170531</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-servlet</artifactId>
-			<version>9.4.6.v20170531</version>
-		</dependency>
 		<!-- JSON -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
