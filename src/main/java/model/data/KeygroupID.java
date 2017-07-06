@@ -32,10 +32,10 @@ public class KeygroupID extends Entity {
 	
 	
 	
-	public KeygroupID(String app, String originator, String descriptor) {
+	public KeygroupID(String app, String tenant, String group) {
 		this.app = app;
-		this.tenant = originator;
-		this.group = descriptor;
+		this.tenant = tenant;
+		this.group = group;
 	}
 	
 	public static KeygroupID createFromString(String string) {
