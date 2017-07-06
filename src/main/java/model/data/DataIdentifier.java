@@ -14,18 +14,26 @@ public class DataIdentifier {
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(DataIdentifier.class.getName());
 
-	private KeygroupID keygroupID = null;
-	private String dataId = null;
+	private final KeygroupID keygroupID;
+	private final String dataId;
 	
-	public DataIdentifier() {
-		
+	
+	/**
+	 * 
+	 * @param app appId (first part of keygroup identifier)
+	 * @param tenant tenantId (second part of keygroup identifier)
+	 * @param group groupId (third part of keygroup identifier)
+	 * @param dataId name of the data item
+	 */
+	public DataIdentifier(String app, String tenant, String group, String dataId) {
+		this(new KeygroupID(app, tenant, group), dataId);
 	}
 	
-	public DataIdentifier(String app, String originator, String descriptor, String dataId) {
-		this.keygroupID = new KeygroupID(app, originator, descriptor);
-		this.dataId = dataId;
-	}
-	
+	/**
+	 * 
+	 * @param keygroupID keygroup identifier
+	 * @param dataId name of the data item
+	 */
 	public DataIdentifier(KeygroupID keygroupID, String dataId) {
 		this.keygroupID = keygroupID;
 		this.dataId = dataId;
@@ -33,14 +41,14 @@ public class DataIdentifier {
 	
 	@Override
 	public String toString() {
-		return keygroupID.toString() + KeygroupID.internalSeperator + dataId;
+		return keygroupID.toString() + KeygroupID.INTERNAL_SEPARATOR + dataId;
 	}
 	
 	public static DataIdentifier createFromString(String string) {
 		if (string == null) {
 			return null;
 		}
-		String[] split = string.split(KeygroupID.internalSeperator);
+		String[] split = string.split(KeygroupID.INTERNAL_SEPARATOR);
 		if (split.length == 4) {
 			return new DataIdentifier(split[0], split[1], split[2], split[3]);
 		}
@@ -55,17 +63,13 @@ public class DataIdentifier {
 		return keygroupID;
 	}
 
-	public void setKeygroup(KeygroupID keygroupID) {
-		this.keygroupID = keygroupID;
-	}
+	
 
 	public String getDataId() {
 		return dataId;
 	}
 
-	public void setDataId(String dataId) {
-		this.dataId = dataId;
-	}
+	
 
 	@Override
 	public int hashCode() {

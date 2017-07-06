@@ -13,38 +13,36 @@ import model.Entity;
 public class KeygroupID extends Entity {
 
 	private static Logger logger = Logger.getLogger(KeygroupID.class.getName());
-	public static final String internalSeperator = "/";
+	public static final String INTERNAL_SEPARATOR = "/";
 	
 	/**
 	 * An identifier for the belonging application.
 	 */
-	public String app;
+	public final String app;
 	
 	/**
-	 * An identifier for the origin of the data record. Typically the creator.
+	 * An identifier for the origin of the data record. Typically the tenant.
 	 */
-	public String originator;
+	public final String tenant;
 	
 	/**
 	 * An identifier that describes the data record, e.g. brightness.
 	 */
-	public String descriptor;
+	public final String group;
 	
-	public KeygroupID() {
-		
-	}
 	
-	public KeygroupID(String app, String originator, String descriptor) {
+	
+	public KeygroupID(String app, String tenant, String group) {
 		this.app = app;
-		this.originator = originator;
-		this.descriptor = descriptor;
+		this.tenant = tenant;
+		this.group = group;
 	}
 	
 	public static KeygroupID createFromString(String string) {
 		if (string == null) {
 			return null;
 		}
-		String[] split = string.split(internalSeperator);
+		String[] split = string.split(INTERNAL_SEPARATOR);
 		if (split.length == 3) {
 			return new KeygroupID(split[0], split[1], split[2]);
 		}
@@ -54,44 +52,22 @@ public class KeygroupID extends Entity {
 	
 	@Override
 	public String toString() {
-		return app + internalSeperator + originator + internalSeperator + descriptor;
+		return app + INTERNAL_SEPARATOR + tenant + INTERNAL_SEPARATOR + group;
 	}
 		
 	// ************************************************************
 	// Generated Code
 	// ************************************************************
 
-	public String getApp() {
-		return app;
-	}
-
-	public void setApp(String app) {
-		this.app = app;
-	}
-
-	public String getOriginator() {
-		return originator;
-	}
-
-	public void setOriginator(String originator) {
-		this.originator = originator;
-	}
-
-	public String getDescriptor() {
-		return descriptor;
-	}
-
-	public void setDescriptor(String descriptor) {
-		this.descriptor = descriptor;
-	}
+	
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((app == null) ? 0 : app.hashCode());
-		result = prime * result + ((descriptor == null) ? 0 : descriptor.hashCode());
-		result = prime * result + ((originator == null) ? 0 : originator.hashCode());
+		result = prime * result + ((group == null) ? 0 : group.hashCode());
+		result = prime * result + ((tenant == null) ? 0 : tenant.hashCode());
 		return result;
 	}
 
@@ -109,17 +85,44 @@ public class KeygroupID extends Entity {
 				return false;
 		} else if (!app.equals(other.app))
 			return false;
-		if (descriptor == null) {
-			if (other.descriptor != null)
+		if (group == null) {
+			if (other.group != null)
 				return false;
-		} else if (!descriptor.equals(other.descriptor))
+		} else if (!group.equals(other.group))
 			return false;
-		if (originator == null) {
-			if (other.originator != null)
+		if (tenant == null) {
+			if (other.tenant != null)
 				return false;
-		} else if (!originator.equals(other.originator))
+		} else if (!tenant.equals(other.tenant))
 			return false;
 		return true;
 	}
+
+	/**
+	 * @return the app
+	 */
+	public String getApp() {
+		return this.app;
+	}
+
+	
+
+	/**
+	 * @return the tenant
+	 */
+	public String getTenant() {
+		return this.tenant;
+	}
+
+	
+
+	/**
+	 * @return the group
+	 */
+	public String getGroup() {
+		return this.group;
+	}
+
+	
 	
 }

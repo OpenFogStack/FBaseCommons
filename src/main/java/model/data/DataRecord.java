@@ -1,14 +1,16 @@
 package model.data;
 
+import java.util.Map;
+
+import model.Entity;
+
 import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import model.Entity;
-
 /**
  * A DataRecord represents a single data item that is stored by FBase.
- * TODO David: DataRecord should store a map, not just a string
+ * 
  * 
  * @author jonathanhasenburg
  *
@@ -21,26 +23,31 @@ public class DataRecord extends Entity {
 	private DataIdentifier dataIdentifier = null;
 	private Long createTime = null;
 	private Long updateTime = null;
-	private String value = "";
+	private Map<String,String> value;
 
 	public DataRecord() {
 		
 	}
 
-	/**
-	 * Creates a data record; {@link DataIdentifier#getDataId()} will return null.
-	 * 
-	 * @param keygroupID
-	 *            - the keygroup this data record is assigned to
-	 * @param value
-	 *            - the value of the data record
-	 */
-	public DataRecord(KeygroupID keygroupID, String value) {
-		this.dataIdentifier = new DataIdentifier(keygroupID, null);
-		this.value = value;
-	}
+//	/**
+//	 * Creates a data record; {@link DataIdentifier#getDataId()} will return null.
+//	 * 
+//	 * @param keygroupID
+//	 *            - the keygroup this data record is assigned to
+//	 * @param value
+//	 *            - the values of the data record
+//	 */
+//	public DataRecord(KeygroupID keygroupID, Map<String,String> value) {
+//		this.dataIdentifier = new DataIdentifier(keygroupID, null);
+//		this.value = value;
+//	}
 
-	public DataRecord(DataIdentifier dataIdentifier, String value) {
+	/**
+	 * 
+	 * @param dataIdentifier keygroup of the data record plus data Id(key)
+	 * @param value values of the data record
+	 */
+	public DataRecord(DataIdentifier dataIdentifier, Map<String,String> value) {
 		this.dataIdentifier = dataIdentifier;
 		this.value = value;
 	}
@@ -61,10 +68,10 @@ public class DataRecord extends Entity {
 		return dataIdentifier.getDataId();
 	}
 
-	@JsonIgnore
-	public void setDataId(String dataId) {
-		dataIdentifier.setDataId(dataId);
-	}
+//	@JsonIgnore
+//	public void setDataId(String dataId) {
+//		dataIdentifier.setDataId(dataId);
+//	}
 	
 	@Override
 	public String toString() {
@@ -99,11 +106,11 @@ public class DataRecord extends Entity {
 		this.updateTime = updateTime;
 	}
 
-	public String getValue() {
+	public Map<String,String> getValue() {
 		return value;
 	}
 
-	public void setValue(String value) {
+	public void setValue(Map<String,String> value) {
 		this.value = value;
 	}
 
