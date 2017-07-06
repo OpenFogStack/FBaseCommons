@@ -1,4 +1,4 @@
-package data.model;
+package model.data;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import model.data.KeygroupID;
 
-public class KeygroupTest {
+public class KeygroupIDTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
