@@ -2,6 +2,8 @@ package model.message;
 
 import org.apache.log4j.Logger;
 
+import com.fasterxml.jackson.annotation.JsonRawValue;
+
 import model.Entity;
 
 /**
@@ -23,6 +25,7 @@ public class Message extends Entity {
 	/**
 	 * The content of the message, usually an object in JSON format
 	 */
+	@JsonRawValue
 	private String content = null;
 
 	public Message() {
