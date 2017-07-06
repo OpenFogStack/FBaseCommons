@@ -42,7 +42,7 @@ public class AlgorithmAES implements IAlgorithm {
 			cipher.init(Cipher.DECRYPT_MODE, getSecretKeySpec(secret));
 			return new String(cipher.doFinal(Base64.getDecoder().decode(toDecrypt)));
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
-				| BadPaddingException e) {
+				| BadPaddingException | IllegalArgumentException e) {
 			logger.error("Error while decrypting: " + toDecrypt);
 			e.printStackTrace();
 		}

@@ -14,9 +14,12 @@ public class DataIdentifier {
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(DataIdentifier.class.getName());
 
-	private final KeygroupID keygroupID;
-	private final String dataId;
+	private KeygroupID keygroupID = null;
+	private String dataId = null;
 	
+	public DataIdentifier() {
+		
+	}
 	
 	/**
 	 * 
@@ -54,22 +57,26 @@ public class DataIdentifier {
 		}
 		return null;
 	}
-	
+		
 	// ************************************************************
 	// Generated Code
 	// ************************************************************
 	
-	public KeygroupID getKeygroup() {
+	public KeygroupID getKeygroupID() {
 		return keygroupID;
 	}
 
-	
+	public void setKeygroupID(KeygroupID keygroupID) {
+		this.keygroupID = keygroupID;
+	}
 
 	public String getDataId() {
 		return dataId;
 	}
 
-	
+	public void setDataId(String dataId) {
+		this.dataId = dataId;
+	}
 
 	@Override
 	public int hashCode() {
