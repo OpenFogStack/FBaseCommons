@@ -20,7 +20,7 @@ public class Message extends Entity {
 	/**
 	 * A textual response explaining the message content
 	 */
-	private String textualResponse = null;
+	private String textualInfo = null;
 	
 	/**
 	 * The content of the message, usually an object in JSON format
@@ -37,11 +37,11 @@ public class Message extends Entity {
 	// ************************************************************
 
 	public String getTextualResponse() {
-		return textualResponse;
+		return textualInfo;
 	}
 
 	public void setTextualResponse(String textualResponse) {
-		this.textualResponse = textualResponse;
+		this.textualInfo = textualResponse;
 	}
 
 	public String getContent() {
@@ -57,7 +57,7 @@ public class Message extends Entity {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
-		result = prime * result + ((textualResponse == null) ? 0 : textualResponse.hashCode());
+		result = prime * result + ((textualInfo == null) ? 0 : textualInfo.hashCode());
 		return result;
 	}
 
@@ -75,10 +75,10 @@ public class Message extends Entity {
 				return false;
 		} else if (!content.equals(other.content))
 			return false;
-		if (textualResponse == null) {
-			if (other.textualResponse != null)
+		if (textualInfo == null) {
+			if (other.textualInfo != null)
 				return false;
-		} else if (!textualResponse.equals(other.textualResponse))
+		} else if (!textualInfo.equals(other.textualInfo))
 			return false;
 		return true;
 	}
