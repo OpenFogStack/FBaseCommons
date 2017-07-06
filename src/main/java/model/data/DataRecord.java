@@ -1,5 +1,6 @@
 package model.data;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import model.Entity;
@@ -29,19 +30,6 @@ public class DataRecord extends Entity {
 		
 	}
 
-//	/**
-//	 * Creates a data record; {@link DataIdentifier#getDataId()} will return null.
-//	 * 
-//	 * @param keygroupID
-//	 *            - the keygroup this data record is assigned to
-//	 * @param value
-//	 *            - the values of the data record
-//	 */
-//	public DataRecord(KeygroupID keygroupID, Map<String,String> value) {
-//		this.dataIdentifier = new DataIdentifier(keygroupID, null);
-//		this.value = value;
-//	}
-
 	/**
 	 * 
 	 * @param dataIdentifier keygroup of the data record plus data Id(key)
@@ -67,11 +55,14 @@ public class DataRecord extends Entity {
 		}
 		return dataIdentifier.getDataId();
 	}
-
-//	@JsonIgnore
-//	public void setDataId(String dataId) {
-//		dataIdentifier.setDataId(dataId);
-//	}
+	
+	@JsonIgnore
+	public void setValueWithoutKey(String value) {
+		if (this.value == null) {
+			this.value = new HashMap<>();
+		}
+		this.value.put("", value);
+	}
 	
 	@Override
 	public String toString() {
