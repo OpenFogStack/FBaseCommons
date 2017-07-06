@@ -18,19 +18,21 @@ public class KeygroupID extends Entity {
 	/**
 	 * An identifier for the belonging application.
 	 */
-	public final String app;
+	private String app;
 	
 	/**
 	 * An identifier for the origin of the data record. Typically the tenant.
 	 */
-	public final String tenant;
+	private String tenant;
 	
 	/**
 	 * An identifier that describes the data record, e.g. brightness.
 	 */
-	public final String group;
+	private String group;
 	
-	
+	public KeygroupID() {
+		
+	}
 	
 	public KeygroupID(String app, String tenant, String group) {
 		this.app = app;
@@ -54,12 +56,34 @@ public class KeygroupID extends Entity {
 	public String toString() {
 		return app + INTERNAL_SEPARATOR + tenant + INTERNAL_SEPARATOR + group;
 	}
-		
+	
 	// ************************************************************
 	// Generated Code
 	// ************************************************************
-
 	
+	public String getApp() {
+		return app;
+	}
+
+	public void setApp(String app) {
+		this.app = app;
+	}
+
+	public String getTenant() {
+		return tenant;
+	}
+
+	public void setTenant(String tenant) {
+		this.tenant = tenant;
+	}
+
+	public String getGroup() {
+		return group;
+	}
+
+	public void setGroup(String group) {
+		this.group = group;
+	}
 
 	@Override
 	public int hashCode() {
@@ -98,31 +122,4 @@ public class KeygroupID extends Entity {
 		return true;
 	}
 
-	/**
-	 * @return the app
-	 */
-	public String getApp() {
-		return this.app;
-	}
-
-	
-
-	/**
-	 * @return the tenant
-	 */
-	public String getTenant() {
-		return this.tenant;
-	}
-
-	
-
-	/**
-	 * @return the group
-	 */
-	public String getGroup() {
-		return this.group;
-	}
-
-	
-	
 }
