@@ -1,6 +1,6 @@
 package model.config;
 
-import java.util.List;
+import java.util.Set;
 
 import crypto.CryptoProvider.EncryptionAlgorithm;
 import model.Entity;
@@ -24,17 +24,17 @@ public class KeygroupConfig extends Entity {
 	/**
 	 * Clients that have access to data stored within a keygroup.
 	 */
-	private List<String> clients = null;
+	private Set<String> clients = null;
 	
 	/**
 	 * List of fog nodes that receive and replica data.
 	 */
-	private List<ReplicaNodeConfig> replicaNodeConfigs = null;
+	private Set<ReplicaNodeConfig> replicaNodeConfigs = null;
 	
 	/**
 	 * List of fog nodes that only receive data.
 	 */
-	private List<TriggerNodeConfig> triggerNodeConfigs = null;
+	private Set<TriggerNodeConfig> triggerNodeConfigs = null;
 	
 	/**
 	 * Encryption secret (symmetric) for communication within a keygroup.
@@ -57,10 +57,6 @@ public class KeygroupConfig extends Entity {
 		this.encryptionAlgorithm = encryptionAlgorithm;
 	}
 
-	// ************************************************************
-	// Generated Code
-	// ************************************************************
-	
 	public KeygroupID getKeygroupID() {
 		return keygroupID;
 	}
@@ -69,28 +65,84 @@ public class KeygroupConfig extends Entity {
 		this.keygroupID = keygroupID;
 	}
 
-	public List<String> getClients() {
+	public Set<String> getClients() {
 		return clients;
 	}
 
-	public void setClients(List<String> clients) {
+	public void setClients(Set<String> clients) {
 		this.clients = clients;
 	}
+	
+	public boolean addClient(String client) {
+		return clients.add(client);
+	}
+	
+	public boolean removeClient(String client) {
+		return clients.remove(client);
+	}
 
-	public List<ReplicaNodeConfig> getReplicaNodes() {
+	public Set<ReplicaNodeConfig> getReplicaNodes() {
 		return replicaNodeConfigs;
 	}
 
-	public void setReplicaNodes(List<ReplicaNodeConfig> replicaNodeConfigs) {
+	public void setReplicaNodes(Set<ReplicaNodeConfig> replicaNodeConfigs) {
 		this.replicaNodeConfigs = replicaNodeConfigs;
 	}
+	
+	public boolean addReplicaNode(ReplicaNodeConfig replicaNodeConfig) {
+		return replicaNodeConfigs.add(replicaNodeConfig);
+	}
+	
+	public boolean removeReplicaNode(String nodeID) {
+		for(ReplicaNodeConfig r : replicaNodeConfigs) {
+			if(r.getNodeID() == nodeID) {
+				return replicaNodeConfigs.remove(r);
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean containsReplicaNode(String nodeID) {
+		for(ReplicaNodeConfig r : replicaNodeConfigs) {
+			if(r.getNodeID() == nodeID) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
-	public List<TriggerNodeConfig> getTriggerNodes() {
+	public Set<TriggerNodeConfig> getTriggerNodes() {
 		return triggerNodeConfigs;
 	}
 
-	public void setTriggerNodes(List<TriggerNodeConfig> triggerNodeConfigs) {
+	public void setTriggerNodes(Set<TriggerNodeConfig> triggerNodeConfigs) {
 		this.triggerNodeConfigs = triggerNodeConfigs;
+	}
+	
+	public boolean addTriggerNode(TriggerNodeConfig triggerNodeConfig) {
+		return triggerNodeConfigs.add(triggerNodeConfig);
+	}
+	
+	public boolean removeTriggerNode(String nodeID) {
+		for(TriggerNodeConfig t : triggerNodeConfigs) {
+			if(t.getNodeID() == nodeID) {
+				return triggerNodeConfigs.remove(t);
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean containsTriggerNode(String nodeID) {
+		for(TriggerNodeConfig t : triggerNodeConfigs) {
+			if(t.getNodeID() == nodeID) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	public String getEncryptionSecret() {
@@ -109,6 +161,10 @@ public class KeygroupConfig extends Entity {
 		this.encryptionAlgorithm = encryptionAlgorithm;
 	}
 
+	// ************************************************************
+	// Generated Code
+	// ************************************************************
+		
 	@Override
 	public int hashCode() {
 		final int prime = 31;
