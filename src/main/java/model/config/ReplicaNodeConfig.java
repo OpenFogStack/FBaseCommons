@@ -1,21 +1,19 @@
 package model.config;
 
-import model.Entity;
-
 /**
  * 
  * @author jonathanhasenburg
  *
  */
-public class ReplicaNodeConfig extends Entity {
+public class ReplicaNodeConfig extends KeygroupMember {
 
-	  private String nodeID = null;
-      private String endpoint = null;
-      private Integer timeToLive = null;
-      
-      public ReplicaNodeConfig() {
-    	  
-      }
+	private String nodeID = null;
+    private String endpoint = null;
+    private Integer timeToLive = null;
+    
+    public ReplicaNodeConfig() {
+    
+    }
 
 	public ReplicaNodeConfig(String nodeID, String endpoint, Integer timeToLive) {
 		this.nodeID = nodeID;
