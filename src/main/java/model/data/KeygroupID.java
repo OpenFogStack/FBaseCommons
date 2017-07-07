@@ -1,6 +1,11 @@
 package model.data;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.log4j.Logger;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import model.Entity;
 
@@ -35,9 +40,28 @@ public class KeygroupID extends Entity {
 	}
 	
 	public KeygroupID(String app, String originator, String descriptor) {
-		this.app = app;
-		this.originator = originator;
-		this.descriptor = descriptor;
+		if(checkID(app, originator, descriptor)) {
+			this.app = app;
+			this.originator = originator;
+			this.descriptor = descriptor;
+		} else {
+			throw new IllegalArgumentException("Invalid app, originator, and/or descriptor name.");
+		}
+	}
+	
+	public boolean checkID(String... input) {
+		Pattern pattern = Pattern.compile("([A-Za-z0-9][A-Za-z0-9|_|-|(|)|&|.]*");
+		
+		for(String s : input) {
+			Matcher matcher = pattern.matcher(s);
+			
+			// Ensure path uses only accepted characters
+			if(!matcher.matches()) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	public static KeygroupID createFromString(String string) {
@@ -52,21 +76,36 @@ public class KeygroupID extends Entity {
 		return null;
 	}
 	
-	@Override
-	public String toString() {
+	@JsonIgnore
+	public String getAppPath() {
+		return app;
+	}
+	
+	@JsonIgnore
+	public String getOriginatorPath() {
+		return app + internalSeperator + originator;
+	}
+	
+	@JsonIgnore
+	public String getDescriptorPath() {
 		return app + internalSeperator + originator + internalSeperator + descriptor;
 	}
+	
+	@Override
+	public String toString() {
+		return getDescriptorPath();
+	}
 		
-	// ************************************************************
-	// Generated Code
-	// ************************************************************
-
 	public String getApp() {
 		return app;
 	}
 
 	public void setApp(String app) {
-		this.app = app;
+		if(checkID(app)) {
+			this.app = app;
+		} else {
+			throw new IllegalArgumentException("Invalid app name " + app);
+		}
 	}
 
 	public String getOriginator() {
@@ -74,7 +113,11 @@ public class KeygroupID extends Entity {
 	}
 
 	public void setOriginator(String originator) {
-		this.originator = originator;
+		if(checkID(originator)) {
+			this.originator = originator;
+		} else {
+			throw new IllegalArgumentException("Invalid originator name " + originator);
+		}
 	}
 
 	public String getDescriptor() {
@@ -82,8 +125,16 @@ public class KeygroupID extends Entity {
 	}
 
 	public void setDescriptor(String descriptor) {
-		this.descriptor = descriptor;
+		if(checkID(descriptor)) {
+			this.descriptor = descriptor;
+		} else {
+			throw new IllegalArgumentException("Invalid descriptor name " + descriptor);
+		}
 	}
+	
+	// ************************************************************
+	// Generated Code
+	// ************************************************************
 
 	@Override
 	public int hashCode() {
