@@ -32,7 +32,7 @@ public class KeygroupIDTest {
 	public void testJSON() {
 		KeygroupID kg = new KeygroupID("smartlight", "h1", "brightness");
 		String json = kg.toJSON();
-		assertEquals(kg, KeygroupID.createFromJSON(json, KeygroupID.class));
+		assertEquals(kg, KeygroupID.fromJSON(json, KeygroupID.class));
 	}
 
 }
