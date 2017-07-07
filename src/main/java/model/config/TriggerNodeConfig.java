@@ -1,20 +1,18 @@
 package model.config;
 
-import model.Entity;
-
 /**
  * 
  * @author jonathanhasenburg
  *
  */
-public class TriggerNodeConfig extends Entity {
+public class TriggerNodeConfig extends KeygroupMember {
 
-	  private String nodeID = null;
-      private String endpoint = null;
-      
-      public TriggerNodeConfig() {
-    	  
-      }
+	private String nodeID = null;
+    private String endpoint = null;
+    
+    public TriggerNodeConfig() {
+     
+    }
 
 	public TriggerNodeConfig(String nodeID, String endpoint) {
 		this.nodeID = nodeID;

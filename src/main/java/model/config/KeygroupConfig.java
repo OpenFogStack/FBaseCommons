@@ -3,6 +3,7 @@ package model.config;
 import java.util.List;
 
 import crypto.CryptoProvider.EncryptionAlgorithm;
+import model.Entity;
 import model.data.DataRecord;
 import model.data.KeygroupID;
 
@@ -13,7 +14,7 @@ import model.data.KeygroupID;
  * @author jonathanhasenburg
  *
  */
-public class KeygroupConfig {
+public class KeygroupConfig extends Entity {
 
 	/**
 	 * ID of the keygroup.
