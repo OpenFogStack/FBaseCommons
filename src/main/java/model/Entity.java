@@ -23,6 +23,7 @@ public abstract class Entity {
 			return mapper.readValue(json, targetClass);
 		} catch (Exception e) {
 			logger.error("Could not translate json to " + targetClass.getName());
+			logger.error(e.getMessage());
 			return null;
 		}
 	}

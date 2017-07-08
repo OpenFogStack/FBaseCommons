@@ -3,6 +3,7 @@ package model.message;
 import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonRawValue;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import model.Entity;
 
@@ -26,6 +27,7 @@ public class Message extends Entity {
 	 * The content of the message, usually an object in JSON format
 	 */
 	@JsonRawValue
+	@JsonDeserialize(using = SpecialStringDeserializer.class)
 	private String content = null;
 
 	public Message() {

@@ -41,7 +41,7 @@ public class DataRecord extends Entity {
 	}
 
 	@JsonIgnore
-	public KeygroupID getKeygroup() {
+	public KeygroupID getKeygroupID() {
 		if (dataIdentifier == null) {
 			return null;
 		}
