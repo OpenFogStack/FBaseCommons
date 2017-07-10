@@ -1,6 +1,11 @@
 package model.data;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.log4j.Logger;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import model.Entity;
 
@@ -34,10 +39,29 @@ public class KeygroupID extends Entity {
 		
 	}
 	
-	public KeygroupID(String app, String tenant, String group) {
-		this.app = app;
-		this.tenant = tenant;
-		this.group = group;
+public KeygroupID(String app, String tenant, String group) {
+		if(checkID(app, tenant, group)) {
+			this.app = app;
+			this.tenant = tenant;
+			this.group = group;
+		} else {
+			throw new IllegalArgumentException("Invalid app, originator, and/or descriptor name.");
+		}
+	}
+	
+	public boolean checkID(String... input) {
+		Pattern pattern = Pattern.compile("([A-Za-z0-9][A-Za-z0-9|_|-|(|)|&|.]*");
+		
+		for(String s : input) {
+			Matcher matcher = pattern.matcher(s);
+			
+			// Ensure path uses only accepted characters
+			if(!matcher.matches()) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	public static KeygroupID createFromString(String string) {
@@ -52,21 +76,36 @@ public class KeygroupID extends Entity {
 		return null;
 	}
 	
-	@Override
-	public String toString() {
+	@JsonIgnore
+	public String getAppPath() {
+		return app;
+	}
+	
+	@JsonIgnore
+	public String getTenantPath() {
+		return app + INTERNAL_SEPARATOR + tenant;
+	}
+	
+	@JsonIgnore
+	public String getGroupPath() {
 		return app + INTERNAL_SEPARATOR + tenant + INTERNAL_SEPARATOR + group;
 	}
 	
-	// ************************************************************
-	// Generated Code
-	// ************************************************************
+	@Override
+	public String toString() {
+		return getGroupPath();
+	}
 	
 	public String getApp() {
 		return app;
 	}
 
 	public void setApp(String app) {
-		this.app = app;
+		if(checkID(app)) {
+			this.app = app;
+		} else {
+			throw new IllegalArgumentException("Invalid app name " + app);
+		}
 	}
 
 	public String getTenant() {
@@ -74,7 +113,11 @@ public class KeygroupID extends Entity {
 	}
 
 	public void setTenant(String tenant) {
-		this.tenant = tenant;
+		if(checkID(tenant)) {
+			this.tenant = tenant;
+		} else {
+			throw new IllegalArgumentException("Invalid tenant name " + tenant);
+		}
 	}
 
 	public String getGroup() {
@@ -82,8 +125,16 @@ public class KeygroupID extends Entity {
 	}
 
 	public void setGroup(String group) {
-		this.group = group;
+		if(checkID(group)) {
+			this.group = group;
+		} else {
+			throw new IllegalArgumentException("Invalid group name " + group);
+		}
 	}
+	
+	// ************************************************************
+	// Generated Code
+	// ************************************************************
 
 	@Override
 	public int hashCode() {

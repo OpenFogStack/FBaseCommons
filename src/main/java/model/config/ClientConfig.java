@@ -10,7 +10,7 @@ import model.Entity;
  */
 public class ClientConfig extends Entity {
 
-	private String nodeID = null;
+	private String clientID = null;
     private String publicKey = null;
     private EncryptionAlgorithm encryptionAlgorithm = null;
     
@@ -22,12 +22,12 @@ public class ClientConfig extends Entity {
 	// Generated Code
 	// ************************************************************
     
-	public String getNodeID() {
-		return nodeID;
+	public String getClientID() {
+		return clientID;
 	}
 
-	public void setNodeID(String nodeID) {
-		this.nodeID = nodeID;
+	public void setClientID(String nodeID) {
+		this.clientID = nodeID;
 	}
 
 	public String getPublicKey() {
@@ -52,7 +52,7 @@ public class ClientConfig extends Entity {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((encryptionAlgorithm == null) ? 0 : encryptionAlgorithm.hashCode());
-		result = prime * result + ((nodeID == null) ? 0 : nodeID.hashCode());
+		result = prime * result + ((clientID == null) ? 0 : clientID.hashCode());
 		result = prime * result + ((publicKey == null) ? 0 : publicKey.hashCode());
 		return result;
 	}
@@ -68,10 +68,10 @@ public class ClientConfig extends Entity {
 		ClientConfig other = (ClientConfig) obj;
 		if (encryptionAlgorithm != other.encryptionAlgorithm)
 			return false;
-		if (nodeID == null) {
-			if (other.nodeID != null)
+		if (clientID == null) {
+			if (other.clientID != null)
 				return false;
-		} else if (!nodeID.equals(other.nodeID))
+		} else if (!clientID.equals(other.clientID))
 			return false;
 		if (publicKey == null) {
 			if (other.publicKey != null)
