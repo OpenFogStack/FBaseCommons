@@ -50,7 +50,7 @@ public KeygroupID(String app, String tenant, String group) {
 	}
 	
 	public boolean checkID(String... input) {
-		Pattern pattern = Pattern.compile("([A-Za-z0-9][A-Za-z0-9|_|-|(|)|&|.]*");
+		Pattern pattern = Pattern.compile("([A-Za-z0-9][A-Za-z0-9|_|-|(|)|&|.]*)");
 		
 		for(String s : input) {
 			Matcher matcher = pattern.matcher(s);
