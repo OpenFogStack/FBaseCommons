@@ -14,7 +14,7 @@ public class ReplicaNodeConfig extends KeygroupMember {
     
     }
 
-	public ReplicaNodeConfig(String nodeID, String endpoint, Integer timeToLive) {
+	public ReplicaNodeConfig(String nodeID, Integer timeToLive) {
 		this.nodeID = nodeID;
 		this.timeToLive = timeToLive;
 	}
