@@ -39,7 +39,7 @@ public class KeygroupID extends Entity {
 		
 	}
 	
-public KeygroupID(String app, String tenant, String group) {
+	public KeygroupID(String app, String tenant, String group) {
 		if(checkID(app, tenant, group)) {
 			this.app = app;
 			this.tenant = tenant;

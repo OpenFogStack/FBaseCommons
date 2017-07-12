@@ -13,7 +13,7 @@ public class Envelope {
 	/**
 	 * ID of the keygroup the content relates to
 	 */
-	private KeygroupID keygroupID = null;;
+	private KeygroupID keygroupID = null;
 	
 	/**
 	 * The message enveloped by the envelope
