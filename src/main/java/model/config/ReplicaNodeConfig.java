@@ -8,16 +8,14 @@ package model.config;
 public class ReplicaNodeConfig extends KeygroupMember {
 
 	private String nodeID = null;
-    private String endpoint = null;
     private Integer timeToLive = null;
     
     public ReplicaNodeConfig() {
     
     }
 
-	public ReplicaNodeConfig(String nodeID, String endpoint, Integer timeToLive) {
+	public ReplicaNodeConfig(String nodeID, Integer timeToLive) {
 		this.nodeID = nodeID;
-		this.endpoint = endpoint;
 		this.timeToLive = timeToLive;
 	}
       
@@ -33,14 +31,6 @@ public class ReplicaNodeConfig extends KeygroupMember {
 		this.nodeID = nodeID;
 	}
 
-	public String getEndpoint() {
-		return endpoint;
-	}
-
-	public void setEndpoint(String endpoint) {
-		this.endpoint = endpoint;
-	}
-
 	public Integer getTimeToLive() {
 		return timeToLive;
 	}
@@ -53,7 +43,6 @@ public class ReplicaNodeConfig extends KeygroupMember {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((endpoint == null) ? 0 : endpoint.hashCode());
 		result = prime * result + ((nodeID == null) ? 0 : nodeID.hashCode());
 		result = prime * result + ((timeToLive == null) ? 0 : timeToLive.hashCode());
 		return result;
@@ -68,11 +57,6 @@ public class ReplicaNodeConfig extends KeygroupMember {
 		if (getClass() != obj.getClass())
 			return false;
 		ReplicaNodeConfig other = (ReplicaNodeConfig) obj;
-		if (endpoint == null) {
-			if (other.endpoint != null)
-				return false;
-		} else if (!endpoint.equals(other.endpoint))
-			return false;
 		if (nodeID == null) {
 			if (other.nodeID != null)
 				return false;
