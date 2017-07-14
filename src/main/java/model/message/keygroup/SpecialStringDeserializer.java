@@ -1,4 +1,4 @@
-package model.message;
+package model.message.keygroup;
 
 import java.io.IOException;
 
