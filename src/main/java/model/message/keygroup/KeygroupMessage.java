@@ -1,4 +1,4 @@
-package model.message;
+package model.message.keygroup;
 
 import org.apache.log4j.Logger;
 
@@ -13,10 +13,10 @@ import model.Entity;
  * @author jonathanhasenburg
  *
  */
-public class Message extends Entity {
+public class KeygroupMessage extends Entity {
 
 	@SuppressWarnings("unused")
-	private static Logger logger = Logger.getLogger(Message.class.getName());
+	private static Logger logger = Logger.getLogger(KeygroupMessage.class.getName());
 
 	/**
 	 * A textual response explaining the message content
@@ -30,7 +30,7 @@ public class Message extends Entity {
 	@JsonDeserialize(using = SpecialStringDeserializer.class)
 	private String content = null;
 
-	public Message() {
+	public KeygroupMessage() {
 		
 	}
 	
@@ -71,7 +71,7 @@ public class Message extends Entity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Message other = (Message) obj;
+		KeygroupMessage other = (KeygroupMessage) obj;
 		if (content == null) {
 			if (other.content != null)
 				return false;
