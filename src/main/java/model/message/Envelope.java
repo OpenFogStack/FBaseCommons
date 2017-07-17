@@ -1,4 +1,4 @@
-package model.message.keygroup;
+package model.message;
 
 import model.data.KeygroupID;
 
@@ -8,7 +8,7 @@ import model.data.KeygroupID;
  * @author jonathanhasenburg
  *
  */
-public class KeygroupEnvelope {
+public class Envelope {
 	
 	/**
 	 * ID of the keygroup the content relates to
@@ -18,9 +18,9 @@ public class KeygroupEnvelope {
 	/**
 	 * The message enveloped by the envelope
 	 */
-	private KeygroupMessage message = null;
+	private Message message = null;
 
-	public KeygroupEnvelope(KeygroupID keygroupID, KeygroupMessage message) {
+	public Envelope(KeygroupID keygroupID, Message message) {
 		this.keygroupID = keygroupID;
 		this.message = message;
 	}
@@ -37,11 +37,11 @@ public class KeygroupEnvelope {
 		this.keygroupID = keygroupID;
 	}
 
-	public KeygroupMessage getMessage() {
+	public Message getMessage() {
 		return message;
 	}
 
-	public void setMessage(KeygroupMessage message) {
+	public void setMessage(Message message) {
 		this.message = message;
 	}
 
@@ -62,7 +62,7 @@ public class KeygroupEnvelope {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		KeygroupEnvelope other = (KeygroupEnvelope) obj;
+		Envelope other = (Envelope) obj;
 		if (keygroupID == null) {
 			if (other.keygroupID != null)
 				return false;
