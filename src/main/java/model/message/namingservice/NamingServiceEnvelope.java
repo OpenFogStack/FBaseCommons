@@ -1,12 +1,12 @@
-package model.message.namespace;
+package model.message.namingservice;
 
-public class NamespaceEnvelope {
+public class NamingServiceEnvelope {
 	
 	private String nodeID = null;
 	
-	private NamespaceMessage message = null;
+	private NamingServiceMessage message = null;
 	
-	public NamespaceEnvelope(String nodeID, NamespaceMessage message) {
+	public NamingServiceEnvelope(String nodeID, NamingServiceMessage message) {
 		this.nodeID = nodeID;
 		this.message = message;
 	}
@@ -19,11 +19,11 @@ public class NamespaceEnvelope {
 		this.nodeID = nodeID;
 	}
 
-	public NamespaceMessage getMessage() {
+	public NamingServiceMessage getMessage() {
 		return message;
 	}
 
-	public void setMessage(NamespaceMessage message) {
+	public void setMessage(NamingServiceMessage message) {
 		this.message = message;
 	}
 
@@ -44,7 +44,7 @@ public class NamespaceEnvelope {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		NamespaceEnvelope other = (NamespaceEnvelope) obj;
+		NamingServiceEnvelope other = (NamingServiceEnvelope) obj;
 		if (message == null) {
 			if (other.message != null)
 				return false;
