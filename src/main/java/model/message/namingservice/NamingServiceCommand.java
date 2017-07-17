@@ -1,6 +1,6 @@
-package model.message.namespace;
+package model.message.namingservice;
 
-public enum NamespaceCommand {
+public enum NamingServiceCommand {
 	ClientCreate,
 	ClientRead,
 	ClientUpdate,

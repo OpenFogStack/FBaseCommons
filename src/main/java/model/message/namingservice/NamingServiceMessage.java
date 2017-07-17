@@ -1,20 +1,27 @@
-package model.message.namespace;
+package model.message.namingservice;
 
-public class NamespaceMessage {
-	private NamespaceCommand command;
+import com.fasterxml.jackson.annotation.JsonRawValue;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import model.message.SpecialStringDeserializer;
+
+public class NamingServiceMessage {
+	private NamingServiceCommand command;
 	
+	@JsonRawValue
+	@JsonDeserialize(using = SpecialStringDeserializer.class)
 	private String content;
 
-	public NamespaceMessage(NamespaceCommand command, String content) {
+	public NamingServiceMessage(NamingServiceCommand command, String content) {
 		this.command = command;
 		this.content = content;
 	}
 
-	public NamespaceCommand getCommand() {
+	public NamingServiceCommand getCommand() {
 		return command;
 	}
 
-	public void setCommand(NamespaceCommand command) {
+	public void setCommand(NamingServiceCommand command) {
 		this.command = command;
 	}
 
@@ -43,7 +50,7 @@ public class NamespaceMessage {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		NamespaceMessage other = (NamespaceMessage) obj;
+		NamingServiceMessage other = (NamingServiceMessage) obj;
 		if (command != other.command)
 			return false;
 		if (content == null) {
