@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.Entity;
+import model.JSONable;
 
 import org.apache.log4j.Logger;
 
@@ -16,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author jonathanhasenburg
  *
  */
-public class DataRecord extends Entity {
+public class DataRecord implements JSONable {
 
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(DataRecord.class.getName());
@@ -66,7 +67,7 @@ public class DataRecord extends Entity {
 	
 	@Override
 	public String toString() {
-		return super.toJSON();
+		return JSONable.toJSON(this);
 	}
 
 	// ************************************************************
