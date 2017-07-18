@@ -1,21 +1,23 @@
 package model.messages.namingservice;
 
+import model.data.NodeID;
+
 public class NamingServiceEnvelope {
 	
-	private String nodeID = null;
+	private NodeID nodeID = null;
 	
 	private NamingServiceMessage message = null;
 	
-	public NamingServiceEnvelope(String nodeID, NamingServiceMessage message) {
+	public NamingServiceEnvelope(NodeID nodeID, NamingServiceMessage message) {
 		this.nodeID = nodeID;
 		this.message = message;
 	}
 
-	public String getNodeID() {
+	public NodeID getNodeID() {
 		return nodeID;
 	}
 
-	public void setNodeID(String nodeID) {
+	public void setNodeID(NodeID nodeID) {
 		this.nodeID = nodeID;
 	}
 
