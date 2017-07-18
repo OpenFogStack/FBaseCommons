@@ -1,9 +1,9 @@
-package model.message.namingservice;
+package model.messages.namingservice;
 
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import model.message.SpecialStringDeserializer;
+import model.messages.SpecialStringDeserializer;
 
 public class NamingServiceMessage {
 	private NamingServiceCommand command;

@@ -1,4 +1,4 @@
-package model.message;
+package model.messages.datarecords;
 
 import model.data.KeygroupID;
 

@@ -1,4 +1,4 @@
-package model.message.namingservice;
+package model.messages.namingservice;
 
 public class NamingServiceEnvelope {
 	
