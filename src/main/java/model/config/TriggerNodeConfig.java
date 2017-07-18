@@ -8,7 +8,6 @@ package model.config;
 public class TriggerNodeConfig extends KeygroupMember {
 
 	private String nodeID = null;
-    private String endpoint = null;
     
     public TriggerNodeConfig() {
      
@@ -16,7 +15,6 @@ public class TriggerNodeConfig extends KeygroupMember {
 
 	public TriggerNodeConfig(String nodeID, String endpoint) {
 		this.nodeID = nodeID;
-		this.endpoint = endpoint;
 	}
 
 	// ************************************************************
@@ -31,19 +29,10 @@ public class TriggerNodeConfig extends KeygroupMember {
 		this.nodeID = nodeID;
 	}
 
-	public String getEndpoint() {
-		return endpoint;
-	}
-
-	public void setEndpoint(String endpoint) {
-		this.endpoint = endpoint;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((endpoint == null) ? 0 : endpoint.hashCode());
 		result = prime * result + ((nodeID == null) ? 0 : nodeID.hashCode());
 		return result;
 	}
@@ -57,11 +46,6 @@ public class TriggerNodeConfig extends KeygroupMember {
 		if (getClass() != obj.getClass())
 			return false;
 		TriggerNodeConfig other = (TriggerNodeConfig) obj;
-		if (endpoint == null) {
-			if (other.endpoint != null)
-				return false;
-		} else if (!endpoint.equals(other.endpoint))
-			return false;
 		if (nodeID == null) {
 			if (other.nodeID != null)
 				return false;
