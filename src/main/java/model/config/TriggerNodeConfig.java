@@ -1,5 +1,7 @@
 package model.config;
 
+import model.data.NodeID;
+
 /**
  * 
  * @author jonathanhasenburg
@@ -13,7 +15,7 @@ public class TriggerNodeConfig extends KeygroupMember {
      
     }
 
-	public TriggerNodeConfig(String nodeID, String endpoint) {
+	public TriggerNodeConfig(String nodeID) {
 		this.nodeID = nodeID;
 	}
 
@@ -21,12 +23,12 @@ public class TriggerNodeConfig extends KeygroupMember {
 	// Generated Code
 	// ************************************************************
 	
-	public String getNodeID() {
-		return nodeID;
+	public NodeID getNodeID() {
+		return (NodeID) id;
 	}
 
-	public void setNodeID(String nodeID) {
-		this.nodeID = nodeID;
+	public void setNodeID(NodeID nodeID) {
+		this.id = nodeID;
 	}
 
 	@Override

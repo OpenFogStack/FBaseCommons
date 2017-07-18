@@ -7,15 +7,13 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import model.Entity;
-
 /**
  * Helper class to manage keygroup IDs, which act as a logical grouping unit for {@link DataRecord}.
  * 
  * @author jonathanhasenburg
  *
  */
-public class KeygroupID extends Entity {
+public class KeygroupID extends EntityID {
 
 	private static Logger logger = Logger.getLogger(KeygroupID.class.getName());
 	public static final String INTERNAL_SEPARATOR = "/";
@@ -47,6 +45,8 @@ public class KeygroupID extends Entity {
 		} else {
 			throw new IllegalArgumentException("Invalid app, originator, and/or descriptor name.");
 		}
+		
+		id = toString();
 	}
 	
 	public boolean checkID(String... input) {
@@ -106,6 +106,8 @@ public class KeygroupID extends Entity {
 		} else {
 			throw new IllegalArgumentException("Invalid app name " + app);
 		}
+		
+		id = toString();
 	}
 
 	public String getTenant() {
@@ -118,6 +120,8 @@ public class KeygroupID extends Entity {
 		} else {
 			throw new IllegalArgumentException("Invalid tenant name " + tenant);
 		}
+		
+		id = toString();
 	}
 
 	public String getGroup() {
@@ -130,6 +134,8 @@ public class KeygroupID extends Entity {
 		} else {
 			throw new IllegalArgumentException("Invalid group name " + group);
 		}
+		
+		id = toString();
 	}
 	
 	// ************************************************************

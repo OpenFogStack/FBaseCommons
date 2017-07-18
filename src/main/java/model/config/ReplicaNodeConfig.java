@@ -1,5 +1,7 @@
 package model.config;
 
+import model.data.NodeID;
+
 /**
  * 
  * @author jonathanhasenburg
@@ -7,15 +9,14 @@ package model.config;
  */
 public class ReplicaNodeConfig extends KeygroupMember {
 
-	private String nodeID = null;
-    private Integer timeToLive = null;
+	private Integer timeToLive = null;
     
     public ReplicaNodeConfig() {
     
     }
 
-	public ReplicaNodeConfig(String nodeID, Integer timeToLive) {
-		this.nodeID = nodeID;
+	public ReplicaNodeConfig(NodeID nodeID, Integer timeToLive) {
+		this.id = nodeID;
 		this.timeToLive = timeToLive;
 	}
       
@@ -23,12 +24,12 @@ public class ReplicaNodeConfig extends KeygroupMember {
 	// Generated Code
 	// ************************************************************
 	
-	public String getNodeID() {
-		return nodeID;
+	public NodeID getNodeID() {
+		return (NodeID) id;
 	}
 
-	public void setNodeID(String nodeID) {
-		this.nodeID = nodeID;
+	public void setNodeID(NodeID nodeID) {
+		this.id = nodeID;
 	}
 
 	public Integer getTimeToLive() {
@@ -43,7 +44,6 @@ public class ReplicaNodeConfig extends KeygroupMember {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((nodeID == null) ? 0 : nodeID.hashCode());
 		result = prime * result + ((timeToLive == null) ? 0 : timeToLive.hashCode());
 		return result;
 	}
@@ -57,11 +57,6 @@ public class ReplicaNodeConfig extends KeygroupMember {
 		if (getClass() != obj.getClass())
 			return false;
 		ReplicaNodeConfig other = (ReplicaNodeConfig) obj;
-		if (nodeID == null) {
-			if (other.nodeID != null)
-				return false;
-		} else if (!nodeID.equals(other.nodeID))
-			return false;
 		if (timeToLive == null) {
 			if (other.timeToLive != null)
 				return false;
