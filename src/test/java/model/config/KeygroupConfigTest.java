@@ -52,7 +52,7 @@ public class KeygroupConfigTest {
 		// trigger config
 		TriggerNodeConfig tconfigC = new TriggerNodeConfig();
 		tconfigC.setNodeID("C");
-		config.addTriggerNode(tconfigC);
+		config.addTriggerNode(tconfigC);	
 		
 		// encryption
 		config.setEncryptionAlgorithm(EncryptionAlgorithm.AES);
