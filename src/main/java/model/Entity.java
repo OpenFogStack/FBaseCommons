@@ -14,34 +14,13 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  * @author jonathanhasenburg
  *
  */
-public abstract class Entity {
+public abstract class Entity implements JSONable {
 
-	private static Logger logger = Logger.getLogger(Entity.class.getName());
 
-	public static <T> T fromJSON(String json, Class<T> targetClass) {
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			return mapper.readValue(json, targetClass);
-		} catch (Exception e) {
-			logger.error("Could not translate json to " + targetClass.getName());
-			logger.error(e.getMessage());
-			return null;
-		}
 	}
 
-	public String toJSON() {
-		// Only include non-null field
-		ObjectMapper mapper = new ObjectMapper().setSerializationInclusion(Include.NON_NULL);
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		String json = null;
-		try {
-			json = mapper.writeValueAsString(this);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-		return json;
 	}
 	
 	// TODO add utility methods to split host:port into parts (and to create a string using both)
-	
+
 }
