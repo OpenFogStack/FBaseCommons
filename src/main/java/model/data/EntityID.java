@@ -21,12 +21,17 @@ public abstract class EntityID implements JSONable {
 		
 	}
 
-	public String getId() {
+	public String getID() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setID(String id) {
 		this.id = id;
+	}
+	
+	@Override
+	public String toString() {
+		return getID();
 	}
 
 	@Override
