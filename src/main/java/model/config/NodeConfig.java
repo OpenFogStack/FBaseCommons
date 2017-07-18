@@ -4,6 +4,7 @@ import java.util.List;
 
 import crypto.CryptoProvider.EncryptionAlgorithm;
 import model.Entity;
+import model.data.NodeID;
 
 /**
  * 
@@ -12,8 +13,7 @@ import model.Entity;
  */
 public class NodeConfig extends Entity {
 
-	private String nodeID = null;
-    private String publicKey = null;
+	private String publicKey = null;
     private EncryptionAlgorithm encryptionAlgorithm = null;
     private List<String> machines = null;
     private Integer publisherPort = null;
@@ -30,12 +30,12 @@ public class NodeConfig extends Entity {
 	// Generated Code
 	// ************************************************************
 
-	public String getNodeID() {
-		return nodeID;
+	public NodeID getNodeID() {
+		return (NodeID) id;
 	}
 
-	public void setNodeID(String nodeID) {
-		this.nodeID = nodeID;
+	public void setNodeID(NodeID nodeID) {
+		this.id = nodeID;
 	}
 
 	public String getPublicKey() {
@@ -111,7 +111,6 @@ public class NodeConfig extends Entity {
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
 		result = prime * result + ((machines == null) ? 0 : machines.hashCode());
 		result = prime * result + ((messagePort == null) ? 0 : messagePort.hashCode());
-		result = prime * result + ((nodeID == null) ? 0 : nodeID.hashCode());
 		result = prime * result + ((publicKey == null) ? 0 : publicKey.hashCode());
 		result = prime * result + ((publisherPort == null) ? 0 : publisherPort.hashCode());
 		result = prime * result + ((restPort == null) ? 0 : restPort.hashCode());
@@ -148,11 +147,6 @@ public class NodeConfig extends Entity {
 			if (other.messagePort != null)
 				return false;
 		} else if (!messagePort.equals(other.messagePort))
-			return false;
-		if (nodeID == null) {
-			if (other.nodeID != null)
-				return false;
-		} else if (!nodeID.equals(other.nodeID))
 			return false;
 		if (publicKey == null) {
 			if (other.publicKey != null)

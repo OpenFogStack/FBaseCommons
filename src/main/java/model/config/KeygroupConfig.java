@@ -6,6 +6,7 @@ import crypto.CryptoProvider.EncryptionAlgorithm;
 import model.Entity;
 import model.data.DataRecord;
 import model.data.KeygroupID;
+import model.data.NodeID;
 
 /**
  * Configuration class for keygroups. Keygroups acts as a logical grouping unit for {@link DataRecord} objects.
@@ -15,11 +16,6 @@ import model.data.KeygroupID;
  *
  */
 public class KeygroupConfig extends Entity {
-
-	/**
-	 * ID of the keygroup.
-	 */
-	private KeygroupID keygroupID = null;
 	
 	/**
 	 * Clients that have access to data stored within a keygroup.
@@ -52,17 +48,17 @@ public class KeygroupConfig extends Entity {
 	
 	public KeygroupConfig(KeygroupID keygroupID, String encryptionSecret, 
 			EncryptionAlgorithm encryptionAlgorithm) {
-		this.keygroupID = keygroupID;
+		this.id = keygroupID;
 		this.encryptionSecret = encryptionSecret;
 		this.encryptionAlgorithm = encryptionAlgorithm;
 	}
 
 	public KeygroupID getKeygroupID() {
-		return keygroupID;
+		return (KeygroupID) id;
 	}
 
 	public void setKeygroupID(KeygroupID keygroupID) {
-		this.keygroupID = keygroupID;
+		this.id = keygroupID;
 	}
 
 	public Set<String> getClients() {
@@ -93,7 +89,7 @@ public class KeygroupConfig extends Entity {
 		return replicaNodeConfigs.add(replicaNodeConfig);
 	}
 	
-	public boolean removeReplicaNode(String nodeID) {
+	public boolean removeReplicaNode(NodeID nodeID) {
 		for(ReplicaNodeConfig r : replicaNodeConfigs) {
 			if(r.getNodeID() == nodeID) {
 				return replicaNodeConfigs.remove(r);
@@ -103,7 +99,7 @@ public class KeygroupConfig extends Entity {
 		return false;
 	}
 	
-	public boolean containsReplicaNode(String nodeID) {
+	public boolean containsReplicaNode(NodeID nodeID) {
 		for(ReplicaNodeConfig r : replicaNodeConfigs) {
 			if(r.getNodeID() == nodeID) {
 				return true;
@@ -125,7 +121,7 @@ public class KeygroupConfig extends Entity {
 		return triggerNodeConfigs.add(triggerNodeConfig);
 	}
 	
-	public boolean removeTriggerNode(String nodeID) {
+	public boolean removeTriggerNode(NodeID nodeID) {
 		for(TriggerNodeConfig t : triggerNodeConfigs) {
 			if(t.getNodeID() == nodeID) {
 				return triggerNodeConfigs.remove(t);
@@ -135,7 +131,7 @@ public class KeygroupConfig extends Entity {
 		return false;
 	}
 	
-	public boolean containsTriggerNode(String nodeID) {
+	public boolean containsTriggerNode(NodeID nodeID) {
 		for(TriggerNodeConfig t : triggerNodeConfigs) {
 			if(t.getNodeID() == nodeID) {
 				return true;
@@ -164,15 +160,14 @@ public class KeygroupConfig extends Entity {
 	// ************************************************************
 	// Generated Code
 	// ************************************************************
-		
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((clients == null) ? 0 : clients.hashCode());
 		result = prime * result + ((encryptionAlgorithm == null) ? 0 : encryptionAlgorithm.hashCode());
 		result = prime * result + ((encryptionSecret == null) ? 0 : encryptionSecret.hashCode());
-		result = prime * result + ((keygroupID == null) ? 0 : keygroupID.hashCode());
 		result = prime * result + ((replicaNodeConfigs == null) ? 0 : replicaNodeConfigs.hashCode());
 		result = prime * result + ((triggerNodeConfigs == null) ? 0 : triggerNodeConfigs.hashCode());
 		return result;
@@ -182,7 +177,7 @@ public class KeygroupConfig extends Entity {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -198,11 +193,6 @@ public class KeygroupConfig extends Entity {
 			if (other.encryptionSecret != null)
 				return false;
 		} else if (!encryptionSecret.equals(other.encryptionSecret))
-			return false;
-		if (keygroupID == null) {
-			if (other.keygroupID != null)
-				return false;
-		} else if (!keygroupID.equals(other.keygroupID))
 			return false;
 		if (replicaNodeConfigs == null) {
 			if (other.replicaNodeConfigs != null)

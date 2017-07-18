@@ -1,5 +1,7 @@
 package model.config;
 
+import model.data.NodeID;
+
 /**
  * 
  * @author jonathanhasenburg
@@ -7,15 +9,14 @@ package model.config;
  */
 public class TriggerNodeConfig extends KeygroupMember {
 
-	private String nodeID = null;
     private String endpoint = null;
     
     public TriggerNodeConfig() {
      
     }
 
-	public TriggerNodeConfig(String nodeID, String endpoint) {
-		this.nodeID = nodeID;
+	public TriggerNodeConfig(NodeID nodeID, String endpoint) {
+		this.id = nodeID;
 		this.endpoint = endpoint;
 	}
 
@@ -23,12 +24,12 @@ public class TriggerNodeConfig extends KeygroupMember {
 	// Generated Code
 	// ************************************************************
 	
-	public String getNodeID() {
-		return nodeID;
+	public NodeID getNodeID() {
+		return (NodeID) id;
 	}
 
-	public void setNodeID(String nodeID) {
-		this.nodeID = nodeID;
+	public void setNodeID(NodeID nodeID) {
+		this.id = nodeID;
 	}
 
 	public String getEndpoint() {
@@ -44,7 +45,6 @@ public class TriggerNodeConfig extends KeygroupMember {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((endpoint == null) ? 0 : endpoint.hashCode());
-		result = prime * result + ((nodeID == null) ? 0 : nodeID.hashCode());
 		return result;
 	}
 
@@ -61,11 +61,6 @@ public class TriggerNodeConfig extends KeygroupMember {
 			if (other.endpoint != null)
 				return false;
 		} else if (!endpoint.equals(other.endpoint))
-			return false;
-		if (nodeID == null) {
-			if (other.nodeID != null)
-				return false;
-		} else if (!nodeID.equals(other.nodeID))
 			return false;
 		return true;
 	}
