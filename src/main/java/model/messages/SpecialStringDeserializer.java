@@ -1,4 +1,4 @@
-package model.message;
+package model.messages;
 
 import java.io.IOException;
 

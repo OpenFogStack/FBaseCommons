@@ -1,4 +1,4 @@
-package model.message;
+package model.messages.datarecords;
 
 import org.apache.log4j.Logger;
 
@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import model.Entity;
+import model.messages.SpecialStringDeserializer;
 
 /**
  * Class that can be used by components to exchange messages.
