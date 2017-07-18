@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import model.JSONable;
 import model.data.KeygroupID;
 
 public class KeygroupIDTest {
@@ -31,8 +32,8 @@ public class KeygroupIDTest {
 	@Test
 	public void testJSON() {
 		KeygroupID kg = new KeygroupID("smartlight", "h1", "brightness");
-		String json = kg.toJSON();
-		assertEquals(kg, KeygroupID.fromJSON(json, KeygroupID.class));
+		String json = JSONable.toJSON(kg);
+		assertEquals(kg, JSONable.fromJSON(json, KeygroupID.class));
 	}
 
 }
