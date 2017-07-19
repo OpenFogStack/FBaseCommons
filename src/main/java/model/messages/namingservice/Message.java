@@ -5,23 +5,23 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import model.messages.SpecialStringDeserializer;
 
-public class NamingServiceMessage {
-	private NamingServiceCommand command;
+public class Message {
+	private Command command;
 	
 	@JsonRawValue
 	@JsonDeserialize(using = SpecialStringDeserializer.class)
 	private String content;
 
-	public NamingServiceMessage(NamingServiceCommand command, String content) {
+	public Message(Command command, String content) {
 		this.command = command;
 		this.content = content;
 	}
 
-	public NamingServiceCommand getCommand() {
+	public Command getCommand() {
 		return command;
 	}
 
-	public void setCommand(NamingServiceCommand command) {
+	public void setCommand(Command command) {
 		this.command = command;
 	}
 
@@ -50,7 +50,7 @@ public class NamingServiceMessage {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		NamingServiceMessage other = (NamingServiceMessage) obj;
+		Message other = (Message) obj;
 		if (command != other.command)
 			return false;
 		if (content == null) {

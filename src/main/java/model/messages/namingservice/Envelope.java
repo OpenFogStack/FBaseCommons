@@ -2,13 +2,13 @@ package model.messages.namingservice;
 
 import model.data.NodeID;
 
-public class NamingServiceEnvelope {
+public class Envelope {
 	
 	private NodeID nodeID = null;
 	
-	private NamingServiceMessage message = null;
+	private Message message = null;
 	
-	public NamingServiceEnvelope(NodeID nodeID, NamingServiceMessage message) {
+	public Envelope(NodeID nodeID, Message message) {
 		this.nodeID = nodeID;
 		this.message = message;
 	}
@@ -21,11 +21,11 @@ public class NamingServiceEnvelope {
 		this.nodeID = nodeID;
 	}
 
-	public NamingServiceMessage getMessage() {
+	public Message getMessage() {
 		return message;
 	}
 
-	public void setMessage(NamingServiceMessage message) {
+	public void setMessage(Message message) {
 		this.message = message;
 	}
 
@@ -46,7 +46,7 @@ public class NamingServiceEnvelope {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		NamingServiceEnvelope other = (NamingServiceEnvelope) obj;
+		Envelope other = (Envelope) obj;
 		if (message == null) {
 			if (other.message != null)
 				return false;

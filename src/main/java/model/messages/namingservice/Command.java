@@ -1,6 +1,6 @@
 package model.messages.namingservice;
 
-public enum NamingServiceCommand {
+public enum Command {
 	CLIENT_CREATE,
 	CLIENT_READ,
 	CLIENT_UPDATE,
