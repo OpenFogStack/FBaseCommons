@@ -10,14 +10,21 @@ import model.data.NodeID;
 public class ReplicaNodeConfig extends KeygroupMember {
 
 	private Integer timeToLive = null;
+	
+	private NodeID nodeID = null;
     
     public ReplicaNodeConfig() {
     
     }
 
 	public ReplicaNodeConfig(NodeID nodeID, Integer timeToLive) {
-		this.id = nodeID;
+		this.nodeID = nodeID;
 		this.timeToLive = timeToLive;
+	}
+	
+	@Override
+	public NodeID getID() {
+		return getNodeID();
 	}
       
 	// ************************************************************
@@ -25,11 +32,11 @@ public class ReplicaNodeConfig extends KeygroupMember {
 	// ************************************************************
 	
 	public NodeID getNodeID() {
-		return (NodeID) id;
+		return nodeID;
 	}
 
 	public void setNodeID(NodeID nodeID) {
-		this.id = nodeID;
+		this.nodeID = nodeID;
 	}
 
 	public Integer getTimeToLive() {

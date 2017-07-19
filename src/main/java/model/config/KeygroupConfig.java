@@ -18,6 +18,11 @@ import model.data.NodeID;
 public class KeygroupConfig extends Config {
 	
 	/**
+	 * ID of the keygroup
+	 */
+	private KeygroupID keygroupID = null;
+	
+	/**
 	 * Clients that have access to data stored within a keygroup.
 	 */
 	private Set<String> clients = new HashSet<String>();
@@ -47,17 +52,22 @@ public class KeygroupConfig extends Config {
 	}
 	
 	public KeygroupConfig(KeygroupID keygroupID, String encryptionSecret, EncryptionAlgorithm encryptionAlgorithm) {
-		this.id = keygroupID;
+		this.keygroupID = keygroupID;
 		this.encryptionSecret = encryptionSecret;
 		this.encryptionAlgorithm = encryptionAlgorithm;
 	}
+	
+	@Override
+	public KeygroupID getID() {
+		return getKeygroupID();
+	}
 
 	public KeygroupID getKeygroupID() {
-		return (KeygroupID) id;
+		return keygroupID;
 	}
 
 	public void setKeygroupID(KeygroupID keygroupID) {
-		this.id = keygroupID;
+		this.keygroupID = keygroupID;
 	}
 
 	public Set<String> getClients() {

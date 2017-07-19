@@ -17,6 +17,11 @@ public class ClientConfig extends Config {
     public ClientConfig() {
     	
     }
+    
+    @Override
+    public ClientID getID() {
+    	return getClientID();
+    }
 
 	// ************************************************************
 	// Generated Code

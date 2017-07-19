@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author jonathanhasenburg
  *
  */
-public class KeygroupID extends EntityID {
+public class KeygroupID extends ConfigID {
 
 	private static Logger logger = Logger.getLogger(KeygroupID.class.getName());
 	public static final String INTERNAL_SEPARATOR = "/";

@@ -9,14 +9,19 @@ import model.data.NodeID;
  */
 public class TriggerNodeConfig extends KeygroupMember {
 
-	private String nodeID = null;
+	private NodeID nodeID = null;
     
     public TriggerNodeConfig() {
      
     }
 
-	public TriggerNodeConfig(String nodeID) {
+	public TriggerNodeConfig(NodeID nodeID) {
 		this.nodeID = nodeID;
+	}
+	
+	@Override
+	public NodeID getID() {
+		return getNodeID();
 	}
 
 	// ************************************************************
@@ -24,11 +29,11 @@ public class TriggerNodeConfig extends KeygroupMember {
 	// ************************************************************
 	
 	public NodeID getNodeID() {
-		return (NodeID) id;
+		return nodeID;
 	}
 
 	public void setNodeID(NodeID nodeID) {
-		this.id = nodeID;
+		this.nodeID = nodeID;
 	}
 
 	@Override

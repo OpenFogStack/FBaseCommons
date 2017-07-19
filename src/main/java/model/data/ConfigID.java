@@ -8,16 +8,16 @@ import model.JSONable;
  * @author Wm. Keith van der Meulen
  *
  */
-public abstract class EntityID implements JSONable {
+public abstract class ConfigID implements JSONable {
 	
 	protected String id;
 	
-	public EntityID(String id) {
+	public ConfigID(String id) {
 		super();
 		this.id = id;
 	}
 	
-	public EntityID() {
+	public ConfigID() {
 		
 	}
 
@@ -50,7 +50,7 @@ public abstract class EntityID implements JSONable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		EntityID other = (EntityID) obj;
+		ConfigID other = (ConfigID) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

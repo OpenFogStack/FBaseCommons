@@ -1,7 +1,7 @@
 package model.config;
 
 import model.JSONable;
-import model.data.EntityID;
+import model.data.ConfigID;
 
 /**
  * 
@@ -11,33 +11,8 @@ import model.data.EntityID;
  *
  */
 public abstract class Config implements JSONable {
-
-	protected EntityID id = null;
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Config other = (Config) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
+	
+	abstract ConfigID getID();
 	
 	// TODO add utility methods to split host:port into parts (and to create a string using both)
 

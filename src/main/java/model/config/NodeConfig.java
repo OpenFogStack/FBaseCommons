@@ -12,6 +12,7 @@ import model.data.NodeID;
  */
 public class NodeConfig extends Config {
 
+	private NodeID nodeID = null;
 	private String publicKey = null;
     private EncryptionAlgorithm encryptionAlgorithm = null;
     private List<String> machines = null;
@@ -25,16 +26,21 @@ public class NodeConfig extends Config {
     	
     }
     
+    @Override
+    public NodeID getID() {
+    	return getNodeID();
+    }
+    
 	// ************************************************************
 	// Generated Code
 	// ************************************************************
 
 	public NodeID getNodeID() {
-		return (NodeID) id;
+		return nodeID;
 	}
 
 	public void setNodeID(NodeID nodeID) {
-		this.id = nodeID;
+		this.nodeID = nodeID;
 	}
 
 	public String getPublicKey() {
