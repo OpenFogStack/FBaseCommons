@@ -15,7 +15,7 @@ public class DataIdentifier {
 	private static Logger logger = Logger.getLogger(DataIdentifier.class.getName());
 
 	private KeygroupID keygroupID = null;
-	private String dataId = null;
+	private String dataID = null;
 	
 	public DataIdentifier() {
 		
@@ -23,28 +23,28 @@ public class DataIdentifier {
 	
 	/**
 	 * 
-	 * @param app appId (first part of keygroup identifier)
-	 * @param tenant tenantId (second part of keygroup identifier)
-	 * @param group groupId (third part of keygroup identifier)
-	 * @param dataId name of the data item
+	 * @param app appID (first part of keygroup identifier)
+	 * @param tenant tenantID (second part of keygroup identifier)
+	 * @param group groupID (third part of keygroup identifier)
+	 * @param dataID name of the data item
 	 */
-	public DataIdentifier(String app, String tenant, String group, String dataId) {
-		this(new KeygroupID(app, tenant, group), dataId);
+	public DataIdentifier(String app, String tenant, String group, String dataID) {
+		this(new KeygroupID(app, tenant, group), dataID);
 	}
 	
 	/**
 	 * 
 	 * @param keygroupID keygroup identifier
-	 * @param dataId name of the data item
+	 * @param dataID name of the data item
 	 */
-	public DataIdentifier(KeygroupID keygroupID, String dataId) {
+	public DataIdentifier(KeygroupID keygroupID, String dataID) {
 		this.keygroupID = keygroupID;
-		this.dataId = dataId;
+		this.dataID = dataID;
 	}
 	
 	@Override
 	public String toString() {
-		return keygroupID.toString() + KeygroupID.INTERNAL_SEPARATOR + dataId;
+		return keygroupID.toString() + KeygroupID.INTERNAL_SEPARATOR + dataID;
 	}
 	
 	public static DataIdentifier createFromString(String string) {
@@ -70,19 +70,19 @@ public class DataIdentifier {
 		this.keygroupID = keygroupID;
 	}
 
-	public String getDataId() {
-		return dataId;
+	public String getDataID() {
+		return dataID;
 	}
 
-	public void setDataId(String dataId) {
-		this.dataId = dataId;
+	public void setDataID(String dataID) {
+		this.dataID = dataID;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((dataId == null) ? 0 : dataId.hashCode());
+		result = prime * result + ((dataID == null) ? 0 : dataID.hashCode());
 		result = prime * result + ((keygroupID == null) ? 0 : keygroupID.hashCode());
 		return result;
 	}
@@ -96,10 +96,10 @@ public class DataIdentifier {
 		if (getClass() != obj.getClass())
 			return false;
 		DataIdentifier other = (DataIdentifier) obj;
-		if (dataId == null) {
-			if (other.dataId != null)
+		if (dataID == null) {
+			if (other.dataID != null)
 				return false;
-		} else if (!dataId.equals(other.dataId))
+		} else if (!dataID.equals(other.dataID))
 			return false;
 		if (keygroupID == null) {
 			if (other.keygroupID != null)

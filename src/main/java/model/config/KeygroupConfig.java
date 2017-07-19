@@ -47,8 +47,7 @@ public class KeygroupConfig extends Entity {
 		
 	}
 	
-	public KeygroupConfig(KeygroupID keygroupID, String encryptionSecret, 
-			EncryptionAlgorithm encryptionAlgorithm) {
+	public KeygroupConfig(KeygroupID keygroupID, String encryptionSecret, EncryptionAlgorithm encryptionAlgorithm) {
 		this.id = keygroupID;
 		this.encryptionSecret = encryptionSecret;
 		this.encryptionAlgorithm = encryptionAlgorithm;
