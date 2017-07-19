@@ -3,7 +3,6 @@ package model.config;
 import java.util.List;
 
 import crypto.CryptoProvider.EncryptionAlgorithm;
-import model.Entity;
 import model.data.NodeID;
 
 /**
@@ -11,7 +10,7 @@ import model.data.NodeID;
  * @author jonathanhasenburg
  *
  */
-public class NodeConfig extends Entity {
+public class NodeConfig extends Config {
 
 	private String publicKey = null;
     private EncryptionAlgorithm encryptionAlgorithm = null;

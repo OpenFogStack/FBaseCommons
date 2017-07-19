@@ -1,7 +1,6 @@
 package model.config;
 
 import crypto.CryptoProvider.EncryptionAlgorithm;
-import model.Entity;
 import model.data.ClientID;
 
 /**
@@ -9,7 +8,7 @@ import model.data.ClientID;
  * @author jonathanhasenburg
  *
  */
-public class ClientConfig extends Entity {
+public class ClientConfig extends Config {
 
 	private ClientID clientID = null;
     private String publicKey = null;

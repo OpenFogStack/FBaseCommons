@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import crypto.CryptoProvider.EncryptionAlgorithm;
-import model.Entity;
 import model.data.DataRecord;
 import model.data.KeygroupID;
 import model.data.NodeID;
@@ -16,7 +15,7 @@ import model.data.NodeID;
  * @author jonathanhasenburg
  *
  */
-public class KeygroupConfig extends Entity {
+public class KeygroupConfig extends Config {
 	
 	/**
 	 * Clients that have access to data stored within a keygroup.

@@ -1,5 +1,6 @@
-package model;
+package model.config;
 
+import model.JSONable;
 import model.data.EntityID;
 
 /**
@@ -9,7 +10,7 @@ import model.data.EntityID;
  * @author jonathanhasenburg
  *
  */
-public abstract class Entity implements JSONable {
+public abstract class Config implements JSONable {
 
 	protected EntityID id = null;
 
@@ -29,7 +30,7 @@ public abstract class Entity implements JSONable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Entity other = (Entity) obj;
+		Config other = (Config) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

@@ -5,7 +5,8 @@ import org.apache.log4j.Logger;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import model.Entity;
+import model.JSONable;
+import model.config.Config;
 import model.messages.SpecialStringDeserializer;
 
 /**
@@ -14,7 +15,7 @@ import model.messages.SpecialStringDeserializer;
  * @author jonathanhasenburg
  *
  */
-public class Message extends Entity {
+public class Message implements JSONable {
 
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(Message.class.getName());

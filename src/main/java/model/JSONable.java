@@ -7,9 +7,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import model.config.Config;
+
 public interface JSONable {
 
-	public static Logger logger = Logger.getLogger(Entity.class.getName());
+	public static Logger logger = Logger.getLogger(Config.class.getName());
 
 	public static <T> T fromJSON(String json, Class<T> targetClass) {
 		ObjectMapper mapper = new ObjectMapper();
