@@ -13,7 +13,7 @@ public class TriggerNodeConfig extends KeygroupMember {
      
     }
 
-	public TriggerNodeConfig(NodeID nodeID, String endpoint) {
+	public TriggerNodeConfig(NodeID nodeID) {
 		this.id = nodeID;
 	}
 
