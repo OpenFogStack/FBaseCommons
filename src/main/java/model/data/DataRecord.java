@@ -3,7 +3,7 @@ package model.data;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.Entity;
+import model.JSONable;
 
 import org.apache.log4j.Logger;
 
@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author jonathanhasenburg
  *
  */
-public class DataRecord extends Entity {
+public class DataRecord implements JSONable {
 
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(DataRecord.class.getName());
@@ -32,7 +32,7 @@ public class DataRecord extends Entity {
 
 	/**
 	 * 
-	 * @param dataIdentifier keygroup of the data record plus data Id(key)
+	 * @param dataIdentifier keygroup of the data record plus data ID(key)
 	 * @param value values of the data record
 	 */
 	public DataRecord(DataIdentifier dataIdentifier, Map<String,String> value) {
@@ -49,11 +49,11 @@ public class DataRecord extends Entity {
 	}
 
 	@JsonIgnore
-	public String getDataId() {
+	public String getDataID() {
 		if (dataIdentifier == null) {
 			return null;
 		}
-		return dataIdentifier.getDataId();
+		return dataIdentifier.getDataID();
 	}
 	
 	@JsonIgnore
@@ -66,7 +66,7 @@ public class DataRecord extends Entity {
 	
 	@Override
 	public String toString() {
-		return super.toJSON();
+		return JSONable.toJSON(this);
 	}
 
 	// ************************************************************

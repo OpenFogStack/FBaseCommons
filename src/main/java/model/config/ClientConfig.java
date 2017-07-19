@@ -2,6 +2,7 @@ package model.config;
 
 import crypto.CryptoProvider.EncryptionAlgorithm;
 import model.Entity;
+import model.data.ClientID;
 
 /**
  * 
@@ -10,7 +11,7 @@ import model.Entity;
  */
 public class ClientConfig extends Entity {
 
-	private String clientID = null;
+	private ClientID clientID = null;
     private String publicKey = null;
     private EncryptionAlgorithm encryptionAlgorithm = null;
     
@@ -22,12 +23,12 @@ public class ClientConfig extends Entity {
 	// Generated Code
 	// ************************************************************
     
-	public String getClientID() {
+	public ClientID getClientID() {
 		return clientID;
 	}
 
-	public void setClientID(String nodeID) {
-		this.clientID = nodeID;
+	public void setClientID(ClientID clientID) {
+		this.clientID = clientID;
 	}
 
 	public String getPublicKey() {

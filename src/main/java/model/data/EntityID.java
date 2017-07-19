@@ -1,17 +1,38 @@
-package model;
+package model.data;
 
-import model.data.EntityID;
+import model.JSONable;
 
 /**
+ * General class to unify
  * 
- * Base class for all model classes that require JSON serialization.
- * 
- * @author jonathanhasenburg
+ * @author Wm. Keith van der Meulen
  *
  */
-public abstract class Entity implements JSONable {
+public abstract class EntityID implements JSONable {
+	
+	protected String id;
+	
+	public EntityID(String id) {
+		super();
+		this.id = id;
+	}
+	
+	public EntityID() {
+		
+	}
 
-	protected EntityID id = null;
+	public String getID() {
+		return id;
+	}
+
+	public void setID(String id) {
+		this.id = id;
+	}
+	
+	@Override
+	public String toString() {
+		return getID();
+	}
 
 	@Override
 	public int hashCode() {
@@ -29,7 +50,7 @@ public abstract class Entity implements JSONable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Entity other = (Entity) obj;
+		EntityID other = (EntityID) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -38,6 +59,5 @@ public abstract class Entity implements JSONable {
 		return true;
 	}
 	
-	// TODO add utility methods to split host:port into parts (and to create a string using both)
-
+	
 }
