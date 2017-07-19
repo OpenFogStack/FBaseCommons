@@ -3,6 +3,8 @@ package model.config;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import crypto.CryptoProvider.EncryptionAlgorithm;
 import model.data.DataRecord;
 import model.data.KeygroupID;
@@ -68,6 +70,7 @@ public class KeygroupConfig extends Config {
 	}
 	
 	@Override
+	@JsonIgnore
 	public KeygroupID getID() {
 		return getKeygroupID();
 	}

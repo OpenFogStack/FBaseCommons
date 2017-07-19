@@ -1,5 +1,7 @@
 package model.config;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import crypto.CryptoProvider.EncryptionAlgorithm;
 import model.data.ClientID;
 
@@ -47,6 +49,7 @@ public class ClientConfig extends Config {
 	}
 
 	@Override
+	@JsonIgnore
     public ClientID getID() {
     	return getClientID();
     }

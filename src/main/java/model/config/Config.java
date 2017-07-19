@@ -1,5 +1,7 @@
 package model.config;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import model.JSONable;
 import model.data.ConfigID;
 
@@ -16,6 +18,7 @@ public abstract class Config implements JSONable {
 	 * 
 	 * @return the ID of the config object
 	 */
+	@JsonIgnore
 	abstract ConfigID getID();
 	
 	// TODO add utility methods to split host:port into parts (and to create a string using both)

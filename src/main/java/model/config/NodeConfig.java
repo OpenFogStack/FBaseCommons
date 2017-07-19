@@ -2,6 +2,8 @@ package model.config;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import crypto.CryptoProvider.EncryptionAlgorithm;
 import model.data.NodeID;
 
@@ -92,6 +94,7 @@ public class NodeConfig extends Config {
 	}
 
 	@Override
+	@JsonIgnore
     public NodeID getID() {
     	return getNodeID();
     }

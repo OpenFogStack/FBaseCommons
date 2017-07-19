@@ -1,5 +1,7 @@
 package model.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Class to hold the ID of a client in the system
  * 
@@ -30,6 +32,7 @@ public class ClientID extends ConfigID {
 	}
 	
 	@Override
+	@JsonIgnore
 	public String getID() {
 		return getClientID();
 	}

@@ -1,5 +1,7 @@
 package model.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Class to hold the ID of a logical node in the system
  * 
@@ -30,6 +32,7 @@ public class NodeID extends ConfigID {
 	}
 	
 	@Override
+	@JsonIgnore
 	public String getID() {
 		return getNodeID();
 	}

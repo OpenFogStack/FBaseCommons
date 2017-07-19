@@ -61,10 +61,12 @@ public class KeygroupID extends ConfigID {
 	}
 	
 	@Override
+	@JsonIgnore
 	public String getID() {
 		return getKeygroupID();
 	}
 	
+	@JsonIgnore
 	public String getKeygroupID() {
 		return getGroupPath();
 	}

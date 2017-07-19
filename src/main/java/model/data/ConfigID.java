@@ -1,5 +1,7 @@
 package model.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import model.JSONable;
 
 /**
@@ -15,5 +17,6 @@ public abstract class ConfigID implements JSONable {
 	 * 
 	 * @return Returns a String representation of the ID
 	 */
+	@JsonIgnore
 	public abstract String getID();
 }

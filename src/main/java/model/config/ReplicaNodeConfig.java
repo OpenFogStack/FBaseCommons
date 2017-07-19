@@ -1,5 +1,7 @@
 package model.config;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import model.data.NodeID;
 
 /**
@@ -39,6 +41,7 @@ public class ReplicaNodeConfig extends KeygroupMember {
 	}
 	
 	@Override
+	@JsonIgnore
 	public NodeID getID() {
 		return getNodeID();
 	}
