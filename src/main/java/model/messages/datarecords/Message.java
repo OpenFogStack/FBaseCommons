@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import model.JSONable;
-import model.config.Config;
 import model.messages.SpecialStringDeserializer;
 
 /**
