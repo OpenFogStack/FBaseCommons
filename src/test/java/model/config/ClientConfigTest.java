@@ -9,6 +9,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import crypto.CryptoProvider.EncryptionAlgorithm;
+import model.JSONable;
+import model.data.ClientID;
 
 public class ClientConfigTest {
 
@@ -31,13 +33,13 @@ public class ClientConfigTest {
 	@Test
 	public void test() {
 		ClientConfig config = new ClientConfig();
-		config.setClientID("client1");
+		config.setClientID(new ClientID("client1"));
 		config.setEncryptionAlgorithm(EncryptionAlgorithm.AES);
 		config.setPublicKey("client1PublicKey");
 		
-		String json = config.toJSON();
+		String json = JSONable.toJSON(config);
 		System.out.println(json);
-		assertEquals(config, ClientConfig.fromJSON(json, ClientConfig.class));
+		assertEquals(config, JSONable.fromJSON(json, ClientConfig.class));
 	}
 
 }
