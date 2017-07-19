@@ -1,5 +1,6 @@
 package model.config;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import crypto.CryptoProvider.EncryptionAlgorithm;
@@ -24,17 +25,17 @@ public class KeygroupConfig extends Entity {
 	/**
 	 * Clients that have access to data stored within a keygroup.
 	 */
-	private Set<String> clients = null;
+	private Set<String> clients = new HashSet<String>();
 	
 	/**
 	 * List of fog nodes that receive and replica data.
 	 */
-	private Set<ReplicaNodeConfig> replicaNodeConfigs = null;
+	private Set<ReplicaNodeConfig> replicaNodeConfigs = new HashSet<ReplicaNodeConfig>();
 	
 	/**
 	 * List of fog nodes that only receive data.
 	 */
-	private Set<TriggerNodeConfig> triggerNodeConfigs = null;
+	private Set<TriggerNodeConfig> triggerNodeConfigs = new HashSet<TriggerNodeConfig>();
 	
 	/**
 	 * Encryption secret (symmetric) for communication within a keygroup.
