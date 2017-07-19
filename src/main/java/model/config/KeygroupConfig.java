@@ -181,15 +181,16 @@ public class KeygroupConfig extends Config {
 
 	// ************************************************************
 	// Generated Code
-	// ************************************************************
+	// ************************************************************	
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
 		result = prime * result + ((clients == null) ? 0 : clients.hashCode());
 		result = prime * result + ((encryptionAlgorithm == null) ? 0 : encryptionAlgorithm.hashCode());
 		result = prime * result + ((encryptionSecret == null) ? 0 : encryptionSecret.hashCode());
+		result = prime * result + ((keygroupID == null) ? 0 : keygroupID.hashCode());
 		result = prime * result + ((replicaNodeConfigs == null) ? 0 : replicaNodeConfigs.hashCode());
 		result = prime * result + ((triggerNodeConfigs == null) ? 0 : triggerNodeConfigs.hashCode());
 		return result;
@@ -199,7 +200,7 @@ public class KeygroupConfig extends Config {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -215,6 +216,11 @@ public class KeygroupConfig extends Config {
 			if (other.encryptionSecret != null)
 				return false;
 		} else if (!encryptionSecret.equals(other.encryptionSecret))
+			return false;
+		if (keygroupID == null) {
+			if (other.keygroupID != null)
+				return false;
+		} else if (!keygroupID.equals(other.keygroupID))
 			return false;
 		if (replicaNodeConfigs == null) {
 			if (other.replicaNodeConfigs != null)

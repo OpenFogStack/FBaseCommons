@@ -70,6 +70,7 @@ public class ReplicaNodeConfig extends KeygroupMember {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((nodeID == null) ? 0 : nodeID.hashCode());
 		result = prime * result + ((timeToLive == null) ? 0 : timeToLive.hashCode());
 		return result;
 	}
@@ -83,6 +84,11 @@ public class ReplicaNodeConfig extends KeygroupMember {
 		if (getClass() != obj.getClass())
 			return false;
 		ReplicaNodeConfig other = (ReplicaNodeConfig) obj;
+		if (nodeID == null) {
+			if (other.nodeID != null)
+				return false;
+		} else if (!nodeID.equals(other.nodeID))
+			return false;
 		if (timeToLive == null) {
 			if (other.timeToLive != null)
 				return false;

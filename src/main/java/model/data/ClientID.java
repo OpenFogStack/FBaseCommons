@@ -44,4 +44,30 @@ public class ClientID extends ConfigID {
 	public void setClientID(String clientID) {
 		this.clientID = clientID;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((clientID == null) ? 0 : clientID.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ClientID other = (ClientID) obj;
+		if (clientID == null) {
+			if (other.clientID != null)
+				return false;
+		} else if (!clientID.equals(other.clientID))
+			return false;
+		return true;
+	}
+	
 }

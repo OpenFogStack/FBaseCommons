@@ -81,14 +81,13 @@ public class ClientConfig extends Config {
 	public void setEncryptionAlgorithm(EncryptionAlgorithm encryptionAlgorithm) {
 		this.encryptionAlgorithm = encryptionAlgorithm;
 	}
-	
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((encryptionAlgorithm == null) ? 0 : encryptionAlgorithm.hashCode());
 		result = prime * result + ((clientID == null) ? 0 : clientID.hashCode());
+		result = prime * result + ((encryptionAlgorithm == null) ? 0 : encryptionAlgorithm.hashCode());
 		result = prime * result + ((publicKey == null) ? 0 : publicKey.hashCode());
 		return result;
 	}
@@ -102,12 +101,12 @@ public class ClientConfig extends Config {
 		if (getClass() != obj.getClass())
 			return false;
 		ClientConfig other = (ClientConfig) obj;
-		if (encryptionAlgorithm != other.encryptionAlgorithm)
-			return false;
 		if (clientID == null) {
 			if (other.clientID != null)
 				return false;
 		} else if (!clientID.equals(other.clientID))
+			return false;
+		if (encryptionAlgorithm != other.encryptionAlgorithm)
 			return false;
 		if (publicKey == null) {
 			if (other.publicKey != null)
