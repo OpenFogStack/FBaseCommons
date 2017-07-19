@@ -4,7 +4,6 @@ import model.JSONable;
 import model.data.ConfigID;
 
 /**
- * 
  * Base class for all model classes that require JSON serialization.
  * 
  * @author jonathanhasenburg
@@ -12,6 +11,11 @@ import model.data.ConfigID;
  */
 public abstract class Config implements JSONable {
 	
+	/**
+	 * Method to return the ID of any config object
+	 * 
+	 * @return the ID of the config object
+	 */
 	abstract ConfigID getID();
 	
 	// TODO add utility methods to split host:port into parts (and to create a string using both)

@@ -6,27 +6,92 @@ import crypto.CryptoProvider.EncryptionAlgorithm;
 import model.data.NodeID;
 
 /**
+ * Config object representing a logical node in the system
  * 
  * @author jonathanhasenburg
  *
  */
 public class NodeConfig extends Config {
 
+	/**
+	 * The unique ID for the node
+	 */
 	private NodeID nodeID = null;
+	
+	/**
+	 * The public key for the node
+	 */
 	private String publicKey = null;
+	
+	/**
+	 * The encryption algorithm for the node
+	 */
     private EncryptionAlgorithm encryptionAlgorithm = null;
+    
+    /**
+     * List of machine addresses that make up the logical node
+     */
     private List<String> machines = null;
+    
+    /**
+     * Publisher port for the node
+     */
     private Integer publisherPort = null;
+    
+    /**
+     * Message port for the node
+     */
     private Integer messagePort = null;
+    
+    /**
+     * Rest port for the node
+     */
     private Integer restPort = null;
+    
+    /**
+     * Plain text location of the node
+     */
     private String location = null;
+    
+    /**
+     * Plain text description of the node
+     */
     private String description = null;
     
+    /**
+	 * Empty constructor used for JSON parsing
+	 */
     public NodeConfig() {
     	
     }
     
-    @Override
+    /**
+     * Main constructor for creating a new node
+     * 
+	 * @param nodeID The unique ID for the node
+	 * @param publicKey The public key for the node
+	 * @param encryptionAlgorithm The encryption algorithm for the node
+	 * @param machines List of machine addresses that make up the logical node
+	 * @param publisherPort Publisher port for the node
+	 * @param messagePort Message port for the node
+	 * @param restPort Rest port for the node
+	 * @param location Plain text location of the node
+	 * @param description Plain text description of the node
+	 */
+	public NodeConfig(NodeID nodeID, String publicKey, EncryptionAlgorithm encryptionAlgorithm, List<String> machines,
+			Integer publisherPort, Integer messagePort, Integer restPort, String location, String description) {
+		this.nodeID = nodeID;
+		this.publicKey = publicKey;
+		this.encryptionAlgorithm = encryptionAlgorithm;
+		this.machines = machines;
+		this.publisherPort = publisherPort;
+		this.messagePort = messagePort;
+		this.restPort = restPort;
+		this.location = location;
+		this.description = description;
+	}
+
+	@Override
     public NodeID getID() {
     	return getNodeID();
     }

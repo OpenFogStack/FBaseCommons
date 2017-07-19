@@ -4,21 +4,49 @@ import crypto.CryptoProvider.EncryptionAlgorithm;
 import model.data.ClientID;
 
 /**
+ * Config object representing a client in the system
  * 
  * @author jonathanhasenburg
  *
  */
 public class ClientConfig extends Config {
 
+	/**
+	 * The unique ID of the client
+	 */
 	private ClientID clientID = null;
+	
+	/**
+	 * The public key for the client
+	 */
     private String publicKey = null;
+    
+    /**
+     * The encryption algorithm for the client
+     */
     private EncryptionAlgorithm encryptionAlgorithm = null;
     
+    /**
+	 * Empty constructor used for JSON parsing
+	 */
     public ClientConfig() {
     	
     }
     
-    @Override
+    /**
+     * Main constructor for creating a new client
+     * 
+	 * @param clientID The unique ID of the client
+	 * @param publicKey The public key for the client
+	 * @param encryptionAlgorithm The encryption algorithm for the client
+	 */
+	public ClientConfig(ClientID clientID, String publicKey, EncryptionAlgorithm encryptionAlgorithm) {
+		this.clientID = clientID;
+		this.publicKey = publicKey;
+		this.encryptionAlgorithm = encryptionAlgorithm;
+	}
+
+	@Override
     public ClientID getID() {
     	return getClientID();
     }

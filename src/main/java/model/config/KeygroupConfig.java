@@ -47,10 +47,20 @@ public class KeygroupConfig extends Config {
 	 */
 	private EncryptionAlgorithm encryptionAlgorithm = null;
 	
+	/**
+	 * Empty constructor used for JSON parsing
+	 */
 	public KeygroupConfig() {
 		
 	}
 	
+	/**
+	 * Constructor for new empty keygroup.
+	 * 
+	 * @param keygroupID The unique ID of the keygroup
+	 * @param encryptionSecret The symmetric encryption secret used in internal keygroup communication
+	 * @param encryptionAlgorithm The symmetric encryption algorithm used in internal keygroup communication
+	 */
 	public KeygroupConfig(KeygroupID keygroupID, String encryptionSecret, EncryptionAlgorithm encryptionAlgorithm) {
 		this.keygroupID = keygroupID;
 		this.encryptionSecret = encryptionSecret;
