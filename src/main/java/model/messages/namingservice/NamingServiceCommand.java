@@ -1,20 +1,20 @@
 package model.messages.namingservice;
 
 public enum NamingServiceCommand {
-	ClientCreate,
-	ClientRead,
-	ClientUpdate,
-	ClientDelete,
+	CLIENT_CREATE,
+	CLIENT_READ,
+	CLIENT_UPDATE,
+	CLIENT_DELETE,
 	
-	NodeCreate,
-	NodeRead,
-	NodeUpdate,
-	NodeDelete,
+	NODE_CREATE,
+	NODE_READ,
+	NODE_UPDATE,
+	NODE_DELETE,
 	
-	KeygroupCreate,
-	KeygroupAddReplicaNode,
-	KeygroupAddTriggerNode,
-	KeygroupRead,
-	KeygroupUpdateCrypto,
-	KeygroupDelete;
+	KEYGROUP_CREATE,
+	KEYGROUP_ADD_REPLICA_NODE,
+	KEYGROUP_ADD_TRIGGER_NODE,
+	KEYGROUP_READ,
+	KEYGROUP_UPDATE_CRYPTO,
+	KEYGROUP_DELETE;
 }

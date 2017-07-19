@@ -27,8 +27,8 @@ public class ClientConfig extends Entity {
 		return clientID;
 	}
 
-	public void setClientID(ClientID nodeID) {
-		this.clientID = nodeID;
+	public void setClientID(ClientID clientID) {
+		this.clientID = clientID;
 	}
 
 	public String getPublicKey() {

@@ -3,7 +3,6 @@ package model.data;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.Entity;
 import model.JSONable;
 
 import org.apache.log4j.Logger;
@@ -33,7 +32,7 @@ public class DataRecord implements JSONable {
 
 	/**
 	 * 
-	 * @param dataIdentifier keygroup of the data record plus data Id(key)
+	 * @param dataIdentifier keygroup of the data record plus data ID(key)
 	 * @param value values of the data record
 	 */
 	public DataRecord(DataIdentifier dataIdentifier, Map<String,String> value) {
@@ -50,11 +49,11 @@ public class DataRecord implements JSONable {
 	}
 
 	@JsonIgnore
-	public String getDataId() {
+	public String getDataID() {
 		if (dataIdentifier == null) {
 			return null;
 		}
-		return dataIdentifier.getDataId();
+		return dataIdentifier.getDataID();
 	}
 	
 	@JsonIgnore
