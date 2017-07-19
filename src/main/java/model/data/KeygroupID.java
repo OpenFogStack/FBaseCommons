@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * Helper class to manage keygroup IDs, which act as a logical grouping unit for {@link DataRecord}.
+ * Class to manage keygroup IDs, which act as a logical grouping unit for {@link DataRecord}.
  * 
  * @author jonathanhasenburg
  *
@@ -16,6 +16,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class KeygroupID extends ConfigID {
 
 	private static Logger logger = Logger.getLogger(KeygroupID.class.getName());
+	
+	/**
+	 * The separator used to break between logical names in the ID 
+	 */
 	public static final String INTERNAL_SEPARATOR = "/";
 	
 	/**
@@ -33,10 +37,19 @@ public class KeygroupID extends ConfigID {
 	 */
 	private String group;
 	
+	/**
+	 * Empty constructor used for JSON parsing
+	 */
 	public KeygroupID() {
 		
 	}
 	
+	/**
+	 * Main constructor for creating a new keygroup
+	 * @param app An identifier for the belonging application.
+	 * @param tenant An identifier for the origin of the data record. Typically the tenant.
+	 * @param group An identifier that describes the data record, e.g. brightness.
+	 */
 	public KeygroupID(String app, String tenant, String group) {
 		if(checkID(app, tenant, group)) {
 			this.app = app;
@@ -45,8 +58,15 @@ public class KeygroupID extends ConfigID {
 		} else {
 			throw new IllegalArgumentException("Invalid app, originator, and/or descriptor name.");
 		}
-		
-		id = toString();
+	}
+	
+	@Override
+	public String getID() {
+		return getKeygroupID();
+	}
+	
+	public String getKeygroupID() {
+		return getGroupPath();
 	}
 	
 	public boolean checkID(String... input) {
@@ -93,7 +113,7 @@ public class KeygroupID extends ConfigID {
 	
 	@Override
 	public String toString() {
-		return getGroupPath();
+		return getKeygroupID();
 	}
 	
 	public String getApp() {
@@ -106,8 +126,6 @@ public class KeygroupID extends ConfigID {
 		} else {
 			throw new IllegalArgumentException("Invalid app name " + app);
 		}
-		
-		id = toString();
 	}
 
 	public String getTenant() {
@@ -120,8 +138,6 @@ public class KeygroupID extends ConfigID {
 		} else {
 			throw new IllegalArgumentException("Invalid tenant name " + tenant);
 		}
-		
-		id = toString();
 	}
 
 	public String getGroup() {
@@ -134,8 +150,6 @@ public class KeygroupID extends ConfigID {
 		} else {
 			throw new IllegalArgumentException("Invalid group name " + group);
 		}
-		
-		id = toString();
 	}
 	
 	// ************************************************************

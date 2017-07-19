@@ -17,6 +17,9 @@ public class DataIdentifier {
 	private KeygroupID keygroupID = null;
 	private String dataID = null;
 	
+	/**
+	 * Empty constructor used for JSON parsing
+	 */
 	public DataIdentifier() {
 		
 	}

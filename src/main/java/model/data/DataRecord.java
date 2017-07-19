@@ -26,11 +26,15 @@ public class DataRecord implements JSONable {
 	private Long updateTime = null;
 	private Map<String,String> value;
 
+	/**
+	 * Empty constructor used for JSON parsing
+	 */	
 	public DataRecord() {
 		
 	}
 
 	/**
+	 * Main constructor for creating a new DataRecord
 	 * 
 	 * @param dataIdentifier keygroup of the data record plus data ID(key)
 	 * @param value values of the data record
