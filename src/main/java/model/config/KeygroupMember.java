@@ -1,7 +1,11 @@
 package model.config;
 
-import model.Entity;
-
-public abstract class KeygroupMember extends Entity {
+/**
+ * Parent config object for member nodes in a keygroup
+ * 
+ * @author Wm. Keith van der Meulen
+ *
+ */
+public abstract class KeygroupMember extends Config {
 
 }

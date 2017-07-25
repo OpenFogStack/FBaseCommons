@@ -3,10 +3,12 @@ package model.config;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import crypto.CryptoProvider.EncryptionAlgorithm;
-import model.Entity;
 import model.data.DataRecord;
 import model.data.KeygroupID;
+import model.data.NodeID;
 
 /**
  * Configuration class for keygroups. Keygroups acts as a logical grouping unit for {@link DataRecord} objects.
@@ -15,10 +17,10 @@ import model.data.KeygroupID;
  * @author jonathanhasenburg
  *
  */
-public class KeygroupConfig extends Entity {
-
+public class KeygroupConfig extends Config {
+	
 	/**
-	 * ID of the keygroup.
+	 * ID of the keygroup
 	 */
 	private KeygroupID keygroupID = null;
 	
@@ -47,15 +49,30 @@ public class KeygroupConfig extends Entity {
 	 */
 	private EncryptionAlgorithm encryptionAlgorithm = null;
 	
+	/**
+	 * Empty constructor used for JSON parsing
+	 */
 	public KeygroupConfig() {
 		
 	}
 	
-	public KeygroupConfig(KeygroupID keygroupID, String encryptionSecret, 
-			EncryptionAlgorithm encryptionAlgorithm) {
+	/**
+	 * Constructor for new empty keygroup.
+	 * 
+	 * @param keygroupID The unique ID of the keygroup
+	 * @param encryptionSecret The symmetric encryption secret used in internal keygroup communication
+	 * @param encryptionAlgorithm The symmetric encryption algorithm used in internal keygroup communication
+	 */
+	public KeygroupConfig(KeygroupID keygroupID, String encryptionSecret, EncryptionAlgorithm encryptionAlgorithm) {
 		this.keygroupID = keygroupID;
 		this.encryptionSecret = encryptionSecret;
 		this.encryptionAlgorithm = encryptionAlgorithm;
+	}
+	
+	@Override
+	@JsonIgnore
+	public KeygroupID getID() {
+		return getKeygroupID();
 	}
 
 	public KeygroupID getKeygroupID() {
@@ -94,7 +111,7 @@ public class KeygroupConfig extends Entity {
 		return replicaNodeConfigs.add(replicaNodeConfig);
 	}
 	
-	public boolean removeReplicaNode(String nodeID) {
+	public boolean removeReplicaNode(NodeID nodeID) {
 		for(ReplicaNodeConfig r : replicaNodeConfigs) {
 			if(r.getNodeID() == nodeID) {
 				return replicaNodeConfigs.remove(r);
@@ -104,7 +121,7 @@ public class KeygroupConfig extends Entity {
 		return false;
 	}
 	
-	public boolean containsReplicaNode(String nodeID) {
+	public boolean containsReplicaNode(NodeID nodeID) {
 		for(ReplicaNodeConfig r : replicaNodeConfigs) {
 			if(r.getNodeID() == nodeID) {
 				return true;
@@ -126,7 +143,7 @@ public class KeygroupConfig extends Entity {
 		return triggerNodeConfigs.add(triggerNodeConfig);
 	}
 	
-	public boolean removeTriggerNode(String nodeID) {
+	public boolean removeTriggerNode(NodeID nodeID) {
 		for(TriggerNodeConfig t : triggerNodeConfigs) {
 			if(t.getNodeID() == nodeID) {
 				return triggerNodeConfigs.remove(t);
@@ -136,7 +153,7 @@ public class KeygroupConfig extends Entity {
 		return false;
 	}
 	
-	public boolean containsTriggerNode(String nodeID) {
+	public boolean containsTriggerNode(NodeID nodeID) {
 		for(TriggerNodeConfig t : triggerNodeConfigs) {
 			if(t.getNodeID() == nodeID) {
 				return true;
@@ -164,8 +181,8 @@ public class KeygroupConfig extends Entity {
 
 	// ************************************************************
 	// Generated Code
-	// ************************************************************
-		
+	// ************************************************************	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

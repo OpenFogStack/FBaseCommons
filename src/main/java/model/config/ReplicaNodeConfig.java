@@ -1,33 +1,60 @@
 package model.config;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import model.data.NodeID;
+
 /**
+ * Config object for replica nodes in the Keygroup.
  * 
  * @author jonathanhasenburg
  *
  */
 public class ReplicaNodeConfig extends KeygroupMember {
 
-	private String nodeID = null;
-    private Integer timeToLive = null;
+	/**
+	 * Time for data to live on the node in seconds
+	 */
+	private Integer timeToLive = null;
+	
+	/**
+	 * The ID of the node
+	 */
+	private NodeID nodeID = null;
     
+	/**
+	 * Empty constructor used for JSON parsing
+	 */
     public ReplicaNodeConfig() {
     
     }
 
-	public ReplicaNodeConfig(String nodeID, Integer timeToLive) {
+    /**
+     * Main constructor for creating a new ReplicaNodeConfig
+     * 
+     * @param nodeID The ID of the node
+     * @param timeToLive Time for the data to live on the node in seconds
+     */
+	public ReplicaNodeConfig(NodeID nodeID, Integer timeToLive) {
 		this.nodeID = nodeID;
 		this.timeToLive = timeToLive;
+	}
+	
+	@Override
+	@JsonIgnore
+	public NodeID getID() {
+		return getNodeID();
 	}
       
 	// ************************************************************
 	// Generated Code
 	// ************************************************************
 	
-	public String getNodeID() {
+	public NodeID getNodeID() {
 		return nodeID;
 	}
 
-	public void setNodeID(String nodeID) {
+	public void setNodeID(NodeID nodeID) {
 		this.nodeID = nodeID;
 	}
 

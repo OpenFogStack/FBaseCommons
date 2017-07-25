@@ -7,17 +7,19 @@ import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import model.Entity;
-
 /**
- * Helper class to manage keygroup IDs, which act as a logical grouping unit for {@link DataRecord}.
+ * Class to manage keygroup IDs, which act as a logical grouping unit for {@link DataRecord}.
  * 
  * @author jonathanhasenburg
  *
  */
-public class KeygroupID extends Entity {
+public class KeygroupID extends ConfigID {
 
 	private static Logger logger = Logger.getLogger(KeygroupID.class.getName());
+	
+	/**
+	 * The separator used to break between logical names in the ID 
+	 */
 	public static final String INTERNAL_SEPARATOR = "/";
 	
 	/**
@@ -35,10 +37,19 @@ public class KeygroupID extends Entity {
 	 */
 	private String group;
 	
+	/**
+	 * Empty constructor used for JSON parsing
+	 */
 	public KeygroupID() {
 		
 	}
 	
+	/**
+	 * Main constructor for creating a new keygroup
+	 * @param app An identifier for the belonging application.
+	 * @param tenant An identifier for the origin of the data record. Typically the tenant.
+	 * @param group An identifier that describes the data record, e.g. brightness.
+	 */
 	public KeygroupID(String app, String tenant, String group) {
 		if(checkID(app, tenant, group)) {
 			this.app = app;
@@ -47,6 +58,17 @@ public class KeygroupID extends Entity {
 		} else {
 			throw new IllegalArgumentException("Invalid app, originator, and/or descriptor name.");
 		}
+	}
+	
+	@Override
+	@JsonIgnore
+	public String getID() {
+		return getKeygroupID();
+	}
+	
+	@JsonIgnore
+	public String getKeygroupID() {
+		return getGroupPath();
 	}
 	
 	public boolean checkID(String... input) {
@@ -93,7 +115,7 @@ public class KeygroupID extends Entity {
 	
 	@Override
 	public String toString() {
-		return getGroupPath();
+		return getKeygroupID();
 	}
 	
 	public String getApp() {

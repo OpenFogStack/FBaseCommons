@@ -11,6 +11,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import crypto.CryptoProvider.EncryptionAlgorithm;
+import model.JSONable;
+import model.data.NodeID;
 
 public class NodeConfigTest {
 
@@ -33,7 +35,7 @@ public class NodeConfigTest {
 	@Test
 	public void test() {
 		NodeConfig config = new NodeConfig();
-		config.setNodeID("nodeA");
+		config.setNodeID(new NodeID("nodeA"));
 		config.setPublicKey("testKey");
 		config.setEncryptionAlgorithm(EncryptionAlgorithm.AES); // should be RSA after implementation
 		config.setMachines(Arrays.asList("Mx1", "Mx2"));
@@ -43,9 +45,9 @@ public class NodeConfigTest {
 		config.setLocation("52.515249, 13.326476");
 		config.setDescription("Raspberry Pi Cluster in EN 004");
 		
-		String json = config.toJSON();
+		String json = JSONable.toJSON(config);
 		System.out.println(json);
-		assertEquals(config, NodeConfig.fromJSON(json, NodeConfig.class));
+		assertEquals(config, JSONable.fromJSON(json, NodeConfig.class));
 	}
 
 }

@@ -1,11 +1,12 @@
-package model.message;
+package model.messages.datarecords;
 
 import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import model.Entity;
+import model.JSONable;
+import model.messages.SpecialStringDeserializer;
 
 /**
  * Class that can be used by components to exchange messages.
@@ -13,7 +14,7 @@ import model.Entity;
  * @author jonathanhasenburg
  *
  */
-public class Message extends Entity {
+public class Message implements JSONable {
 
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(Message.class.getName());

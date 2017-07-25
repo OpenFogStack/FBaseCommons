@@ -9,7 +9,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import crypto.CryptoProvider.EncryptionAlgorithm;
+import model.JSONable;
 import model.data.KeygroupID;
+import model.data.NodeID;
 
 public class KeygroupConfigTest {
 
@@ -40,27 +42,27 @@ public class KeygroupConfigTest {
 		
 		// replica configs
 		ReplicaNodeConfig rconfigA = new ReplicaNodeConfig();
-		rconfigA.setNodeID("A");
+		rconfigA.setNodeID(new NodeID("A"));
 		rconfigA.setTimeToLive(604800);
 		config.addReplicaNode(rconfigA);
 		
 		ReplicaNodeConfig rconfigB = new ReplicaNodeConfig();
-		rconfigB.setNodeID("B");
+		rconfigB.setNodeID(new NodeID("B"));
 		rconfigB.setTimeToLive(604800);
 		config.addReplicaNode(rconfigB);
 		
 		// trigger config
 		TriggerNodeConfig tconfigC = new TriggerNodeConfig();
-		tconfigC.setNodeID("C");
+		tconfigC.setNodeID(new NodeID("C"));
 		config.addTriggerNode(tconfigC);	
 		
 		// encryption
 		config.setEncryptionAlgorithm(EncryptionAlgorithm.AES);
 		config.setEncryptionSecret("wolkenhasen");
 		
-		String json = config.toJSON();
+		String json = JSONable.toJSON(config);
 		System.out.println(json);
-		assertEquals(config, KeygroupConfig.fromJSON(json, KeygroupConfig.class));
+		assertEquals(config, JSONable.fromJSON(json, KeygroupConfig.class));
 	}
 
 }

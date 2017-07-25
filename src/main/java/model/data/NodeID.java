@@ -1,53 +1,47 @@
-package model.config;
+package model.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import model.data.NodeID;
-
 /**
- * Config object for trigger nodes in the Keygroup.
+ * Class to hold the ID of a logical node in the system
  * 
- * @author jonathanhasenburg
+ * @author Wm. Keith van der Meulen
  *
  */
-public class TriggerNodeConfig extends KeygroupMember {
+public class NodeID extends ConfigID {
 
 	/**
-	 * The ID of the node
+	 * The unique ID of the node
 	 */
-	private NodeID nodeID = null;
-    
+	private String nodeID = null;
+	
 	/**
 	 * Empty constructor used for JSON parsing
 	 */
-    public TriggerNodeConfig() {
-     
-    }
-
-    /**
-     * Main constructor for creating a new TriggerNodeConfig
-     * 
-     * @param nodeID The ID of the node
-     */
-	public TriggerNodeConfig(NodeID nodeID) {
+	public NodeID() {
+		
+	}
+	
+	/**
+	 * Main constructor for creating a NodeID
+	 * 
+	 * @param nodeID The unique ID of the node
+	 */
+	public NodeID(String nodeID) {
 		this.nodeID = nodeID;
 	}
 	
 	@Override
 	@JsonIgnore
-	public NodeID getID() {
+	public String getID() {
 		return getNodeID();
 	}
 
-	// ************************************************************
-	// Generated Code
-	// ************************************************************
-	
-	public NodeID getNodeID() {
+	public String getNodeID() {
 		return nodeID;
 	}
 
-	public void setNodeID(NodeID nodeID) {
+	public void setNodeID(String nodeID) {
 		this.nodeID = nodeID;
 	}
 
@@ -67,7 +61,7 @@ public class TriggerNodeConfig extends KeygroupMember {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TriggerNodeConfig other = (TriggerNodeConfig) obj;
+		NodeID other = (NodeID) obj;
 		if (nodeID == null) {
 			if (other.nodeID != null)
 				return false;
