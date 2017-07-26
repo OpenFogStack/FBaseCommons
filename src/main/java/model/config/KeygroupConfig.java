@@ -115,7 +115,7 @@ public class KeygroupConfig extends Config {
 	
 	public boolean removeReplicaNode(NodeID nodeID) {
 		for(ReplicaNodeConfig r : replicaNodeConfigs) {
-			if(r.getNodeID() == nodeID) {
+			if(r.getNodeID().equals(nodeID)) {
 				return replicaNodeConfigs.remove(r);
 			}
 		}
@@ -125,7 +125,7 @@ public class KeygroupConfig extends Config {
 	
 	public boolean containsReplicaNode(NodeID nodeID) {
 		for(ReplicaNodeConfig r : replicaNodeConfigs) {
-			if(r.getNodeID() == nodeID) {
+			if(r.getNodeID().equals(nodeID)) {
 				return true;
 			}
 		}
@@ -147,7 +147,7 @@ public class KeygroupConfig extends Config {
 	
 	public boolean removeTriggerNode(NodeID nodeID) {
 		for(TriggerNodeConfig t : triggerNodeConfigs) {
-			if(t.getNodeID() == nodeID) {
+			if(t.getNodeID().equals(nodeID)) {
 				return triggerNodeConfigs.remove(t);
 			}
 		}
@@ -157,7 +157,7 @@ public class KeygroupConfig extends Config {
 	
 	public boolean containsTriggerNode(NodeID nodeID) {
 		for(TriggerNodeConfig t : triggerNodeConfigs) {
-			if(t.getNodeID() == nodeID) {
+			if(t.getNodeID().equals(nodeID)) {
 				return true;
 			}
 		}
