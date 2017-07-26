@@ -4,6 +4,7 @@ import model.data.NodeID;
 
 public class Envelope {
 	
+	//FIXME this should probably be called sender, right?
 	private NodeID nodeID = null;
 	
 	private Message message = null;
