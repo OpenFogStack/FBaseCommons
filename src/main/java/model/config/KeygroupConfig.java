@@ -3,12 +3,14 @@ package model.config;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import crypto.CryptoProvider.EncryptionAlgorithm;
+import model.data.ClientID;
 import model.data.DataRecord;
 import model.data.KeygroupID;
 import model.data.NodeID;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import crypto.CryptoProvider.EncryptionAlgorithm;
 
 /**
  * Configuration class for keygroups. Keygroups acts as a logical grouping unit for {@link DataRecord} objects.
@@ -27,7 +29,7 @@ public class KeygroupConfig extends Config {
 	/**
 	 * Clients that have access to data stored within a keygroup.
 	 */
-	private Set<String> clients = new HashSet<String>();
+	private Set<ClientID> clients = new HashSet<>();
 	
 	/**
 	 * List of fog nodes that receive and replica data.
@@ -83,15 +85,15 @@ public class KeygroupConfig extends Config {
 		this.keygroupID = keygroupID;
 	}
 
-	public Set<String> getClients() {
+	public Set<ClientID> getClients() {
 		return clients;
 	}
 
-	public void setClients(Set<String> clients) {
+	public void setClients(Set<ClientID> clients) {
 		this.clients = clients;
 	}
 	
-	public boolean addClient(String client) {
+	public boolean addClient(ClientID client) {
 		return clients.add(client);
 	}
 	
@@ -113,7 +115,7 @@ public class KeygroupConfig extends Config {
 	
 	public boolean removeReplicaNode(NodeID nodeID) {
 		for(ReplicaNodeConfig r : replicaNodeConfigs) {
-			if(r.getNodeID() == nodeID) {
+			if(r.getNodeID().equals(nodeID)) {
 				return replicaNodeConfigs.remove(r);
 			}
 		}
@@ -123,7 +125,7 @@ public class KeygroupConfig extends Config {
 	
 	public boolean containsReplicaNode(NodeID nodeID) {
 		for(ReplicaNodeConfig r : replicaNodeConfigs) {
-			if(r.getNodeID() == nodeID) {
+			if(r.getNodeID().equals(nodeID)) {
 				return true;
 			}
 		}
@@ -145,7 +147,7 @@ public class KeygroupConfig extends Config {
 	
 	public boolean removeTriggerNode(NodeID nodeID) {
 		for(TriggerNodeConfig t : triggerNodeConfigs) {
-			if(t.getNodeID() == nodeID) {
+			if(t.getNodeID().equals(nodeID)) {
 				return triggerNodeConfigs.remove(t);
 			}
 		}
@@ -155,7 +157,7 @@ public class KeygroupConfig extends Config {
 	
 	public boolean containsTriggerNode(NodeID nodeID) {
 		for(TriggerNodeConfig t : triggerNodeConfigs) {
-			if(t.getNodeID() == nodeID) {
+			if(t.getNodeID().equals(nodeID)) {
 				return true;
 			}
 		}

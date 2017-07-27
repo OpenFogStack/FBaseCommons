@@ -4,21 +4,21 @@ import model.data.NodeID;
 
 public class Envelope {
 	
-	private NodeID nodeID = null;
+	private NodeID senderID = null;
 	
 	private Message message = null;
 	
 	public Envelope(NodeID nodeID, Message message) {
-		this.nodeID = nodeID;
+		this.senderID = nodeID;
 		this.message = message;
 	}
 
 	public NodeID getNodeID() {
-		return nodeID;
+		return senderID;
 	}
 
 	public void setNodeID(NodeID nodeID) {
-		this.nodeID = nodeID;
+		this.senderID = nodeID;
 	}
 
 	public Message getMessage() {
@@ -34,7 +34,7 @@ public class Envelope {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((message == null) ? 0 : message.hashCode());
-		result = prime * result + ((nodeID == null) ? 0 : nodeID.hashCode());
+		result = prime * result + ((senderID == null) ? 0 : senderID.hashCode());
 		return result;
 	}
 
@@ -52,10 +52,10 @@ public class Envelope {
 				return false;
 		} else if (!message.equals(other.message))
 			return false;
-		if (nodeID == null) {
-			if (other.nodeID != null)
+		if (senderID == null) {
+			if (other.senderID != null)
 				return false;
-		} else if (!nodeID.equals(other.nodeID))
+		} else if (!senderID.equals(other.senderID))
 			return false;
 		return true;
 	}

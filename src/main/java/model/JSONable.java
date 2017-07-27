@@ -7,11 +7,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import model.config.Config;
-
 public interface JSONable {
 
-	public static Logger logger = Logger.getLogger(Config.class.getName());
+	public static Logger logger = Logger.getLogger(JSONable.class.getName());
 
 	public static <T> T fromJSON(String json, Class<T> targetClass) {
 		ObjectMapper mapper = new ObjectMapper();
@@ -24,7 +22,7 @@ public interface JSONable {
 		}
 	}
 
-	public static String toJSON(Object obj) {
+	public static String toJSON(JSONable obj) {
 		// Only include non-null field
 		ObjectMapper mapper = new ObjectMapper().setSerializationInclusion(Include.NON_NULL);
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
