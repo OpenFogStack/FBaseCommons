@@ -8,17 +8,17 @@ public class Envelope {
 	
 	private Message message = null;
 	
-	public Envelope(NodeID nodeID, Message message) {
-		this.senderID = nodeID;
+	public Envelope(NodeID senderID, Message message) {
+		this.senderID = senderID;
 		this.message = message;
 	}
 
-	public NodeID getNodeID() {
+	public NodeID getSenderID() {
 		return senderID;
 	}
 
-	public void setNodeID(NodeID nodeID) {
-		this.senderID = nodeID;
+	public void setSenderID(NodeID senderID) {
+		this.senderID = senderID;
 	}
 
 	public Message getMessage() {
