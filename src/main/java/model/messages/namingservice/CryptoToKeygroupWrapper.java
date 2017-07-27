@@ -1,9 +1,10 @@
 package model.messages.namingservice;
 
 import crypto.CryptoProvider.EncryptionAlgorithm;
+import model.JSONable;
 import model.data.KeygroupID;
 
-public class CryptoToKeygroupWrapper {
+public class CryptoToKeygroupWrapper implements JSONable {
 	KeygroupID keygroupID = null;
 	String encryptionSecret = null;
 	EncryptionAlgorithm encryptionAlgorithm = null;

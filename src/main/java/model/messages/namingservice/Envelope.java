@@ -1,8 +1,9 @@
 package model.messages.namingservice;
 
+import model.JSONable;
 import model.data.NodeID;
 
-public class Envelope {
+public class Envelope implements JSONable {
 	
 	private NodeID senderID = null;
 	

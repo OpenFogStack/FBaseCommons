@@ -3,9 +3,10 @@ package model.messages.namingservice;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import model.JSONable;
 import model.messages.SpecialStringDeserializer;
 
-public class Message {
+public class Message implements JSONable {
 	private Command command;
 	
 	@JsonRawValue
