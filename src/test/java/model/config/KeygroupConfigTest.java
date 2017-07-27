@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import crypto.CryptoProvider.EncryptionAlgorithm;
 import model.JSONable;
+import model.data.ClientID;
 import model.data.KeygroupID;
 import model.data.NodeID;
 
@@ -38,7 +39,7 @@ public class KeygroupConfigTest {
 		config.setKeygroupID(new KeygroupID("smartlight", "h1", "brightness"));
 		
 		// client
-		config.addClient("client1");
+		config.addClient(new ClientID("client1"));
 		
 		// replica configs
 		ReplicaNodeConfig rconfigA = new ReplicaNodeConfig();
