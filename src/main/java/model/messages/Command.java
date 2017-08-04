@@ -1,4 +1,4 @@
-package model.messages.namingservice;
+package model.messages;
 
 public enum Command {
 	CLIENT_CREATE,

@@ -113,11 +113,6 @@ public class KeygroupID extends ConfigID {
 		return app + INTERNAL_SEPARATOR + tenant + INTERNAL_SEPARATOR + group;
 	}
 	
-	@Override
-	public String toString() {
-		return getKeygroupID();
-	}
-	
 	public String getApp() {
 		return app;
 	}
@@ -152,6 +147,11 @@ public class KeygroupID extends ConfigID {
 		} else {
 			throw new IllegalArgumentException("Invalid group name " + group);
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return getID();
 	}
 	
 	// ************************************************************

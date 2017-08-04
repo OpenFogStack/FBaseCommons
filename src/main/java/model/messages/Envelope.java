@@ -1,6 +1,8 @@
-package model.messages.datarecords;
+package model.messages;
 
+import model.data.ConfigID;
 import model.data.KeygroupID;
+import model.data.NodeID;
 
 /**
  * Envelope are used to package all ZeroMQ messages.
@@ -11,9 +13,9 @@ import model.data.KeygroupID;
 public class Envelope {
 	
 	/**
-	 * ID of the keygroup the content relates to
+	 * ID of the keygroup or node the content relates to
 	 */
-	private KeygroupID keygroupID = null;
+	private ConfigID configID = null;
 	
 	/**
 	 * The message enveloped by the envelope
@@ -21,20 +23,44 @@ public class Envelope {
 	private Message message = null;
 
 	public Envelope(KeygroupID keygroupID, Message message) {
-		this.keygroupID = keygroupID;
+		this.configID = keygroupID;
 		this.message = message;
+	}
+	
+	public KeygroupID getKeygroupID() {
+		if (configID instanceof KeygroupID) {
+			KeygroupID keygroupID = (KeygroupID) configID;
+			return keygroupID;
+		}
+		return null;
+	}
+	
+	public void setKeygroupID(KeygroupID keygroupID) {
+		this.configID = keygroupID;
+	}
+	
+	public NodeID getNodeID() {
+		if (configID instanceof NodeID) {
+			NodeID nodeID = (NodeID) configID;
+			return nodeID;
+		}
+		return null;
+	}
+	
+	public void setNodeID(NodeID nodeID) {
+		this.configID = nodeID;
 	}
 	
 	// ************************************************************
 	// Generated Code
 	// ************************************************************
 	
-	public KeygroupID getKeygroupID() {
-		return keygroupID;
+	public ConfigID getConfigID() {
+		return configID;
 	}
 
-	public void setKeygroupID(KeygroupID keygroupID) {
-		this.keygroupID = keygroupID;
+	public void setConfigID(ConfigID configID) {
+		this.configID = configID;
 	}
 
 	public Message getMessage() {
@@ -49,7 +75,7 @@ public class Envelope {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((keygroupID == null) ? 0 : keygroupID.hashCode());
+		result = prime * result + ((configID == null) ? 0 : configID.hashCode());
 		result = prime * result + ((message == null) ? 0 : message.hashCode());
 		return result;
 	}
@@ -63,10 +89,10 @@ public class Envelope {
 		if (getClass() != obj.getClass())
 			return false;
 		Envelope other = (Envelope) obj;
-		if (keygroupID == null) {
-			if (other.keygroupID != null)
+		if (configID == null) {
+			if (other.configID != null)
 				return false;
-		} else if (!keygroupID.equals(other.keygroupID))
+		} else if (!configID.equals(other.configID))
 			return false;
 		if (message == null) {
 			if (other.message != null)

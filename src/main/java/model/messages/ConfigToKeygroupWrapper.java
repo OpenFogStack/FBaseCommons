@@ -1,4 +1,4 @@
-package model.messages.namingservice;
+package model.messages;
 
 import model.JSONable;
 import model.config.Config;
