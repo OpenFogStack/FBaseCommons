@@ -1,4 +1,4 @@
-package model.messages.namingservice;
+package model.messages;
 
 import crypto.CryptoProvider.EncryptionAlgorithm;
 import model.JSONable;
