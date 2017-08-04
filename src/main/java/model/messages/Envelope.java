@@ -22,8 +22,8 @@ public class Envelope {
 	 */
 	private Message message = null;
 
-	public Envelope(KeygroupID keygroupID, Message message) {
-		this.configID = keygroupID;
+	public Envelope(ConfigID configID, Message message) {
+		this.configID = configID;
 		this.message = message;
 	}
 	
