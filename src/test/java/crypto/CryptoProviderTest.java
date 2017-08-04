@@ -51,5 +51,29 @@ public class CryptoProviderTest {
 		assertEquals(toEncrypt, decrypted);
 		logger.debug("Finished testRSA_PrivateEncrypt.");
 	}
+	
+	@Test
+	public void testRSA_PublicEncrypt() throws NoSuchAlgorithmException {
+		logger.debug("-------Starting testRSA_PublicEncrypt-------");
+		String toEncrypt = "testRSA_PublicEncrypt";
+
+		Pair<PublicKey, PrivateKey> keyPair = RSAHelper.generateKeyPair(2048);
+		logger.info("Private key: " + keyPair.getValue1());
+		logger.info("Public key: " + keyPair.getValue0());
+		
+		String encryptionSecret = RSAHelper.getEncodedStringFromKey(keyPair.getValue0());
+		logger.debug("Encryption Secret: " + encryptionSecret);
+		String decryptionSecret = RSAHelper.getEncodedStringFromKey(keyPair.getValue1());
+		logger.debug("Decryption Secret: " + decryptionSecret);
+
+		String toDecrypt = CryptoProvider.encrypt(toEncrypt, encryptionSecret,
+				EncryptionAlgorithm.RSA_PUBLIC_ENCRYPT);
+		logger.debug("Encrypted text = " + toDecrypt);
+		String decrypted = CryptoProvider.decrypt(toDecrypt, decryptionSecret,
+				EncryptionAlgorithm.RSA_PUBLIC_ENCRYPT);
+		logger.debug("Decrypted text = " + decrypted);
+		assertEquals(toEncrypt, decrypted);
+		logger.debug("Finished testRSA_PublicEncrypt.");
+	}
 
 }

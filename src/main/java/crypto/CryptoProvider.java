@@ -33,6 +33,8 @@ public class CryptoProvider {
 			return new AlgorithmAES();
 		} else if (algorithm.equals(EncryptionAlgorithm.RSA_PRIVATE_ENCRYPT)) {
 			return new AlgorithmRSA_PrivateEncrypt();
+		} else if (algorithm.equals(EncryptionAlgorithm.RSA_PUBLIC_ENCRYPT)) {
+			return new AlgorithmRSA_PublicEncrypt();
 		}
 		return null;
 	}

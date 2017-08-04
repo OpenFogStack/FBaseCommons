@@ -8,7 +8,7 @@ public interface IAlgorithm {
 	 * @param toEncrypt
 	 *            - the String to encrypt
 	 * @param secret
-	 *            - the secret used for encryption
+	 *            - the secret or public/private key used for encryption
 	 * @return the cipher or null, if something goes wrong
 	 */
 	String encrypt(String toEncrypt, String secret);
@@ -19,7 +19,7 @@ public interface IAlgorithm {
 	 * @param toDecrypt
 	 *            - the String to decrypt
 	 * @param secret
-	 *            - the secret used for decryption
+	 *            - the secret or public/private key used for decryption
 	 * @return a decrypted String or null, if something goes wrong
 	 */
 	String decrypt(String toDecrypt, String secret);
