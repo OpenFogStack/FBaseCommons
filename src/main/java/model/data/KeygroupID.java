@@ -149,6 +149,11 @@ public class KeygroupID extends ConfigID {
 		}
 	}
 	
+	@Override
+	public String toString() {
+		return getID();
+	}
+	
 	// ************************************************************
 	// Generated Code
 	// ************************************************************

@@ -2,6 +2,8 @@ package model.data;
 
 import org.apache.log4j.Logger;
 
+import model.JSONable;
+
 /**
  * A data identifier uniquely identifies a {@link DataRecord} by combining the {@link KeygroupID} with a unique
  * id.
@@ -9,7 +11,7 @@ import org.apache.log4j.Logger;
  * @author jonathanhasenburg
  *
  */
-public class DataIdentifier {
+public class DataIdentifier implements JSONable {
 
 	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(DataIdentifier.class.getName());
