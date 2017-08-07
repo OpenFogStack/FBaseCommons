@@ -42,7 +42,7 @@ public class DirectSenderTest {
 
 	@Before
 	public void setUp() throws Exception {
-		sender = new DirectSender("tcp://localhost", 6204, secret, algorithm);
+		sender = new DirectSender("tcp://localhost", 6204);
 	}
 
 	@After
@@ -69,7 +69,7 @@ public class DirectSenderTest {
 		logger.debug("-------Starting testSendOne-------");
 		Future<?> future = executor.submit(new ReceiveHelper(e1));
 		Thread.sleep(200);
-		String reply = sender.send(e1);
+		String reply = sender.send(e1, secret, algorithm);
 		future.get(5, TimeUnit.SECONDS);
 		assertEquals(reply, e1.getKeygroupID().getID());
 		logger.debug("Finished testSendOne.");
@@ -80,8 +80,8 @@ public class DirectSenderTest {
 		logger.debug("-------Starting testSendTwo-------");
 		Future<?> future = executor.submit(new ReceiveHelper(e1, 2));
 		Thread.sleep(200);
-		String reply1 = sender.send(e1);
-		String reply2 = sender.send(e1);
+		String reply1 = sender.send(e1, secret, algorithm);
+		String reply2 = sender.send(e1, secret, algorithm);
 		future.get(5, TimeUnit.SECONDS);
 		assertEquals(reply1, e1.getKeygroupID().getID());
 		assertEquals(reply2, e1.getKeygroupID().getID());

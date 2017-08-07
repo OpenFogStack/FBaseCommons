@@ -35,7 +35,7 @@ public class AbstractSenderTest {
 
 	@Before
 	public void setUp() throws Exception {
-		sender = new Sender("tcp://localhost", 6201, null, null, ZMQ.REQ);
+		sender = new Sender("tcp://localhost", 6201, ZMQ.REQ);
 	}
 
 	@After
@@ -56,21 +56,20 @@ public class AbstractSenderTest {
 		m.setContent("Test content");
 		Envelope e = new Envelope(new KeygroupID("app", "tenant", "group"), m);
 		Future<?> future = executor.submit(new ReceiveHelper(e));
-		String response = sender.send(e);
+		String response = sender.send(e, null, null);
 		future.get(5, TimeUnit.SECONDS);
 		assertEquals("Success", response);
 		logger.debug("Finished test.");
 	}
 
 	class Sender extends AbstractSender {
-
-		public Sender(String address, int port, String secret, EncryptionAlgorithm algorithm,
-				int senderType) {
-			super(address, port, secret, algorithm, senderType);
+		
+		public Sender(String address, int port, int senderType) {
+			super(address, port, senderType);
 		}
 
 		@Override
-		public String send(Envelope envelope) {
+		public String send(Envelope envelope, String secret, EncryptionAlgorithm algorithm) {
 			logger.debug("Sending envelope");
 			sender.sendMore(envelope.getKeygroupID().getID());
 			sender.send(envelope.getMessage().getContent());
