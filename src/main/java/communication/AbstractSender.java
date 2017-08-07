@@ -26,25 +26,12 @@ public abstract class AbstractSender {
 	 */
 	private int port = -1;
 
-	/**
-	 * The secret used for the encryption of messages
-	 */
-	protected String secret;
-
-	/**
-	 * The algorithm used for the encryption of messages
-	 */
-	protected EncryptionAlgorithm algorithm;
-
 	protected ZMQ.Context context = null;
 	protected ZMQ.Socket sender = null;
 
-	public AbstractSender(String address, int port, String secret, EncryptionAlgorithm algorithm,
-			int senderType) {
+	public AbstractSender(String address, int port, int senderType) {
 		this.address = address;
 		this.port = port;
-		this.secret = secret;
-		this.algorithm = algorithm;
 		this.context = ZMQ.context(1);
 		if (senderType == ZMQ.PUB) {
 			sender = context.socket(ZMQ.PUB);
@@ -98,6 +85,6 @@ public abstract class AbstractSender {
 	 * @param envelope
 	 * @return the answer of the request or null
 	 */
-	public abstract String send(Envelope envelope);
+	public abstract String send(Envelope envelope, String secret, EncryptionAlgorithm algorithm);
 
 }

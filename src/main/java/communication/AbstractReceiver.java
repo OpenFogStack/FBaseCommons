@@ -5,18 +5,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import org.apache.log4j.Logger;
+import org.zeromq.ZMQ;
+import org.zeromq.ZMQException;
+
+import crypto.CryptoProvider.EncryptionAlgorithm;
 import model.JSONable;
 import model.data.ConfigID;
 import model.data.KeygroupID;
 import model.messages.Envelope;
 import model.messages.Message;
-
-import org.apache.log4j.Logger;
-import org.zeromq.ZMQ;
-import org.zeromq.ZMQException;
-
-import crypto.CryptoProvider;
-import crypto.CryptoProvider.EncryptionAlgorithm;
 
 /**
  * Abstract class for {@link Subscriber} and {@link DirectReceiver}
@@ -39,16 +37,6 @@ public abstract class AbstractReceiver {
 	private final int port;
 
 	/**
-	 * The secret used for the encryption of messages
-	 */
-	protected String secret;
-
-	/**
-	 * The algorithm used for the encryption of messages
-	 */
-	protected EncryptionAlgorithm algorithm;
-
-	/**
 	 * The number of messages that have been received until now
 	 */
 	private int numberOfReceivedMessages = 0;
@@ -69,20 +57,17 @@ public abstract class AbstractReceiver {
 	private int receiverType;
 
 	/**
-	 * If the used socket is a subscriber, the filter might be used to only receive
-	 * messages with a specific configID, e.g a specific keygroupID or nodeID.
+	 * If the used socket is a subscriber, the filter might be used to only receive messages
+	 * with a specific configID, e.g a specific keygroupID or nodeID.
 	 */
 	protected ConfigID filterID = null;
 
 	private ZMQ.Context context = null;
 	private ZMQ.Socket socket = null;
 
-	public AbstractReceiver(String address, int port, String secret, EncryptionAlgorithm algorithm,
-			int receiverType) {
+	public AbstractReceiver(String address, int port, int receiverType) {
 		this.address = address;
 		this.port = port;
-		this.secret = secret;
-		this.algorithm = algorithm;
 		if (receiverType != ZMQ.SUB && receiverType != ZMQ.REP) {
 			throw new IllegalArgumentException("Receiver type " + receiverType + " is not valid.");
 		}
@@ -171,6 +156,7 @@ public abstract class AbstractReceiver {
 			}
 		} catch (Exception e) {
 			logger.error("Initialization was interrupted.");
+			e.printStackTrace();
 			return null;
 		}
 		// init was successful
@@ -190,11 +176,8 @@ public abstract class AbstractReceiver {
 								envelope.setKeygroupID(KeygroupID.createFromString(s));
 								logger.debug("Received keygroupID: " + envelope.getKeygroupID());
 							} else if (envelope.getMessage() == null) {
-								envelope.setMessage(JSONable.fromJSON(
-										CryptoProvider.decrypt(s, secret, algorithm),
-										Message.class));
-								logger.debug(
-										"Received content: " + envelope.getMessage().getContent());
+								logger.debug("Received message " + s);
+								envelope.setMessage(JSONable.fromJSON(s, Message.class));
 							} else {
 								logger.error("Received more multipart messages than expected, "
 										+ "dismissing: " + s);
@@ -251,6 +234,15 @@ public abstract class AbstractReceiver {
 		return false;
 	}
 
+	/**
+	 * Gets automatically called after a complete envelope was received. The fields of the
+	 * stored {@link Message} might be encrypted, in which case
+	 * {@link Message#encryptFields(String, EncryptionAlgorithm)} should be called before
+	 * using the actual content.
+	 * 
+	 * @param envelope - the received envelope
+	 * @param responseSocket - socket used to response. Cannot be used if of type ZMQ.SUB
+	 */
 	protected abstract void interpreteReceivedEnvelope(Envelope envelope,
 			ZMQ.Socket responseSocket);
 

@@ -2,9 +2,6 @@ package model.messages;
 
 import org.apache.log4j.Logger;
 
-import com.fasterxml.jackson.annotation.JsonRawValue;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 import crypto.CryptoProvider;
 import crypto.CryptoProvider.EncryptionAlgorithm;
 import model.JSONable;
@@ -28,8 +25,9 @@ public class Message implements JSONable {
 	/**
 	 * The content of the message, usually an object in JSON format
 	 */
-	@JsonRawValue
-	@JsonDeserialize(using = SpecialStringDeserializer.class)
+	// Not needed because we currently encrypt the field so it is not a raw value anymore
+//	@JsonRawValue
+//	@JsonDeserialize(using = SpecialStringDeserializer.class)
 	private String content = null;
 
 	private Command command;
@@ -67,6 +65,9 @@ public class Message implements JSONable {
 	}
 	
 	public boolean decryptFields(String secret, EncryptionAlgorithm algorithm) {
+		if (!isEncrypted) {
+			return true;
+		}
 		
 		String decrypted = null;
 		

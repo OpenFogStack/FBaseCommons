@@ -21,8 +21,8 @@ public class DirectSender extends AbstractSender {
 	/**
 	 * Initializes the DirectSender, it then can be used without further modifications.
 	 */
-	public DirectSender(String address, int port, String secret, EncryptionAlgorithm algorithm) {
-		super(address, port, secret, algorithm, ZMQ.REQ);
+	public DirectSender(String address, int port) {
+		super(address, port, ZMQ.REQ);
 	}
 
 	/**
@@ -32,7 +32,7 @@ public class DirectSender extends AbstractSender {
 	 * @return the response
 	 */
 	@Override
-	public String send(Envelope envelope) {
+	public String send(Envelope envelope, String secret, EncryptionAlgorithm algorithm) {
 		logger.debug("Sending envelope with keygroup " + envelope.getKeygroupID());
 		sender.sendMore(envelope.getKeygroupID().getID());
 		sender.send(

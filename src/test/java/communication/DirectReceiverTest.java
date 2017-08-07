@@ -76,9 +76,11 @@ class RequestHelper implements Runnable {
 		    requester.connect(handler.getAddress() + ":" + handler.getPort());
 		    logger.info("Sending request.");
 		    requester.sendMore(keygroupID.getID());
-		    requester.send(CryptoProvider.encrypt(JSONable.toJSON(m), secret, algorithm));
+		    m.encryptFields(secret, algorithm);
+		    requester.send(JSONable.toJSON(m));
 		    String reply = CryptoProvider.decrypt(requester.recvStr(), secret, algorithm);
-		    assertEquals("Message logged.", reply);
+		    assertEquals("Message interpreted.", reply);
+		    logger.debug("Closing down");
 		    requester.close();
 		    context.term();
 		}
