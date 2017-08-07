@@ -70,7 +70,7 @@ class RequestHelper implements Runnable {
 		public void run() {
 			KeygroupID keygroupID = new KeygroupID();
 			Message m = new Message();
-			m.setTextualResponse("TestString");
+			m.setTextualInfo("TestString");
 			ZMQ.Context context = ZMQ.context(1);
 			ZMQ.Socket requester = context.socket(ZMQ.REQ);
 		    requester.connect(handler.getAddress() + ":" + handler.getPort());

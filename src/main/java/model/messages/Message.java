@@ -5,47 +5,103 @@ import org.apache.log4j.Logger;
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import crypto.CryptoProvider;
+import crypto.CryptoProvider.EncryptionAlgorithm;
 import model.JSONable;
 
 /**
- * Class that can be used by components to exchange messages.
+ * Class that can be used by components to exchange messages. Offers encryption and decryption
+ * capabilities for its fields.
  * 
  * @author jonathanhasenburg
  *
  */
 public class Message implements JSONable {
 
-	@SuppressWarnings("unused")
 	private static Logger logger = Logger.getLogger(Message.class.getName());
 
 	/**
 	 * A textual response explaining the message content
 	 */
 	private String textualInfo = null;
-	
+
 	/**
 	 * The content of the message, usually an object in JSON format
 	 */
 	@JsonRawValue
 	@JsonDeserialize(using = SpecialStringDeserializer.class)
 	private String content = null;
-	
+
 	private Command command;
+
+	private boolean isEncrypted = false;
 
 	public Message() {
 		
 	}
 	
+	public boolean encryptFields(String secret, EncryptionAlgorithm algorithm) {
+		
+		String encrypted = null;
+		
+		if (this.textualInfo != null) {
+			encrypted = CryptoProvider.encrypt(this.textualInfo, secret, algorithm);
+			if (encrypted == null) {
+				logger.error("Could not encrypt textual info: " + textualInfo);
+				return false;
+			}
+			this.textualInfo = encrypted;
+		}
+		
+		if (this.content != null) {
+			encrypted = CryptoProvider.encrypt(this.content, secret, algorithm);
+			if (encrypted == null) {
+				logger.error("Could not encrypt content info: " + content);
+				return false;
+			}
+			this.content = encrypted;
+		}
+		
+		this.isEncrypted = true;
+		return true;
+	}
+	
+	public boolean decryptFields(String secret, EncryptionAlgorithm algorithm) {
+		
+		String decrypted = null;
+		
+		if (this.textualInfo != null) {
+			decrypted = CryptoProvider.decrypt(this.textualInfo, secret, algorithm);
+			if (decrypted == null) {
+				logger.error("Could not decrypt textual info: " + textualInfo);
+				return false;
+			}
+			this.textualInfo = decrypted;
+		}
+		
+		if (this.content != null) {
+			decrypted = CryptoProvider.decrypt(this.content, secret, algorithm);
+			if (decrypted == null) {
+				logger.error("Could not decrypt content info: " + content);
+				return false;
+			}
+			this.content = decrypted;
+		}
+		
+		this.isEncrypted = false;
+		return true;
+	}
+
 	// ************************************************************
 	// Generated Code
 	// ************************************************************
 
-	public String getTextualResponse() {
+	public String getTextualInfo() {
 		return textualInfo;
 	}
 
-	public void setTextualResponse(String textualResponse) {
-		this.textualInfo = textualResponse;
+	public void setTextualInfo(String textualInfo) {
+		this.textualInfo = textualInfo;
 	}
 
 	public String getContent() {
@@ -55,7 +111,7 @@ public class Message implements JSONable {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+
 	public Command getCommand() {
 		return command;
 	}
@@ -64,12 +120,21 @@ public class Message implements JSONable {
 		this.command = command;
 	}
 
+	public boolean isEncrypted() {
+		return isEncrypted;
+	}
+
+	public void setEncrypted(boolean isEncrypted) {
+		this.isEncrypted = isEncrypted;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((command == null) ? 0 : command.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
+		result = prime * result + (isEncrypted ? 1231 : 1237);
 		result = prime * result + ((textualInfo == null) ? 0 : textualInfo.hashCode());
 		return result;
 	}
@@ -90,6 +155,8 @@ public class Message implements JSONable {
 				return false;
 		} else if (!content.equals(other.content))
 			return false;
+		if (isEncrypted != other.isEncrypted)
+			return false;
 		if (textualInfo == null) {
 			if (other.textualInfo != null)
 				return false;
@@ -97,5 +164,5 @@ public class Message implements JSONable {
 			return false;
 		return true;
 	}
-	
+
 }
