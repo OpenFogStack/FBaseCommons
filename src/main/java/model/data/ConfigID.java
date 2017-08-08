@@ -20,4 +20,8 @@ public abstract class ConfigID implements JSONable {
 	@JsonIgnore
 	public abstract String getID();
 	
+	@Override
+	public String toString() {
+		return getID();
+	}
 }
