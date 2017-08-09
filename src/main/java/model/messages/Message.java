@@ -38,6 +38,17 @@ public class Message implements JSONable {
 		
 	}
 	
+	public Message(Command command, String content) {
+		this.command = command;
+		this.content = content;
+	}
+	
+	public Message(Command command, String content, String textualInfo) {
+		this.textualInfo = textualInfo;
+		this.command = command;
+		this.content = content;
+	}
+	
 	public boolean encryptFields(String secret, EncryptionAlgorithm algorithm) {
 		
 		String encrypted = null;

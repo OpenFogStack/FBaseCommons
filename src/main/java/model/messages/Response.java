@@ -42,6 +42,15 @@ public class Response<E> {
 	}
 	
 	/**
+	 * Returns the ResponseCode from the operation
+	 * 
+	 * @return The ResponseCode from the operation
+	 */
+	public ResponseCode getResponseCode() {
+		return this.response;
+	}
+	
+	/**
 	 * Returns the message detailing the success/failure of operation
 	 * 
 	 * @return Message detailing the success/failure of operation
