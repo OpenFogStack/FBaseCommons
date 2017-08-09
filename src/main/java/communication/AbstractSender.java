@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.zeromq.ZMQ;
 
 import crypto.CryptoProvider.EncryptionAlgorithm;
+import exceptions.FBaseException;
 import model.messages.Envelope;
 
 /**
@@ -85,6 +86,7 @@ public abstract class AbstractSender {
 	 * @param envelope
 	 * @return the answer of the request or null
 	 */
-	public abstract String send(Envelope envelope, String secret, EncryptionAlgorithm algorithm);
+	public abstract String send(Envelope envelope, String secret, EncryptionAlgorithm algorithm)
+			throws FBaseException;
 
 }
