@@ -26,6 +26,11 @@ public abstract class AbstractSender {
 	 * The port used for the sending of messages.
 	 */
 	private int port = -1;
+	
+	/**
+	 * If this boolean is set to false, calling sender.send will block forever.
+	 */
+	protected boolean ableToSend = true;
 
 	protected ZMQ.Context context = null;
 	protected ZMQ.Socket sender = null;
@@ -34,15 +39,25 @@ public abstract class AbstractSender {
 		this.address = address;
 		this.port = port;
 		this.context = ZMQ.context(1);
-		if (senderType == ZMQ.PUB) {
-			sender = context.socket(ZMQ.PUB);
-			sender.bind(address + ":" + port);
-		} else if (senderType == ZMQ.REQ) {
-			sender = context.socket(ZMQ.REQ);
-			sender.connect(address + ":" + port);
-		} else {
+		if (senderType != ZMQ.PUB && senderType != ZMQ.REQ) {
 			throw new IllegalArgumentException("Sender type " + senderType + " is not valid.");
 		}
+
+		try {
+			if (senderType == ZMQ.PUB) {
+				sender = context.socket(ZMQ.PUB);
+				sender.bind(address + ":" + port);
+			} else if (senderType == ZMQ.REQ) {
+				sender = context.socket(ZMQ.REQ);
+				sender.connect(address + ":" + port);
+			}
+		} catch (IllegalArgumentException e) {
+			// might be intended, if no naming service exists
+			logger.error(address + ":" + port
+					+ " is not a valid address. Sender will not be able to send.");
+			ableToSend = false;
+		}
+		
 		logger.debug("Initialized Sender, ready to send.");
 	}
 
