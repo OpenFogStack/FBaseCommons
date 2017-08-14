@@ -141,6 +141,7 @@ public class Message implements JSONable {
 					throw new FBaseEncryptionException(errorMessage);
 				}
 				this.symmetricSecret = encrypted;
+				logger.debug("SymmetricKeySize = " + symmetricSecret.getBytes().length);
 			}
 
 		} else {
