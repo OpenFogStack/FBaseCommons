@@ -28,7 +28,7 @@ public class CryptoProvider {
 		return alg.decrypt(toDecrypt, secret);
 	}
 
-	private static IAlgorithm chooseAlgorithm(EncryptionAlgorithm algorithm) {
+	public static IAlgorithm chooseAlgorithm(EncryptionAlgorithm algorithm) {
 		if (algorithm.equals(EncryptionAlgorithm.AES)) {
 			return new AlgorithmAES();
 		} else if (algorithm.equals(EncryptionAlgorithm.RSA_PRIVATE_ENCRYPT)) {

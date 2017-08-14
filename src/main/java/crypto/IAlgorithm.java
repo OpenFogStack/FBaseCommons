@@ -2,6 +2,10 @@ package crypto;
 
 public interface IAlgorithm {
 
+	public enum AlgorithmType {
+		ASYMMETRIC, SYMMETRIC
+	}
+	
 	/**
 	 * Encrypts the given String.
 	 * 
@@ -24,4 +28,11 @@ public interface IAlgorithm {
 	 */
 	String decrypt(String toDecrypt, String secret);
 
+	/**
+	 * Returns the {@link AlgorithmType} of the chosen algorithm.
+	 * 
+	 * @return see above
+	 */
+	AlgorithmType getType();
+	
 }

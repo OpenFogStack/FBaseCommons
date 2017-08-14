@@ -48,6 +48,11 @@ public class AlgorithmAES implements IAlgorithm {
 		}
 		return null;
 	}
+	
+	public static String generateNewSecret() {
+		// TODO 1: should be generated
+		return "TotallyRandomSecret";
+	}
 
 	private SecretKeySpec getSecretKeySpec(String secret) {
 		MessageDigest sha = null;
@@ -62,6 +67,11 @@ public class AlgorithmAES implements IAlgorithm {
 		key = sha.digest(key);
 		key = Arrays.copyOf(key, 16);
 		return new SecretKeySpec(key, "AES");
+	}
+
+	@Override
+	public AlgorithmType getType() {
+		return AlgorithmType.SYMMETRIC;
 	}
 
 }

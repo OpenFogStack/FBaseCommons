@@ -53,4 +53,9 @@ public class AlgorithmRSA_PrivateEncrypt implements IAlgorithm {
 		return null;
 	}
 
+	@Override
+	public AlgorithmType getType() {
+		return AlgorithmType.ASYMMETRIC;
+	}
+
 }
