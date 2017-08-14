@@ -9,7 +9,7 @@ package exceptions;
  * @author jonathanhasenburg
  *
  */
-public class FBaseEncryptionException extends Exception {
+public class FBaseEncryptionException extends FBaseException {
 
 	public static final String ALREADY_ENCRYPTED =
 			"The fields of the chosen object are already encrypted. "
