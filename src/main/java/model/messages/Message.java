@@ -13,8 +13,6 @@ import model.JSONable;
  * Class that can be used by components to exchange messages. Offers encryption and decryption
  * capabilities for its fields.
  * 
- * TODO 1: Asymmetric encryption with multiple iteration fails, if next key length is >=
- * current key length.
  * 
  * @author jonathanhasenburg
  *
@@ -39,6 +37,11 @@ public class Message implements JSONable {
 	private Command command;
 
 	private boolean isEncrypted = false;
+
+	/**
+	 * This field is used to store the signature of the message's content field.
+	 */
+	private String signature = null;
 
 	/**
 	 * If {@link #encryptFields(String, EncryptionAlgorithm)} is used with an asymmetric
@@ -77,81 +80,43 @@ public class Message implements JSONable {
 	}
 
 	/**
-	 * Same as {@link #encryptFields(String[], EncryptionAlgorithm[])}, but only one
-	 * secret/algorithm.
-	 * 
-	 * @param secret
-	 * @param algorithm
-	 * @throws FBaseEncryptionException
-	 */
-	public void encryptFields(String secret, EncryptionAlgorithm algorithm)
-			throws FBaseEncryptionException {
-		EncryptionAlgorithm[] algorithms = new EncryptionAlgorithm[1];
-		algorithms[0] = algorithm;
-		String[] secrets = { secret };
-		encryptFields(secrets, algorithms);
-	}
-
-	/**
-	 * Encrypts the message's fields using the given secrets and algorithms. Can also encrypt
+	 * Encrypts the message's fields using the given secret and algorithm. Can also encrypt
 	 * large fields using asymmetric encryption by generating a random AES secret which is
 	 * used to encrypt the actual data, while the generated secret is encrypted with the
 	 * provided asymmetric key.
 	 * 
-	 * If more than one secret/algorithm is provided, all of them should be asymmetric or
-	 * symmetric, but not a combination.
-	 * 
-	 * @param secrets
+	 * @param secret
 	 * @param algorithms
 	 * @throws FBaseEncryptionException
 	 */
-	public void encryptFields(String[] secrets, EncryptionAlgorithm[] algorithms)
+	public void encryptFields(String secret, EncryptionAlgorithm algorithm)
 			throws FBaseEncryptionException {
-
-		if (secrets.length != algorithms.length) {
-			throw new IllegalArgumentException("The given number of "
-					+ "secrets should equal the given number of algorithms.");
-		}
 
 		if (isEncrypted) {
 			throw new FBaseEncryptionException(FBaseEncryptionException.ALREADY_ENCRYPTED);
 		}
 
-		for (EncryptionAlgorithm algorithm : algorithms) {
-			if (!CryptoProvider.chooseAlgorithm(algorithms[0]).getType()
-					.equals(CryptoProvider.chooseAlgorithm(algorithm).getType())) {
-				throw new FBaseEncryptionException(
-						FBaseEncryptionException.INCOMPATIBEL_ALGORITHMS);
-			}
-		}
-
-		if (AlgorithmType.ASYMMETRIC
-				.equals(CryptoProvider.chooseAlgorithm(algorithms[0]).getType())) {
+		if (AlgorithmType.ASYMMETRIC.equals(CryptoProvider.chooseAlgorithm(algorithm).getType())) {
 			// an asymmetric algorithm will lead to the approach described in javadoc
 			symmetricSecret = AlgorithmAES.generateNewSecret();
 			encryptFieldsSymmetric(symmetricSecret, EncryptionAlgorithm.AES);
 
-			for (int i = 0; i < secrets.length; i++) {
-				String encrypted = null;
-				encrypted = CryptoProvider.encrypt(this.symmetricSecret, secrets[i], algorithms[i]);
-				if (encrypted == null) {
-					String errorMessage =
-							"Could not encrypt the symmetricSecret: " + symmetricSecret;
-					logger.error(errorMessage);
-					throw new FBaseEncryptionException(errorMessage);
-				}
-				this.symmetricSecret = encrypted;
-				logger.debug("SymmetricKeySize = " + symmetricSecret.getBytes().length);
+			String encrypted = null;
+			encrypted = CryptoProvider.encrypt(this.symmetricSecret, secret, algorithm);
+			if (encrypted == null) {
+				String errorMessage = "Could not encrypt the symmetricSecret: " + symmetricSecret;
+				logger.error(errorMessage);
+				throw new FBaseEncryptionException(errorMessage);
 			}
+			this.symmetricSecret = encrypted;
 
 		} else {
 			// encrypt symmetrically
-			for (int i = 0; i < secrets.length; i++) {
-				encryptFieldsSymmetric(secrets[i], algorithms[i]);
-			}
+			encryptFieldsSymmetric(secret, algorithm);
 		}
 
 		this.isEncrypted = true;
+
 	}
 
 	private void encryptFieldsSymmetric(String secret, EncryptionAlgorithm algorithm)
@@ -178,81 +143,53 @@ public class Message implements JSONable {
 			this.content = encrypted;
 		}
 
+		if (this.signature != null) {
+			encrypted = CryptoProvider.encrypt(this.signature, secret, algorithm);
+			if (encrypted == null) {
+				String errorMessage = "Could not encrypt signature: " + signature;
+				logger.error(errorMessage);
+				throw new FBaseEncryptionException(errorMessage);
+			}
+			this.signature = encrypted;
+		}
+
 	}
 
 	/**
-	 * Same as {@link #decryptFields(String[], EncryptionAlgorithm[])}, but only one
-	 * secret/algorithm.
-	 * 
-	 * @param secret
-	 * @param algorithm
-	 * @throws FBaseEncryptionException
-	 */
-	public void decryptFields(String secret, EncryptionAlgorithm algorithm)
-			throws FBaseEncryptionException {
-		EncryptionAlgorithm[] algorithms = new EncryptionAlgorithm[1];
-		algorithms[0] = algorithm;
-		String[] secrets = { secret };
-		decryptFields(secrets, algorithms);
-	}
-
-	/**
-	 * Decrypts the message's fields using the given secrets and algorithms. Fails if not
-	 * compatibel to {@link #encryptFields(String[], EncryptionAlgorithm[])}.
-	 * 
-	 * If more than one secret/algorithm is provided, all of them should be asymmetric or
-	 * symmetric, but not a combination.
+	 * Decrypts the message's fields using the given secret and algorithm. Fails if not
+	 * compatibel to {@link #encryptFields(String, EncryptionAlgorithm)}.
 	 * 
 	 * @param secrets
 	 * @param algorithms
 	 * @throws FBaseEncryptionException
 	 */
-	public void decryptFields(String[] secrets, EncryptionAlgorithm[] algorithms)
+	public void decryptFields(String secret, EncryptionAlgorithm algorithm)
 			throws FBaseEncryptionException {
-
-		if (secrets.length != algorithms.length) {
-			throw new IllegalArgumentException("The given number of "
-					+ "secrets should equal the given number of algorithms.");
-		}
 
 		if (!isEncrypted) {
 			throw new FBaseEncryptionException(FBaseEncryptionException.NOT_ENCRYPTED);
 		}
 
-		for (EncryptionAlgorithm algorithm : algorithms) {
-			if (!CryptoProvider.chooseAlgorithm(algorithms[0]).getType()
-					.equals(CryptoProvider.chooseAlgorithm(algorithm).getType())) {
-				throw new FBaseEncryptionException(
-						FBaseEncryptionException.INCOMPATIBEL_ALGORITHMS);
-			}
-		}
-
-		if (AlgorithmType.ASYMMETRIC
-				.equals(CryptoProvider.chooseAlgorithm(algorithms[0]).getType())) {
+		if (AlgorithmType.ASYMMETRIC.equals(CryptoProvider.chooseAlgorithm(algorithm).getType())) {
 			// there needs to be a symmetricSecret if asymmetric
 			if (symmetricSecret == null) {
 				throw new FBaseEncryptionException(FBaseEncryptionException.SYMMETRIC_KEY_MISSING);
 			}
 
-			for (int i = 0; i < secrets.length; i++) {
-				String decrypted = null;
-				decrypted = CryptoProvider.decrypt(this.symmetricSecret, secrets[i], algorithms[i]);
-				if (decrypted == null) {
-					String errorMessage =
-							"Could not decrypt the symmetricSecret: " + symmetricSecret;
-					logger.error(errorMessage);
-					throw new FBaseEncryptionException(errorMessage);
-				}
-				this.symmetricSecret = decrypted;
+			String decrypted = null;
+			decrypted = CryptoProvider.decrypt(this.symmetricSecret, secret, algorithm);
+			if (decrypted == null) {
+				String errorMessage = "Could not decrypt the symmetricSecret: " + symmetricSecret;
+				logger.error(errorMessage);
+				throw new FBaseEncryptionException(errorMessage);
 			}
+			this.symmetricSecret = decrypted;
 
 			decryptFieldsSymmetric(symmetricSecret, EncryptionAlgorithm.AES);
 			symmetricSecret = null; // clean up secret
 		} else {
 			// decrypt symmetrically
-			for (int i = 0; i < secrets.length; i++) {
-				decryptFieldsSymmetric(secrets[i], algorithms[i]);
-			}
+			decryptFieldsSymmetric(secret, algorithm);
 		}
 
 		this.isEncrypted = false;
@@ -283,6 +220,70 @@ public class Message implements JSONable {
 			this.content = decrypted;
 		}
 
+		if (this.signature != null) {
+			decrypted = CryptoProvider.decrypt(this.signature, secret, algorithm);
+			if (decrypted == null) {
+				String errorMessage = "Could not decrypt signature: " + signature;
+				logger.error(errorMessage);
+				throw new FBaseEncryptionException(errorMessage);
+			}
+			this.signature = decrypted;
+		}
+
+	}
+
+	/**
+	 * Signs the message and stores the signature in {@link #signature}.
+	 * {@link #isEncrypted()} must be false.
+	 * 
+	 * @param privateKey
+	 * @param algorithm
+	 * @throws FBaseEncryptionException
+	 */
+	public void signMessage(String privateKey, EncryptionAlgorithm algorithm)
+			throws FBaseEncryptionException {
+
+		if (isEncrypted) {
+			throw new FBaseEncryptionException(FBaseEncryptionException.ALREADY_ENCRYPTED);
+		}
+
+		if (this.content == null) {
+			throw new FBaseEncryptionException("Could not sign message, because content is null.");
+		}
+
+		this.signature = CryptoProvider.sign(this.content, privateKey, algorithm);
+	}
+
+	/**
+	 * Verifies the message, if successful, sets {@link #signature} to null afterwards.
+	 * {@link #isEncrypted()} must be null for this operation to work.
+	 * 
+	 * @param publicKey
+	 * @param algorithm
+	 * @return
+	 * @throws FBaseEncryptionException
+	 */
+	public boolean verifyMessage(String publicKey, EncryptionAlgorithm algorithm)
+			throws FBaseEncryptionException {
+
+		if (isEncrypted) {
+			throw new FBaseEncryptionException(FBaseEncryptionException.ALREADY_ENCRYPTED);
+		}
+
+		if (this.content == null) {
+			throw new FBaseEncryptionException(
+					"Could not verify message, because content is null.");
+		}
+
+		if (this.signature == null) {
+			throw new FBaseEncryptionException(
+					"Could not verify message, because signature is null.");
+		}
+
+		boolean verified =
+				CryptoProvider.verify(this.content, this.signature, publicKey, algorithm);
+		this.signature = null;
+		return verified;
 	}
 
 	// ************************************************************
@@ -321,6 +322,14 @@ public class Message implements JSONable {
 		this.isEncrypted = isEncrypted;
 	}
 
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
+
 	public String getSymmetricSecret() {
 		return symmetricSecret;
 	}
@@ -336,6 +345,7 @@ public class Message implements JSONable {
 		result = prime * result + ((command == null) ? 0 : command.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + (isEncrypted ? 1231 : 1237);
+		result = prime * result + ((signature == null) ? 0 : signature.hashCode());
 		result = prime * result + ((symmetricSecret == null) ? 0 : symmetricSecret.hashCode());
 		result = prime * result + ((textualInfo == null) ? 0 : textualInfo.hashCode());
 		return result;
@@ -358,6 +368,11 @@ public class Message implements JSONable {
 		} else if (!content.equals(other.content))
 			return false;
 		if (isEncrypted != other.isEncrypted)
+			return false;
+		if (signature == null) {
+			if (other.signature != null)
+				return false;
+		} else if (!signature.equals(other.signature))
 			return false;
 		if (symmetricSecret == null) {
 			if (other.symmetricSecret != null)

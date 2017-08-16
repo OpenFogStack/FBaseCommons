@@ -15,6 +15,8 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.log4j.Logger;
 
+import exceptions.FBaseEncryptionException;
+
 public class AlgorithmAES implements IAlgorithm {
 
 	private static Logger logger = Logger.getLogger(AlgorithmAES.class.getName());
@@ -72,6 +74,17 @@ public class AlgorithmAES implements IAlgorithm {
 	@Override
 	public AlgorithmType getType() {
 		return AlgorithmType.SYMMETRIC;
+	}
+
+	@Override
+	public String sign(String content, String privateKey) throws FBaseEncryptionException {
+		throw new FBaseEncryptionException(FBaseEncryptionException.NOT_SUPPORTED);
+	}
+
+	@Override
+	public boolean verify(String content, String publicKey, String signature)
+			throws FBaseEncryptionException {
+		throw new FBaseEncryptionException(FBaseEncryptionException.NOT_SUPPORTED);
 	}
 
 }

@@ -28,6 +28,8 @@ public class FBaseEncryptionException extends FBaseException {
 	public static final String SYMMETRIC_KEY_MISSING =
 			"The secret used to encrypt the actual data is missing.";
 
+	public static final String NOT_SUPPORTED = "The algorithm does not support the chosen method.";
+
 	/**
 	 * 
 	 */
