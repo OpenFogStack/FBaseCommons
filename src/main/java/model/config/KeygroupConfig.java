@@ -71,6 +71,25 @@ public class KeygroupConfig extends Config {
 		this.encryptionAlgorithm = encryptionAlgorithm;
 	}
 	
+	/**
+	 * @param keygroupID ID of the keygroup
+	 * @param clients Clients that have access to data stored within a keygroup
+	 * @param replicaNodeConfigs List of fog nodes that receive and replica data
+	 * @param triggerNodeConfigs List of fog nodes that only receive data
+	 * @param encryptionSecret Encryption secret (symmetric) for communication within a keygroup
+	 * @param encryptionAlgorithm Empty constructor used for JSON parsing
+	 */
+	public KeygroupConfig(KeygroupID keygroupID, Set<ClientID> clients, Set<ReplicaNodeConfig> replicaNodeConfigs,
+			Set<TriggerNodeConfig> triggerNodeConfigs, String encryptionSecret,
+			EncryptionAlgorithm encryptionAlgorithm) {
+		this.keygroupID = keygroupID;
+		this.clients = clients;
+		this.replicaNodeConfigs = replicaNodeConfigs;
+		this.triggerNodeConfigs = triggerNodeConfigs;
+		this.encryptionSecret = encryptionSecret;
+		this.encryptionAlgorithm = encryptionAlgorithm;
+	}
+
 	@Override
 	@JsonIgnore
 	public KeygroupID getID() {
