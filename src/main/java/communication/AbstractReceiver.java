@@ -13,6 +13,7 @@ import crypto.CryptoProvider.EncryptionAlgorithm;
 import model.JSONable;
 import model.data.ConfigID;
 import model.data.KeygroupID;
+import model.data.NodeID;
 import model.messages.Envelope;
 import model.messages.Message;
 
@@ -172,9 +173,14 @@ public abstract class AbstractReceiver {
 						boolean more = true;
 						while (more) {
 							String s = socket.recvStr();
-							if (envelope.getKeygroupID() == null) {
+							if (envelope.getConfigID() == null) {
 								envelope.setKeygroupID(KeygroupID.createFromString(s));
-								logger.debug("Received keygroupID: " + envelope.getKeygroupID());
+								if (envelope.getKeygroupID() != null) {
+									logger.debug("Received keygroupID: " + envelope.getKeygroupID());
+								} else {
+									envelope.setNodeID(new NodeID(s));
+									logger.debug("Received nodeID: " + envelope.getNodeID());
+								}
 							} else if (envelope.getMessage() == null) {
 								logger.debug("Received message " + s);
 								envelope.setMessage(JSONable.fromJSON(s, Message.class));
@@ -190,14 +196,14 @@ public abstract class AbstractReceiver {
 						return;
 					}
 
-					if (envelope.getKeygroupID() == null || envelope.getMessage() == null) {
+					if (envelope.getConfigID() == null || envelope.getMessage() == null) {
 						logger.error("Envelope incomplete");
 					} else if (!envelopeFine) {
 						logger.error("Envelope broken");
 					} else {
 						incrementNumberOfReceivedMessages();
-						logger.debug("Received complete message, keygroupID: "
-								+ envelope.getKeygroupID());
+						logger.debug("Received complete message, configID: "
+								+ envelope.getConfigID().getID());
 						interpreteReceivedEnvelope(envelope, socket);
 					}
 				}
