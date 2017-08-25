@@ -4,15 +4,15 @@ import model.JSONable;
 import model.config.Config;
 import model.data.KeygroupID;
 
-public class ConfigToKeygroupWrapper implements JSONable {
+public class ConfigToKeygroupWrapper<T extends Config> implements JSONable {
 	KeygroupID keygroupID = null;
-	Config config = null;
+	T config = null;
 
 	public ConfigToKeygroupWrapper() {
 		
 	}
 	
-	public ConfigToKeygroupWrapper(KeygroupID keygroupID, Config config) {
+	public ConfigToKeygroupWrapper(KeygroupID keygroupID, T config) {
 		this.keygroupID = keygroupID;
 		this.config = config;
 	}
@@ -25,11 +25,11 @@ public class ConfigToKeygroupWrapper implements JSONable {
 		this.keygroupID = keygroupID;
 	}
 
-	public Config getConfig() {
+	public T getConfig() {
 		return config;
 	}
 
-	public void setConfig(Config config) {
+	public void setConfig(T config) {
 		this.config = config;
 	}
 
