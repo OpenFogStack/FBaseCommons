@@ -44,7 +44,7 @@ public class KeygroupConfig extends Config {
 	/**
 	 * Encryption secret (symmetric) for communication within a keygroup.
 	 */
-	private String encryptionSecret = "";
+	private String encryptionSecret = null;
 	
 	/**
 	 * Encryption algorithm (symmetric) used for communication within a keygroup.
