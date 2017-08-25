@@ -22,6 +22,7 @@ import org.zeromq.ZMQ.Socket;
 
 import crypto.CryptoProvider;
 import crypto.CryptoProvider.EncryptionAlgorithm;
+import exceptions.FBaseEncryptionException;
 import model.JSONable;
 import model.data.KeygroupID;
 import model.messages.Envelope;
@@ -214,7 +215,11 @@ public class AbstractReceiverTest {
 
 		@Override
 		protected void interpreteReceivedEnvelope(Envelope envelope, Socket responseSocket) {
-			envelope.getMessage().decryptFields(secret, algorithm);
+			try {
+				envelope.getMessage().decryptFields(secret, algorithm);
+			} catch (FBaseEncryptionException e) {
+				e.printStackTrace();
+			}
 			logger.debug("Received envelope " + envelope.getKeygroupID() + " - "
 					+ envelope.getMessage().getContent());
 			// WARNING: if tests fail because of timeouts, the following might have failed
@@ -253,7 +258,11 @@ public class AbstractReceiverTest {
 			}
 			if (this.sendContent) {
 				logger.info("Sending content.");
-				m.encryptFields(secret, algorithm);
+				try {
+					m.encryptFields(secret, algorithm);
+				} catch (FBaseEncryptionException e) {
+					e.printStackTrace();
+				}
 				requester.send(JSONable.toJSON(m));
 			}
 			if (sendKeygroupID && sendContent) {

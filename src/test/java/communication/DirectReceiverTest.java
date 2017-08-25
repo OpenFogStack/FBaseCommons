@@ -19,6 +19,7 @@ import org.zeromq.ZMQ;
 
 import crypto.CryptoProvider;
 import crypto.CryptoProvider.EncryptionAlgorithm;
+import exceptions.FBaseEncryptionException;
 import model.JSONable;
 import model.data.KeygroupID;
 import model.messages.Message;
@@ -76,7 +77,11 @@ class RequestHelper implements Runnable {
 		    requester.connect(handler.getAddress() + ":" + handler.getPort());
 		    logger.info("Sending request.");
 		    requester.sendMore(keygroupID.getID());
-		    m.encryptFields(secret, algorithm);
+		    try {
+				m.encryptFields(secret, algorithm);
+			} catch (FBaseEncryptionException e) {
+				e.printStackTrace();
+			}
 		    requester.send(JSONable.toJSON(m));
 		    String reply = CryptoProvider.decrypt(requester.recvStr(), secret, algorithm);
 		    assertEquals("Message interpreted.", reply);
