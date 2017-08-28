@@ -94,7 +94,7 @@ public class KeygroupID extends ConfigID {
 		if (split.length == 3) {
 			return new KeygroupID(split[0], split[1], split[2]);
 		}
-		logger.error(string + " is not a valid keygroup");
+		logger.warn(string + " is not a valid keygroup");
 		return null;
 	}
 	
