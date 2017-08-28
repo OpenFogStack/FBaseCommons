@@ -1,5 +1,6 @@
 package model.messages;
 
+import model.JSONable;
 import model.data.ConfigID;
 import model.data.KeygroupID;
 import model.data.NodeID;
@@ -10,7 +11,7 @@ import model.data.NodeID;
  * @author jonathanhasenburg
  *
  */
-public class Envelope {
+public class Envelope implements JSONable {
 	
 	/**
 	 * ID of the keygroup or node the content relates to

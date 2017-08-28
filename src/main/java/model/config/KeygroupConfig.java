@@ -116,8 +116,12 @@ public class KeygroupConfig extends Config {
 		return clients.add(client);
 	}
 	
-	public boolean removeClient(String client) {
+	public boolean removeClient(ClientID client) {
 		return clients.remove(client);
+	}
+	
+	public boolean containsClient(ClientID clientID) {
+		return clients.contains(clientID);
 	}
 
 	public Set<ReplicaNodeConfig> getReplicaNodes() {
@@ -182,6 +186,10 @@ public class KeygroupConfig extends Config {
 		}
 		
 		return false;
+	}
+	
+	public boolean containsNode(NodeID nodeID) {
+		return containsReplicaNode(nodeID) || containsTriggerNode(nodeID);
 	}
 
 	public String getEncryptionSecret() {
