@@ -34,7 +34,7 @@ public class Message implements JSONable {
 	// @JsonDeserialize(using = SpecialStringDeserializer.class)
 	private String content = null;
 
-	private Command command;
+	private Command command = null;
 
 	private boolean isEncrypted = false;
 
