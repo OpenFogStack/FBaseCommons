@@ -83,7 +83,7 @@ public class AbstractReceiverTest {
 		logger.debug("Finished testMultipleStartListening.");
 	}
 
-//	@Test
+	@Test
 	public void testProcessRequest()
 			throws InterruptedException, ExecutionException, TimeoutException {
 		logger.debug("-------Starting testProcessRequest-------");

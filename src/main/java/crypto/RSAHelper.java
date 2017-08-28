@@ -46,7 +46,7 @@ public class RSAHelper {
 
 	public static void main(String[] args) throws NoSuchAlgorithmException {
 		System.out.println("Printing keypair");
-		Pair<PublicKey, PrivateKey> keys = generateKeyPair(512);
+		Pair<PublicKey, PrivateKey> keys = generateKeyPair(2048);
 		System.out.println("Public: " + getEncodedStringFromKey(keys.getValue0()));
 		System.out.println("Private: " + getEncodedStringFromKey(keys.getValue1()));
 	}
