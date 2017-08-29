@@ -42,6 +42,7 @@ public class ConfigToKeygroupWrapper<T extends Config> implements JSONable {
 		return result;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

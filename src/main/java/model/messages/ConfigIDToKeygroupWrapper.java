@@ -1,7 +1,6 @@
 package model.messages;
 
 import model.JSONable;
-import model.config.Config;
 import model.data.ConfigID;
 import model.data.KeygroupID;
 
@@ -43,6 +42,7 @@ public class ConfigIDToKeygroupWrapper<T extends ConfigID> implements JSONable {
 		return result;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

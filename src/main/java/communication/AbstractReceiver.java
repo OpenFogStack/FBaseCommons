@@ -182,7 +182,7 @@ public abstract class AbstractReceiver {
 									logger.debug("Received nodeID: " + envelope.getNodeID());
 								}
 							} else if (envelope.getMessage() == null) {
-								logger.debug("Received message " + s);
+								logger.debug("Received message");
 								envelope.setMessage(JSONable.fromJSON(s, Message.class));
 							} else {
 								logger.error("Received more multipart messages than expected, "

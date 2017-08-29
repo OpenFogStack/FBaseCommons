@@ -1,7 +1,5 @@
 package model.config;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import model.data.NodeID;
 
 /**
@@ -13,20 +11,19 @@ import model.data.NodeID;
 public class ReplicaNodeConfig extends KeygroupMember {
 
 	/**
-	 * Time for data to live on the node in seconds
+	 * Time for data to live on the node in seconds (-1 indicates infinity)
 	 */
-	private Integer timeToLive = null;
-	
-	/**
-	 * The ID of the node
-	 */
-	private NodeID nodeID = null;
+	private Integer timeToLive = -1;
     
 	/**
 	 * Empty constructor used for JSON parsing
 	 */
     public ReplicaNodeConfig() {
     
+    }
+    
+    public ReplicaNodeConfig(NodeID nodeID) {
+    	this.nodeID = nodeID;
     }
 
     /**
@@ -39,24 +36,10 @@ public class ReplicaNodeConfig extends KeygroupMember {
 		this.nodeID = nodeID;
 		this.timeToLive = timeToLive;
 	}
-	
-	@Override
-	@JsonIgnore
-	public NodeID getID() {
-		return getNodeID();
-	}
       
 	// ************************************************************
 	// Generated Code
 	// ************************************************************
-	
-	public NodeID getNodeID() {
-		return nodeID;
-	}
-
-	public void setNodeID(NodeID nodeID) {
-		this.nodeID = nodeID;
-	}
 
 	public Integer getTimeToLive() {
 		return timeToLive;
@@ -70,7 +53,6 @@ public class ReplicaNodeConfig extends KeygroupMember {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((nodeID == null) ? 0 : nodeID.hashCode());
 		result = prime * result + ((timeToLive == null) ? 0 : timeToLive.hashCode());
 		return result;
 	}
@@ -84,11 +66,6 @@ public class ReplicaNodeConfig extends KeygroupMember {
 		if (getClass() != obj.getClass())
 			return false;
 		ReplicaNodeConfig other = (ReplicaNodeConfig) obj;
-		if (nodeID == null) {
-			if (other.nodeID != null)
-				return false;
-		} else if (!nodeID.equals(other.nodeID))
-			return false;
 		if (timeToLive == null) {
 			if (other.timeToLive != null)
 				return false;
