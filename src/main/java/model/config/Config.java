@@ -13,6 +13,9 @@ import model.data.ConfigID;
  */
 public abstract class Config implements JSONable {
 
+	/**
+	 * Version number of the config
+	 */
 	private int version;
 
 	/**
@@ -41,6 +44,13 @@ public abstract class Config implements JSONable {
 	 */
 	public void setVersion(int version) {
 		this.version = version;
+	}
+	
+	/**
+	 * Increments config version number by one
+	 */
+	public void incrementVersion() {
+		version++;
 	}
 
 	@Override
