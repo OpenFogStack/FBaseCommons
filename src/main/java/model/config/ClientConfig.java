@@ -85,9 +85,10 @@ public class ClientConfig extends Config {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((clientID == null) ? 0 : clientID.hashCode());
-		result = prime * result + ((encryptionAlgorithm == null) ? 0 : encryptionAlgorithm.hashCode());
+		result = prime * result
+				+ ((encryptionAlgorithm == null) ? 0 : encryptionAlgorithm.hashCode());
 		result = prime * result + ((publicKey == null) ? 0 : publicKey.hashCode());
 		return result;
 	}
@@ -96,7 +97,7 @@ public class ClientConfig extends Config {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;

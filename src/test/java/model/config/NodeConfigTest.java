@@ -1,6 +1,7 @@
 package model.config;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.util.Arrays;
 
@@ -48,6 +49,19 @@ public class NodeConfigTest {
 		String json = JSONable.toJSON(config);
 		System.out.println(json);
 		assertEquals(config, JSONable.fromJSON(json, NodeConfig.class));
+	}
+	
+	@Test
+	public void test2() {
+		NodeConfig config1 = new NodeConfig();
+		config1.setNodeID(new NodeID("nodeA"));
+		config1.setVersion(1);
+		
+		NodeConfig config2 = new NodeConfig();
+		config2.setNodeID(new NodeID("nodeA"));
+		config2.setVersion(2);
+		
+		assertNotEquals(config1, config2);
 	}
 
 }

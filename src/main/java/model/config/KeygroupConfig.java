@@ -3,14 +3,13 @@ package model.config;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import crypto.CryptoProvider.EncryptionAlgorithm;
 import model.data.ClientID;
 import model.data.DataRecord;
 import model.data.KeygroupID;
 import model.data.NodeID;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import crypto.CryptoProvider.EncryptionAlgorithm;
 
 /**
  * Configuration class for keygroups. Keygroups acts as a logical grouping unit for {@link DataRecord} objects.
@@ -211,17 +210,20 @@ public class KeygroupConfig extends Config {
 	// ************************************************************
 	// Generated Code
 	// ************************************************************	
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((clients == null) ? 0 : clients.hashCode());
-		result = prime * result + ((encryptionAlgorithm == null) ? 0 : encryptionAlgorithm.hashCode());
+		result = prime * result
+				+ ((encryptionAlgorithm == null) ? 0 : encryptionAlgorithm.hashCode());
 		result = prime * result + ((encryptionSecret == null) ? 0 : encryptionSecret.hashCode());
 		result = prime * result + ((keygroupID == null) ? 0 : keygroupID.hashCode());
-		result = prime * result + ((replicaNodeConfigs == null) ? 0 : replicaNodeConfigs.hashCode());
-		result = prime * result + ((triggerNodeConfigs == null) ? 0 : triggerNodeConfigs.hashCode());
+		result = prime * result
+				+ ((replicaNodeConfigs == null) ? 0 : replicaNodeConfigs.hashCode());
+		result = prime * result
+				+ ((triggerNodeConfigs == null) ? 0 : triggerNodeConfigs.hashCode());
 		return result;
 	}
 
@@ -229,7 +231,7 @@ public class KeygroupConfig extends Config {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;

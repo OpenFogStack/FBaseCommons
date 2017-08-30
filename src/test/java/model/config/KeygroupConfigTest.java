@@ -1,6 +1,7 @@
 package model.config;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -64,6 +65,19 @@ public class KeygroupConfigTest {
 		String json = JSONable.toJSON(config);
 		System.out.println(json);
 		assertEquals(config, JSONable.fromJSON(json, KeygroupConfig.class));
+	}
+	
+	@Test
+	public void test2() {
+		KeygroupConfig config1 = new KeygroupConfig();
+		config1.setKeygroupID(new KeygroupID("smartlight", "h1", "brightness"));
+		config1.setVersion(1);
+		
+		KeygroupConfig config2 = new KeygroupConfig();
+		config2.setKeygroupID(new KeygroupID("smartlight", "h1", "brightness"));
+		config2.setVersion(2);
+		
+		assertNotEquals(config1, config2);
 	}
 
 }

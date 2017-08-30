@@ -1,6 +1,7 @@
 package model.config;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -36,10 +37,23 @@ public class ClientConfigTest {
 		config.setClientID(new ClientID("client1"));
 		config.setEncryptionAlgorithm(EncryptionAlgorithm.AES);
 		config.setPublicKey("client1PublicKey");
-		
+
 		String json = JSONable.toJSON(config);
 		System.out.println(json);
 		assertEquals(config, JSONable.fromJSON(json, ClientConfig.class));
+	}
+
+	@Test
+	public void test2() {
+		ClientConfig config1 = new ClientConfig();
+		config1.setClientID(new ClientID("client1"));
+		config1.setVersion(1);
+
+		ClientConfig config2 = new ClientConfig();
+		config2.setClientID(new ClientID("client1"));
+		config2.setVersion(2);
+
+		assertNotEquals(config1, config2);
 	}
 
 }
