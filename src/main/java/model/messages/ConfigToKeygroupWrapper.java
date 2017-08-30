@@ -2,9 +2,10 @@ package model.messages;
 
 import model.JSONable;
 import model.config.Config;
+import model.config.KeygroupMember;
 import model.data.KeygroupID;
 
-public class ConfigToKeygroupWrapper<T extends Config> implements JSONable {
+public class ConfigToKeygroupWrapper<T extends KeygroupMember> implements JSONable {
 	KeygroupID keygroupID = null;
 	T config = null;
 

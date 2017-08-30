@@ -2,6 +2,7 @@ package model.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import model.JSONable;
 import model.data.NodeID;
 
 /**
@@ -10,7 +11,7 @@ import model.data.NodeID;
  * @author Wm. Keith van der Meulen
  *
  */
-public abstract class KeygroupMember extends Config {
+public abstract class KeygroupMember implements JSONable {
 	/**
 	 * The ID of the node
 	 */
@@ -24,16 +25,16 @@ public abstract class KeygroupMember extends Config {
 		this.nodeID = nodeID;
 	}
 	
-	@Override
 	@JsonIgnore
+	@Deprecated
 	public NodeID getID() {
-		return getNodeID();
+		return nodeID;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
 		result = prime * result + ((nodeID == null) ? 0 : nodeID.hashCode());
 		return result;
 	}
@@ -42,7 +43,7 @@ public abstract class KeygroupMember extends Config {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -54,4 +55,5 @@ public abstract class KeygroupMember extends Config {
 			return false;
 		return true;
 	}
+
 }
