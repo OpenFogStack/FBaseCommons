@@ -6,6 +6,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Random;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -28,8 +29,9 @@ public class AlgorithmAES implements IAlgorithm {
 			cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
 			cipher.init(Cipher.ENCRYPT_MODE, getSecretKeySpec(secret));
 			return Base64.getEncoder().encodeToString(cipher.doFinal(toEncrypt.getBytes("UTF-8")));
-		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
-				| BadPaddingException | UnsupportedEncodingException e) {
+		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
+				| IllegalBlockSizeException | BadPaddingException
+				| UnsupportedEncodingException e) {
 			logger.error("Error while encrypting: " + toEncrypt);
 			e.printStackTrace();
 		}
@@ -43,17 +45,26 @@ public class AlgorithmAES implements IAlgorithm {
 			cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
 			cipher.init(Cipher.DECRYPT_MODE, getSecretKeySpec(secret));
 			return new String(cipher.doFinal(Base64.getDecoder().decode(toDecrypt)));
-		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException
-				| BadPaddingException | IllegalArgumentException e) {
+		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
+				| IllegalBlockSizeException | BadPaddingException | IllegalArgumentException e) {
 			logger.error("Error while decrypting: " + toDecrypt);
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	public static String generateNewSecret() {
-		// TODO 1: should be generated
-		return "TotallyRandomSecret";
+		String possibleCharacterString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+				+ "1234567890!§$%&/()=?¿≠}{|][¢¶“¡";
+		char[] chars = possibleCharacterString.toCharArray();
+		StringBuilder builder = new StringBuilder();
+		Random random = new Random();
+		for (int i = 0; i < 22; i++) {
+			char c = chars[random.nextInt(chars.length)];
+			builder.append(c);
+		}
+		String output = builder.toString();
+		return output;
 	}
 
 	private SecretKeySpec getSecretKeySpec(String secret) {
