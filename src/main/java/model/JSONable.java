@@ -1,5 +1,7 @@
 package model;
 
+import java.io.InputStream;
+
 import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -16,6 +18,17 @@ public interface JSONable {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.readValue(json, targetClass);
+		} catch (Exception e) {
+			logger.error("Could not translate json to " + targetClass.getName());
+			logger.error(e.getMessage());
+			return null;
+		}
+	}
+	
+	public static <T> T fromJSON(InputStream stream, Class<T> targetClass) {
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(stream, targetClass);
 		} catch (Exception e) {
 			logger.error("Could not translate json to " + targetClass.getName());
 			logger.error(e.getMessage());
@@ -46,4 +59,17 @@ public interface JSONable {
 		}
 		return json;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> T clone(JSONable object) {
+		if (object == null) {
+			return null;
+		}
+		
+		String json = toJSON(object);
+		JSONable clone = fromJSON(json, object.getClass());
+		
+		return (T) clone;
+	}
+	
 }

@@ -1,7 +1,6 @@
 package model.messages;
 
 import model.JSONable;
-import model.config.Config;
 import model.config.KeygroupMember;
 import model.data.KeygroupID;
 
