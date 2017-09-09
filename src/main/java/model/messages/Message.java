@@ -1,6 +1,7 @@
 package model.messages;
 
 import org.apache.log4j.Logger;
+import org.javatuples.Triplet;
 
 import crypto.AlgorithmAES;
 import crypto.CryptoProvider;
@@ -8,6 +9,7 @@ import crypto.CryptoProvider.EncryptionAlgorithm;
 import crypto.IAlgorithm.AlgorithmType;
 import exceptions.FBaseEncryptionException;
 import model.JSONable;
+import model.data.NodeID;
 
 /**
  * Class that can be used by components to exchange messages. Offers encryption and decryption
@@ -21,6 +23,8 @@ public class Message implements JSONable {
 
 	private static Logger logger = Logger.getLogger(Message.class.getName());
 
+	private Triplet<NodeID, String, Integer> messageID = null;
+	
 	/**
 	 * A textual response explaining the message content
 	 */
@@ -76,6 +80,7 @@ public class Message implements JSONable {
 		m.setEncrypted(this.isEncrypted);
 		m.setSymmetricSecret(this.symmetricSecret);
 		m.setContent(this.content);
+		m.setMessageID(this.messageID);
 		return m;
 	}
 
@@ -298,6 +303,14 @@ public class Message implements JSONable {
 		this.textualInfo = textualInfo;
 	}
 
+	public Triplet<NodeID, String, Integer> getMessageID() {
+		return messageID;
+	}
+
+	public void setMessageID(Triplet<NodeID, String, Integer> messageID) {
+		this.messageID = messageID;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -345,6 +358,7 @@ public class Message implements JSONable {
 		result = prime * result + ((command == null) ? 0 : command.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + (isEncrypted ? 1231 : 1237);
+		result = prime * result + ((messageID == null) ? 0 : messageID.hashCode());
 		result = prime * result + ((signature == null) ? 0 : signature.hashCode());
 		result = prime * result + ((symmetricSecret == null) ? 0 : symmetricSecret.hashCode());
 		result = prime * result + ((textualInfo == null) ? 0 : textualInfo.hashCode());
@@ -368,6 +382,11 @@ public class Message implements JSONable {
 		} else if (!content.equals(other.content))
 			return false;
 		if (isEncrypted != other.isEncrypted)
+			return false;
+		if (messageID == null) {
+			if (other.messageID != null)
+				return false;
+		} else if (!messageID.equals(other.messageID))
 			return false;
 		if (signature == null) {
 			if (other.signature != null)
