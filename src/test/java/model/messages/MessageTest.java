@@ -24,6 +24,8 @@ import exceptions.FBaseEncryptionException;
 import model.JSONable;
 import model.config.KeygroupConfig;
 import model.data.KeygroupID;
+import model.data.MessageID;
+import model.data.NodeID;
 
 public class MessageTest {
 
@@ -43,6 +45,7 @@ public class MessageTest {
 	public void setUp() throws Exception {
 		m = new Message();
 		m.setCommand(Command.KEYGROUP_CONFIG_CREATE);
+		m.setMessageID(new MessageID(new NodeID("node1"), "M1", 1));
 		KeygroupConfig config =
 				new KeygroupConfig(new KeygroupID("app", "tentant", "group"), null, null);
 		m.setContent(JSONable.toJSON(config));
@@ -51,6 +54,16 @@ public class MessageTest {
 
 	@After
 	public void tearDown() throws Exception {
+	}
+	
+	@Test
+	public void testJSON() {
+		logger.debug("-------Starting testJSON-------");
+		String json = JSONable.toJSON(m);
+		logger.debug(json);
+		Message mCopy = JSONable.fromJSON(json, Message.class);
+		assertEquals(m, mCopy);
+		logger.debug("Finished testJSON.");
 	}
 
 	@Test

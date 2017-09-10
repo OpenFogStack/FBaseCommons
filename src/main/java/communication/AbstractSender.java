@@ -47,18 +47,19 @@ public abstract class AbstractSender {
 			if (senderType == ZMQ.PUB) {
 				sender = context.socket(ZMQ.PUB);
 				sender.bind(address + ":" + port);
+				logger.debug("Publish sender initialized, binded to " + address + ":" + port);
+
 			} else if (senderType == ZMQ.REQ) {
 				sender = context.socket(ZMQ.REQ);
 				sender.connect(address + ":" + port);
+				logger.debug("Request sender initialized, connected to " + address + ":" + port);
 			}
 		} catch (IllegalArgumentException e) {
 			// might be intended, if no naming service exists
 			logger.error(address + ":" + port
 					+ " is not a valid address. Sender will not be able to send.");
 			ableToSend = false;
-		}
-		
-		logger.debug("Initialized Sender, ready to send.");
+		}		
 	}
 
 	/**

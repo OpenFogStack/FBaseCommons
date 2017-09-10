@@ -1,7 +1,6 @@
 package model.messages;
 
 import org.apache.log4j.Logger;
-import org.javatuples.Triplet;
 
 import crypto.AlgorithmAES;
 import crypto.CryptoProvider;
@@ -9,7 +8,7 @@ import crypto.CryptoProvider.EncryptionAlgorithm;
 import crypto.IAlgorithm.AlgorithmType;
 import exceptions.FBaseEncryptionException;
 import model.JSONable;
-import model.data.NodeID;
+import model.data.MessageID;
 
 /**
  * Class that can be used by components to exchange messages. Offers encryption and decryption
@@ -23,7 +22,7 @@ public class Message implements JSONable {
 
 	private static Logger logger = Logger.getLogger(Message.class.getName());
 
-	private Triplet<NodeID, String, Integer> messageID = null;
+	private MessageID messageID = null;
 	
 	/**
 	 * A textual response explaining the message content
@@ -303,11 +302,11 @@ public class Message implements JSONable {
 		this.textualInfo = textualInfo;
 	}
 
-	public Triplet<NodeID, String, Integer> getMessageID() {
+	public MessageID getMessageID() {
 		return messageID;
 	}
 
-	public void setMessageID(Triplet<NodeID, String, Integer> messageID) {
+	public void setMessageID(MessageID messageID) {
 		this.messageID = messageID;
 	}
 
