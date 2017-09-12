@@ -25,7 +25,7 @@ public class DirectReceiver extends AbstractReceiver {
 	protected void interpreteReceivedEnvelope(Envelope envelope, Socket responseSocket) {
 		logger.debug("Interpreting message.");
 		try {
-			// Code to interpret message TODO
+			// Code to interpret message
 			logger.debug("The fields of the received envelope are encrypted: "
 					+ envelope.getMessage().isEncrypted());
 			responseSocket.send(CryptoProvider.encrypt("Message interpreted.", secret, algorithm));

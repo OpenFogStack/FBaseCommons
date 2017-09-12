@@ -6,9 +6,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * Class to hold the ID of a logical node in the system
  * 
  * @author Wm. Keith van der Meulen
+ * @author jonathanhasenburg
  *
  */
-public class NodeID extends ConfigID {
+public class NodeID extends ConfigID implements Comparable<NodeID> {
 
 	/**
 	 * The unique ID of the node
@@ -68,6 +69,11 @@ public class NodeID extends ConfigID {
 		} else if (!nodeID.equals(other.nodeID))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(NodeID o) {
+		return nodeID.compareTo(o.getNodeID());
 	}
 	
 }

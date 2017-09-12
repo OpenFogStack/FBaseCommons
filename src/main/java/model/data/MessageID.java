@@ -20,6 +20,16 @@ public class MessageID {
 	}
 
 	@JsonIgnore
+	public NodeID getNodeID() {
+		return triplet.getValue0();
+	}
+	
+	@JsonIgnore
+	public String getMachineName() {
+		return triplet.getValue1();
+	}
+	
+	@JsonIgnore
 	public int getVersion() {
 		return triplet.getValue2();
 	}
