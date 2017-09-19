@@ -1,5 +1,6 @@
 package model.config;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -98,6 +99,13 @@ public class NodeConfig extends Config {
     public NodeID getID() {
     	return getNodeID();
     }
+	
+	public void addMachine(String machineIP) {
+		if (machines == null) {
+			this.machines = new ArrayList<>();
+		}
+		machines.add(machineIP);
+	}
     
 	// ************************************************************
 	// Generated Code
