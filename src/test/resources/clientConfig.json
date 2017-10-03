@@ -1,0 +1,8 @@
+{
+  "version" : 0,
+  "clientID" : {
+    "clientID" : "client1"
+  },
+  "publicKey" : "client1PublicKey",
+  "encryptionAlgorithm" : "AES"
+}

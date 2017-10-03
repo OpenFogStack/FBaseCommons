@@ -3,6 +3,9 @@ package model.config;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -54,6 +57,16 @@ public class ClientConfigTest {
 		config2.setVersion(2);
 
 		assertNotEquals(config1, config2);
+	}
+
+	@Test
+	public void testReadFile() throws FileNotFoundException {
+		FileInputStream is = new FileInputStream("src/test/resources/clientConfig.json");
+		ClientConfig config = JSONable.fromJSON(is, ClientConfig.class);
+		assertEquals(0, config.getVersion());
+		assertEquals(new ClientID("client1"), config.getClientID());
+		assertEquals("client1PublicKey", config.getPublicKey());
+		assertEquals(EncryptionAlgorithm.AES, config.getEncryptionAlgorithm());
 	}
 
 }

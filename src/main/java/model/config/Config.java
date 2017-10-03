@@ -37,15 +37,15 @@ public abstract class Config implements JSONable {
 	}
 
 	/**
-	 * Sets the version of the keygroup config. Should only be used by the naming service,
-	 * as it is the single source of truth in FBase.
+	 * Sets the version of the keygroup config. Should only be used by the naming service, as
+	 * it is the single source of truth in FBase.
 	 * 
 	 * @param version - the new version of the config
 	 */
 	public void setVersion(int version) {
 		this.version = version;
 	}
-	
+
 	/**
 	 * Increments config version number by one
 	 */
