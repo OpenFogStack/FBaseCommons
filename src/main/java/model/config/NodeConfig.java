@@ -2,10 +2,12 @@ package model.config;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import crypto.CryptoProvider.EncryptionAlgorithm;
+import model.JSONable;
 import model.data.NodeID;
 
 /**
@@ -14,6 +16,7 @@ import model.data.NodeID;
  * @author jonathanhasenburg
  *
  */
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class NodeConfig extends Config {
 
 	/**
@@ -183,75 +186,32 @@ public class NodeConfig extends Config {
 		this.description = description;
 	}
 
+
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result
-				+ ((encryptionAlgorithm == null) ? 0 : encryptionAlgorithm.hashCode());
-		result = prime * result + ((location == null) ? 0 : location.hashCode());
-		result = prime * result + ((machines == null) ? 0 : machines.hashCode());
-		result = prime * result + ((messagePort == null) ? 0 : messagePort.hashCode());
-		result = prime * result + ((nodeID == null) ? 0 : nodeID.hashCode());
-		result = prime * result + ((publicKey == null) ? 0 : publicKey.hashCode());
-		result = prime * result + ((publisherPort == null) ? 0 : publisherPort.hashCode());
-		result = prime * result + ((restPort == null) ? 0 : restPort.hashCode());
-		return result;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+		NodeConfig that = (NodeConfig) o;
+		return Objects.equals(getNodeID(), that.getNodeID()) &&
+				Objects.equals(getPublicKey(), that.getPublicKey()) &&
+				getEncryptionAlgorithm() == that.getEncryptionAlgorithm() &&
+				Objects.equals(getMachines(), that.getMachines()) &&
+				Objects.equals(getPublisherPort(), that.getPublisherPort()) &&
+				Objects.equals(getMessagePort(), that.getMessagePort()) &&
+				Objects.equals(getRestPort(), that.getRestPort()) &&
+				Objects.equals(getLocation(), that.getLocation()) &&
+				Objects.equals(getDescription(), that.getDescription());
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		NodeConfig other = (NodeConfig) obj;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (encryptionAlgorithm != other.encryptionAlgorithm)
-			return false;
-		if (location == null) {
-			if (other.location != null)
-				return false;
-		} else if (!location.equals(other.location))
-			return false;
-		if (machines == null) {
-			if (other.machines != null)
-				return false;
-		} else if (!machines.equals(other.machines))
-			return false;
-		if (messagePort == null) {
-			if (other.messagePort != null)
-				return false;
-		} else if (!messagePort.equals(other.messagePort))
-			return false;
-		if (nodeID == null) {
-			if (other.nodeID != null)
-				return false;
-		} else if (!nodeID.equals(other.nodeID))
-			return false;
-		if (publicKey == null) {
-			if (other.publicKey != null)
-				return false;
-		} else if (!publicKey.equals(other.publicKey))
-			return false;
-		if (publisherPort == null) {
-			if (other.publisherPort != null)
-				return false;
-		} else if (!publisherPort.equals(other.publisherPort))
-			return false;
-		if (restPort == null) {
-			if (other.restPort != null)
-				return false;
-		} else if (!restPort.equals(other.restPort))
-			return false;
-		return true;
+	public int hashCode() {
+
+		return Objects.hash(super.hashCode(), getNodeID(), getPublicKey(), getEncryptionAlgorithm(), getMachines(), getPublisherPort(), getMessagePort(), getRestPort(), getLocation(), getDescription());
 	}
-    
+
+	@Override
+	public String toString() {
+		return JSONable.toJSON(this);
+	}
 }
